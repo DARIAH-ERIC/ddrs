@@ -23,7 +23,7 @@
         <h2 class="dariah-color-text text-center" th:text="#{page.index.welcome}"></h2>
         <h2 class="dariah-color-text text-center">Questions</h2>
         <th:block th:each="question : ${questions}">
-            <form class="form-horizontal" method="post" action="#" th:action="@{/admin/saveQuestion}" th:object="${question}" id="search_form">
+            <form class="form-horizontal" method="post" action="#" th:action="@{/admin/saveQuestion}" th:object="${question}" id="question_form">
                 <input type="hidden" name="questionId" th:value="${question.getId()}" />
                 <div class="form-group">
                     <div class="col-sm-1"></div>
@@ -67,6 +67,30 @@
                 </div>
             </form>
         </th:block>
+
+        <form class="form-horizontal" method="post" action="#" th:action="@{/admin/addQuestion}" id="create_form">
+            <div class="divider-horizontal"></div>
+            <div class="form-group">
+                <h3 class="dariah-color-text text-center">Create a new Question:</h3>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <label for="add_question" class="col-sm-2 control-label">What is the RE3DATA filter name (ex: "countries")?</label>
+                <div class="col-sm-2">
+                    <input id="add_question" class="form-control" name="name" type="text" maxlength="255"/>
+                </div>
+
+                <label for="add_question_translation" class="col-sm-2 control-label">What is the name of your question?</label>
+                <div class="col-sm-2">
+                    <input id="add_question_translation" class="form-control" name="english_translation" type="text" maxlength="255"/>
+                </div>
+
+                <div class="col-sm-1">
+                    <button type="submit" name="action" value="add" id="add_question_submit" class="btn btn-success btn-block">Create</button>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+        </form>
 
         <!-- Modal -->
         <form class="form-horizontal" method="post" action="#" th:action="@{/admin/saveQuestion}" id="modal_form">

@@ -133,4 +133,16 @@ public class AdminController {
         }
         return new RedirectView("/admin/questions");
     }
+
+    @RequestMapping(value = "/admin/addQuestion", method = RequestMethod.POST)
+    public RedirectView save(@RequestParam(name = "name") String name,
+                             @RequestParam(name = "english_translation") String englishTranslation) {
+        ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical("NONE", 0, null);
+        resultTypeHierarchical.setQuestionTranslation(new QuestionTranslation(StringUtils.capitalize(name)));
+        resultTypeHierarchicalDAO.create(resultTypeHierarchical);
+        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1, 0, resultTypeHierarchical, new QuestionTranslation(englishTranslation));
+        questionDAO.create(question);
+
+        return new RedirectView("/admin/questions");
+    }
 }

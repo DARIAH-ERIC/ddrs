@@ -16,4 +16,5 @@ public interface IQuestionDAO {
     public void deleteById(long questionId);
     public List<Question> findAllOrdered();
     public List<Question> findAllOrderedAndInUse();
+    public int findHighestQuestionOrder();
 }

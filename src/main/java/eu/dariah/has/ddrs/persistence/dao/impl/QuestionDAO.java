@@ -21,6 +21,7 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
         setClazz(Question.class);
     }
 
+    @Override
     public List<Question> findAllOrdered() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
@@ -31,6 +32,7 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
         return typedQuery.getResultList();
     }
 
+    @Override
     public List<Question> findAllOrderedAndInUse() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
@@ -40,5 +42,15 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
         select.orderBy(criteriaBuilder.asc(from.get("questionOrder")));
         TypedQuery<Question> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();
+    }
+
+    @Override
+    public int findHighestQuestionOrder() {
+        CriteriaBuilder cb1 = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Number> cq1 = cb1.createQuery(Number.class);
+        Root<Question> root = cq1.from(Question.class);
+        cq1.select(cb1.max(root.<Number>get("questionOrder")));
+        TypedQuery<Number> typedQuery = entityManager.createQuery(cq1);
+        return typedQuery.getSingleResult().intValue();
     }
 }

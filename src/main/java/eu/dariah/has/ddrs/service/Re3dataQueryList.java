@@ -13,9 +13,6 @@ public class Re3dataQueryList {
 
     private static final String QUERY = "query=";
     private static final String SUBJECTS = "subjects[]=";
-    private static final String COUNTRIES = "countries[]=";
-    private static final String KEYWORDS = "keywords[]=";
-    private static final String REPOSITORY_LANGUAGES = "repositoryLanguages[]=";
 
     private static final String SUBJECT_HUMANITIES = "11 Humanities";
 
@@ -28,28 +25,14 @@ public class Re3dataQueryList {
     public Re3dataQueryList(SearchObject searchObject) {
         StringBuilder stringBuilder = new StringBuilder(URL_PREFIX);
         stringBuilder.append(QUERY);
-
-        searchObject.getSubjects().add(SUBJECT_HUMANITIES);
-
-        addSubjects(stringBuilder, searchObject.getSubjects());
-        addCountries(stringBuilder, searchObject.getCountries());
-        addKeywords(stringBuilder, searchObject.getKeywords());
-        addRepositoryLanguages(stringBuilder, searchObject.getRepositoryLanguages());
-
+        for(String key : searchObject.getSearchParameters().keySet()) {
+            String filterName = key + "[]=";
+            if(filterName.equals(SUBJECTS)) {
+                searchObject.getSearchParameters().get(key).add(SUBJECT_HUMANITIES);
+            }
+            addList(stringBuilder, filterName, searchObject.getSearchParameters().get(key));
+        }
         url = stringBuilder.toString();
-    }
-
-    private void addCountries(StringBuilder stringBuilder, List<String> countries) {
-        addList(stringBuilder, COUNTRIES, countries);
-    }
-    private void addKeywords(StringBuilder stringBuilder, List<String> keywords) {
-        addList(stringBuilder, KEYWORDS, keywords);
-    }
-    private void addSubjects(StringBuilder stringBuilder, List<String> subjects) {
-        addList(stringBuilder, SUBJECTS, subjects);
-    }
-    private void addRepositoryLanguages(StringBuilder stringBuilder, List<String> repositoryLanguages) {
-        addList(stringBuilder, REPOSITORY_LANGUAGES, repositoryLanguages);
     }
 
     private void addList(StringBuilder stringBuilder, String filterName, List<String> toBeAdded) {

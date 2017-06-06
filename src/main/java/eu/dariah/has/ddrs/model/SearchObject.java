@@ -1,54 +1,24 @@
 package eu.dariah.has.ddrs.model;
 
 import java.util.ArrayList;
+§import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yoannmoranville on 10/05/17.
  */
 public class SearchObject {
-    private List<String> subjects;
-    private List<String> countries;
-    private List<String> keywords;
-    private List<String> repositoryLanguages;
+    private Map<String, List<String>> searchParameters;
 
-    public List<String> getSubjects() {
-        if(subjects == null)
-            return new ArrayList<>();
-        return subjects;
+    public Map<String, List<String>> getSearchParameters() {
+        if(searchParameters == null)
+            return new HashMap<>();
+        return searchParameters;
     }
 
-    public void setSubjects(List<String> subjects) {
-        this.subjects = subjects;
+    public void setSearchParameters(Map<String, List<String>> searchParameters) {
+        this.searchParameters = searchParameters;
     }
 
-    public List<String> getCountries() {
-        if(countries == null)
-            return new ArrayList<>();
-        return countries;
-    }
-
-    public void setCountries(List<String> countries) {
-        this.countries = countries;
-    }
-
-    public List<String> getKeywords() {
-        if(keywords == null)
-            return new ArrayList<>();
-        return keywords;
-    }
-
-    public void setKeywords(List<String> keywords) {
-        this.keywords = keywords;
-    }
-
-    public List<String> getRepositoryLanguages() {
-        if(repositoryLanguages == null)
-            return new ArrayList<>();
-        return repositoryLanguages;
-    }
-
-    public void setRepositoryLanguages(List<String> repositoryLanguages) {
-        this.repositoryLanguages = repositoryLanguages;
-    }
 }

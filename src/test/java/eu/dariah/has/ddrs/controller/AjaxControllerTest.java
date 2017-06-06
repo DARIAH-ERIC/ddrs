@@ -20,8 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -56,7 +55,10 @@ public class AjaxControllerTest {
     @Test
     public void test_create_user_success() throws Exception {
         SearchObject searchObject = new SearchObject();
-        searchObject.setCountries(Collections.singletonList("FRA"));
+        Map<String, List<String>> searchParameters = new HashMap<>(1);
+        searchParameters.put("countries", Collections.singletonList("FRA"));
+        searchParameters.put("repositoryLanguages", Collections.singletonList("deu"));
+        searchObject.setSearchParameters(searchParameters);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
