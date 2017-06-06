@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+    <context:component-scan base-package="eu.dariah.has.ddrs.controller"/>
+    <context:component-scan base-package="eu.dariah.has.ddrs.service"/>
+    <context:component-scan base-package="eu.dariah.has.ddrs.persistence.dao" />
+    <context:component-scan base-package="eu.dariah.has.ddrs.listeners" />
+
+    <mvc:annotation-driven/>
+    <tx:annotation-driven/>
+    <cache:annotation-driven cache-manager="ehCacheManager"/>
+
+    <mvc:resources location="resources/css/" mapping="/css/**"/>
+    <mvc:resources location="resources/js/" mapping="/js/**"/>
+    <mvc:resources location="resources/fonts/" mapping="/fonts/**"/>
+    <mvc:resources location="resources/images/" mapping="/images/**"/>
+
+    <bean id="ehCacheManager" class="org.springframework.cache.jcache.JCacheCacheManager">
+        <property name="cacheManager">
+            <bean class="org.springframework.cache.jcache.JCacheManagerFactoryBean"
+                  p:cacheManagerUri="classpath:ehcache3.xml"/>
+        </property>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+    </bean>
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en" />
+    </bean>
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+    </mvc:interceptors>
+
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/templates/"/>
+        <property name="suffix" value=".html"/>
+        <property name="characterEncoding" value="UTF-8"/>
+        <property name="templateMode" value="HTML5"/>
+    </bean>
+    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+    </bean>
+    <bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="eu.dariah.has.ddrs.persistence.model"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.format_sql">true</prop>-->
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/ddrs"/>
+        <property name="username" value="ddrs_user"/>
+        <property name="password" value="ddrs_pwd"/>
+        <property name="connectionProperties">
+            <props>
+                <prop key="socketTimeout">10</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <bean id="persistenceExceptionTranslationPostProcessor"
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+    <!-- todo: security -->
+    <security:http auto-config="true">
+        <security:form-login authentication-failure-url="/access_denied"/>
+        <security:logout />
+        <security:intercept-url pattern="/" access="permitAll" requires-channel="http"/>
+    </security:http>
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="yoann" authorities="ROLE_USER" />
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+    <!--<security:authentication-manager>-->
+        <!--<security:ldap-authentication-provider user-search-base="ou=people"-->
+                                               <!--user-search-filter="(uid={0})"-->
+                                               <!--group-search-base="ou=groups"-->
+                                               <!--group-search-filter="(member={0})" server-ref="gwdg">-->
+        <!--</security:ldap-authentication-provider>-->
+    <!--</security:authentication-manager>-->
+    <!--<security:ldap-server id="gwdg" url="ldaps://ldap.gwdg.de" />-->
+</beans>

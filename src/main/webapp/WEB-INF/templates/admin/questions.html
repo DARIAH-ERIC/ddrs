@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{project.ddrs.admin}">Admin</title>
+    <link href="../../../resources/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../../../resources/css/ddrs.css" th:href="@{/css/ddrs.css}" rel="stylesheet" />
+    <script src="../../../resources/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}" type="text/javascript"></script>
+    <script src="../../../resources/js/bootstrap.js" th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Static header</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <h2 class="dariah-color-text text-center" th:text="#{page.index.welcome}"></h2>
+        <h2 class="dariah-color-text text-center">Questions</h2>
+        <th:block th:each="question : ${questions}">
+            <form class="form-horizontal" method="post" action="#" th:action="@{/admin/saveQuestion}" th:object="${question}" id="search_form">
+                <input type="hidden" name="questionId" th:value="${question.getId()}" />
+                <div class="form-group">
+                    <div class="col-sm-1"></div>
+                    <label th:for="${'select_' + question.getId()}" for="xxx" class="col-sm-2 control-label" th:text="${question.getQuestionTranslation().get(#locale)}">XXX</label>
+                    <div class="col-sm-6" th:classappend="${question.getInUse()} ? 'background-green' : 'background-red'">
+                        <select class="form-control question-select" name="select_question" id="xxx"  th:id="${'select_' + question.getId()}" size="4" th:disabled="${! question.getEditable()}">
+                            <th:block th:each="child : ${question.getResultTypeHierarchical().getChildren()}">
+                                <option th:value="${child.getId()}" th:text="${child.getQuestionTranslation().get(#locale)}"></option>
+                                <option th:each="subChild : ${child.getChildren()}" th:value="${subChild.getId()}" th:text="${'-- ' + subChild.getQuestionTranslation().get(#locale)}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <th:block th:if="${question.getEditable()}">
+                            <button type="submit" name="action" value="add" th:id="${'btn_add_' + question.getId()}" class="btn btn-default btn-block btn_add">Add</button>
+                            <button type="submit" name="action" value="edit" th:id="${'btn_edit_' + question.getId()}" class="btn btn-default btn-block btn_edit" disabled="disabled">Edit</button>
+                            <button type="submit" name="action" value="delete" th:id="${'btn_delete_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">Delete</button>
+                        </th:block>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+
+                <div class="form-group" th:if="${question.getEditable()}">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-1">
+                        <button type="submit" name="action" value="top" th:id="${'btn_top_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">To the top</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" name="action" value="up" th:id="${'btn_up_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">Up a level</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" name="action" value="down" th:id="${'btn_down_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">Down a level</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" name="action" value="bottom" th:id="${'btn_bottom_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">To the bottom</button>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1">
+                        <button type="submit" name="action" value="inuse" th:id="${'in_use_' + question.getId()}" class="btn btn-block" th:classappend="${question.getInUse() ? 'btn-warning' : 'btn-success'}" th:text="${question.getInUse() ? 'Do not use' : 'Use'}">Save</button>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+            </form>
+        </th:block>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".question-select").change(function() {
+            changeButtons($(this));
+        });
+
+        function changeButtons(selectElement) {
+            var $ident = $(selectElement).attr('id').replace("select_", "");
+            changeAttr([], ["#btn_delete_" + $ident, "#btn_edit_" + $ident]);
+            if($(selectElement).children('option:first-child').is(':selected')) {
+                changeAttr(["#btn_top_" + $ident, "#btn_up_" + $ident], ["#btn_down_" + $ident, "#btn_bottom_" + $ident]);
+            } else if($(selectElement).children('option:last-child').is(':selected')) {
+                changeAttr(["#btn_down_" + $ident, "#btn_bottom_" + $ident], ["#btn_top_" + $ident, "#btn_up_" + $ident]);
+            } else if($(selectElement).children('option').is(':selected')) {
+                changeAttr([], ["#btn_top_" + $ident, "#btn_up_" + $ident, "#btn_down_" + $ident, "#btn_bottom_" + $ident]);
+            }
+        }
+
+        function changeAttr(toDisable, toEnable) {
+            $.each(toDisable, function(index, value) {
+                $(value).attr("disabled", "disabled");
+            });
+            $.each(toEnable, function(index, value) {
+                $(value).removeAttr("disabled");
+            });
+        }
+    });
+</script>
+</html>
