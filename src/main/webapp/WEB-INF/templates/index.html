@@ -21,7 +21,7 @@
     </nav>
     <div id="page-wrapper">
         <h2 class="dariah-color-text text-center" th:text="#{page.index.welcome}"></h2>
-        <form class="form-horizontal" method="post" action="#" th:action="@{/search.html}" th:object="${searchObject}" id="search_form">
+        <form class="form-horizontal" method="post" action="#" th:action="@{/refreshResults}" th:object="${searchObject}" id="search_form">
             <div class="form-group">
                 <div class="col-sm-1"></div>
                 <label for="countries" class="col-sm-2 control-label" th:text="${countries.getQuestionTranslation().get(#locale)}">Countries</label>
@@ -84,8 +84,9 @@
     <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
 </div>
 </body>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
     $(document).ready(function () {
+        var linkRefreshResults = /*[[@{/refreshResults}]]*/ '';
         $("#countries").on("change", function(e) {
             ajaxSearch("#subjects");
         });
@@ -116,7 +117,7 @@
             $.ajax({
                 type : "POST",
                 contentType : "application/json",
-                url : "/refreshResults",
+                url : linkRefreshResults,
                 data : JSON.stringify(data),
                 dataType : 'json',
                 timeout : 100000,
