@@ -1,11 +1,12 @@
 package eu.dariah.has.ddrs.persistence.model;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -104,5 +105,12 @@ public class ResultTypeHierarchical implements Serializable {
         children = new ArrayList<>(oldChildren.size() + newChildren.size());
         children.addAll(oldChildren);
         children.addAll(newChildren);
+    }
+
+    public void removeChild(ResultTypeHierarchical oldChild) {
+        List<ResultTypeHierarchical> oldChildren = getChildren();
+        oldChildren.remove(oldChild);
+        children = new ArrayList<>(oldChildren.size());
+        children.addAll(oldChildren);
     }
 }

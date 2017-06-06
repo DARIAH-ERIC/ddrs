@@ -38,16 +38,16 @@ public class FillUpDatabaseEventListener {
     }
 
     private void includeQuestions() {
-        Question question = new Question("QuestionAboutSubject", false, true, 2, 0, resultTypeHierarchicalDAO.findOne(1L), new QuestionTranslation("In which subjects are you interested?"));
+        Question question = new Question("subjects", false, true, 2, 0, resultTypeHierarchicalDAO.findOne(1L), new QuestionTranslation("In which subjects are you interested?"));
         questionDAO.create(question);
 
-        question = new Question("QuestionAboutCountry", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new QuestionTranslation("From which country should the repository come from?"));
+        question = new Question("countries", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new QuestionTranslation("From which country should the repository come from?"));
         questionDAO.create(question);
 
-        question = new Question("QuestionAboutLanguage", true, true, 3, 0, resultTypeHierarchicalDAO.findOne(40L), new QuestionTranslation("Which languages should the repository have?"));
+        question = new Question("repositoryLanguages", true, true, 3, 0, resultTypeHierarchicalDAO.findOne(40L), new QuestionTranslation("Which languages should the repository have?"));
         questionDAO.create(question);
 
-        question = new Question("QuestionAboutKeywords", true, false, 4, 0, resultTypeHierarchicalDAO.findOne(46L), new QuestionTranslation("Which keywords should the repository have?"));
+        question = new Question("keywords", true, false, 4, 0, resultTypeHierarchicalDAO.findOne(46L), new QuestionTranslation("Which keywords should the repository have?"));
         questionDAO.create(question);
     }
 

@@ -15,4 +15,5 @@ public interface IQuestionDAO {
     public void delete(Question question);
     public void deleteById(long questionId);
     public List<Question> findAllOrdered();
+    public List<Question> findAllOrderedAndInUse();
 }

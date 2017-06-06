@@ -4,6 +4,7 @@ import eu.dariah.has.ddrs.persistence.dao.AbstractJpaDAO;
 import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
 import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by yoann on 30.05.17.
@@ -22,5 +23,14 @@ public class ResultTypeHierarchicalDAO extends AbstractJpaDAO<ResultTypeHierarch
             children.getChildren();
         }
         return resultTypeHierarchical;
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(long id) {
+        ResultTypeHierarchical resultTypeHierarchical = entityManager.find(ResultTypeHierarchical.class, id);
+        resultTypeHierarchical.getParent().removeChild(resultTypeHierarchical);
+        update(resultTypeHierarchical.getParent());
+        delete(resultTypeHierarchical);
     }
 }

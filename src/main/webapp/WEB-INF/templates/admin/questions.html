@@ -31,15 +31,14 @@
                     <div class="col-sm-6" th:classappend="${question.getInUse()} ? 'background-green' : 'background-red'">
                         <select class="form-control question-select" name="select_question" id="xxx"  th:id="${'select_' + question.getId()}" size="4" th:disabled="${! question.getEditable()}">
                             <th:block th:each="child : ${question.getResultTypeHierarchical().getChildren()}">
-                                <option th:value="${child.getId()}" th:text="${child.getQuestionTranslation().get(#locale)}"></option>
-                                <option th:each="subChild : ${child.getChildren()}" th:value="${subChild.getId()}" th:text="${'-- ' + subChild.getQuestionTranslation().get(#locale)}"></option>
+                                <option th:value="${child.getId()}" th:text="${child.getQuestionTranslation().get(#locale) + ' (' + child.getCode() + ')'}"></option>
+                                <option th:each="subChild : ${child.getChildren()}" th:value="${subChild.getId()}" th:text="${'-- ' + subChild.getQuestionTranslation().get(#locale) + ' (' + subChild.getCode() + ')'}"></option>
                             </th:block>
                         </select>
                     </div>
                     <div class="col-sm-1">
                         <th:block th:if="${question.getEditable()}">
-                            <button type="submit" name="action" value="add" th:id="${'btn_add_' + question.getId()}" class="btn btn-default btn-block btn_add">Add</button>
-                            <button type="submit" name="action" value="edit" th:id="${'btn_edit_' + question.getId()}" class="btn btn-default btn-block btn_edit" disabled="disabled">Edit</button>
+                            <button type="submit" th:id="${'btn_add_' + question.getId()}" class="btn btn-default btn-block btn_add" onclick="linkToModal('#modal_2');" th:onclick="'linkToModal(\'' + ${question.getId()} + '\');'">Add</button>
                             <button type="submit" name="action" value="delete" th:id="${'btn_delete_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">Delete</button>
                         </th:block>
                     </div>
@@ -68,6 +67,33 @@
                 </div>
             </form>
         </th:block>
+
+        <!-- Modal -->
+        <form class="form-horizontal" method="post" action="#" th:action="@{/admin/saveQuestion}" id="modal_form">
+            <div id="modal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add or edit an entry</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Here we need a form to create or edit an entry</p>
+                            <label for="modal_code">Code</label>
+                            <input id="modal_code" name="result_code" type="text" maxlength="255"/>
+                            <label for="modal_english">English translation</label>
+                            <input id="modal_english" name="english_translation" type="text" maxlength="255"/>
+                            <input id="question_identifier" name="questionId" type="hidden" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="action" value="add" class="btn btn-default btn-primary">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
 </div>
@@ -77,27 +103,36 @@
         $(".question-select").change(function() {
             changeButtons($(this));
         });
-
-        function changeButtons(selectElement) {
-            var $ident = $(selectElement).attr('id').replace("select_", "");
-            changeAttr([], ["#btn_delete_" + $ident, "#btn_edit_" + $ident]);
-            if($(selectElement).children('option:first-child').is(':selected')) {
-                changeAttr(["#btn_top_" + $ident, "#btn_up_" + $ident], ["#btn_down_" + $ident, "#btn_bottom_" + $ident]);
-            } else if($(selectElement).children('option:last-child').is(':selected')) {
-                changeAttr(["#btn_down_" + $ident, "#btn_bottom_" + $ident], ["#btn_top_" + $ident, "#btn_up_" + $ident]);
-            } else if($(selectElement).children('option').is(':selected')) {
-                changeAttr([], ["#btn_top_" + $ident, "#btn_up_" + $ident, "#btn_down_" + $ident, "#btn_bottom_" + $ident]);
-            }
-        }
-
-        function changeAttr(toDisable, toEnable) {
-            $.each(toDisable, function(index, value) {
-                $(value).attr("disabled", "disabled");
-            });
-            $.each(toEnable, function(index, value) {
-                $(value).removeAttr("disabled");
-            });
-        }
     });
+
+    function changeButtons(selectElement) {
+        var $ident = $(selectElement).attr('id').replace("select_", "");
+        changeAttr([], ["#btn_delete_" + $ident, "#btn_edit_" + $ident]);
+        if($(selectElement).children('option:first-child').is(':selected')) {
+            changeAttr(["#btn_top_" + $ident, "#btn_up_" + $ident], ["#btn_down_" + $ident, "#btn_bottom_" + $ident]);
+        } else if($(selectElement).children('option:last-child').is(':selected')) {
+            changeAttr(["#btn_down_" + $ident, "#btn_bottom_" + $ident], ["#btn_top_" + $ident, "#btn_up_" + $ident]);
+        } else if($(selectElement).children('option').is(':selected')) {
+            changeAttr([], ["#btn_top_" + $ident, "#btn_up_" + $ident, "#btn_down_" + $ident, "#btn_bottom_" + $ident]);
+        }
+    }
+
+    function changeAttr(toDisable, toEnable) {
+        $.each(toDisable, function(index, value) {
+            $(value).attr("disabled", "disabled");
+        });
+        $.each(toEnable, function(index, value) {
+            $(value).removeAttr("disabled");
+        });
+    }
+
+    function linkToModal(questionId) {
+        $("#modal").modal('show');
+        event.preventDefault();
+
+        $("#modal_code").val("");
+        $("#modal_english").val("");
+        $("#question_identifier").val(questionId);
+    }
 </script>
 </html>

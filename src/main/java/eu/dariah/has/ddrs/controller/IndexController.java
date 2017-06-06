@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by yoannmoranville on 09/05/17.
@@ -34,22 +35,9 @@ public class IndexController {
     public String index(Model model) {
         model.addAttribute("searchObject", new SearchObject());
 
-        Question countryQuestion = questionDAO.findOne(2L);
-        model.addAttribute("countries", countryQuestion);
+        List<Question> allUsedQuestions = questionDAO.findAllOrderedAndInUse();
+        model.addAttribute("questions", allUsedQuestions);
 
-        Question subjectQuestion = questionDAO.findOne(1L);
-        model.addAttribute("subjects", subjectQuestion);
-
-        Question keywordQuestion = questionDAO.findOne(4L);
-        model.addAttribute("keywords", keywordQuestion);
-
-        Question languageQuestion = questionDAO.findOne(3L);
-        model.addAttribute("repositoryLanguages", languageQuestion);
-
-        model.addAttribute("selectedCountries", Collections.EMPTY_LIST);
-        model.addAttribute("selectedSubjects", Collections.EMPTY_LIST);
-        model.addAttribute("selectedKeywords", Collections.EMPTY_LIST);
-        model.addAttribute("selectedRepositoryLanguages", Collections.EMPTY_LIST);
         return "index";
     }
 }

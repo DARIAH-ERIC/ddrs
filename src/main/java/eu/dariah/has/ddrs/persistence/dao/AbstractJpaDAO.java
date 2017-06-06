@@ -38,12 +38,16 @@ public abstract class AbstractJpaDAO<T extends Serializable> {
         return entityManager.merge(entity);
     }
 
+    @Transactional
     public void delete(T entity) {
         entityManager.remove(entity);
     }
 
+    @Transactional
     public void deleteById(long entityId) {
         T entity = findOne(entityId);
+        System.out.println("Delete now?");
         delete(entity);
+        System.out.println("Deleted?");
     }
 }

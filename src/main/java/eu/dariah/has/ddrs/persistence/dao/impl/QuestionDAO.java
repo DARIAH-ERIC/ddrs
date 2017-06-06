@@ -30,4 +30,15 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
         TypedQuery<Question> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();
     }
+
+    public List<Question> findAllOrderedAndInUse() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
+        Root<Question> from = criteriaQuery.from(Question.class);
+        CriteriaQuery<Question> select = criteriaQuery.select(from);
+        select.where(criteriaBuilder.equal(from.get("isInUse"), true ));
+        select.orderBy(criteriaBuilder.asc(from.get("questionOrder")));
+        TypedQuery<Question> typedQuery = entityManager.createQuery(select);
+        return typedQuery.getResultList();
+    }
 }
