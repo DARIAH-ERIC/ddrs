@@ -9,11 +9,11 @@ import java.io.Serializable;
  * Created by yoann on 30.05.17.
  */
 @Entity
-@Table(name = "question_translation")
-public class QuestionTranslation implements Serializable {
+@Table(name = "translation")
+public class Translation implements Serializable {
     @Id
-    @SequenceGenerator(name="question_translation_id_seq", sequenceName="question_translation_id_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="question_translation_id_seq")
+    @SequenceGenerator(name="translation_id_seq", sequenceName="translation_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="translation_id_seq")
     @Column(name = "id", updatable = false)
     private Long id;
 
@@ -24,9 +24,9 @@ public class QuestionTranslation implements Serializable {
     private String fr;
     private String nl;
 
-    public QuestionTranslation() {}
+    public Translation() {}
 
-    public QuestionTranslation(String englishTranslation) {
+    public Translation(String englishTranslation) {
         this.en = englishTranslation;
     }
 

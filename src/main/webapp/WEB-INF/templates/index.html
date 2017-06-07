@@ -25,12 +25,12 @@
             <th:block th:each="question, iterStat : ${questions}">
                 <div class="form-group">
                     <div class="col-sm-1"></div>
-                    <label th:for="${'select_' + question.getId()}" for="xxx" class="col-sm-2 control-label" th:text="${question.getQuestionTranslation().get(#locale)}">XXX</label>
+                    <label th:for="${'select_' + question.getId()}" for="xxx" class="col-sm-2 control-label" th:text="${question.getTranslation().get(#locale)}">XXX</label>
                     <div class="col-sm-6">
                         <select class="form-control question-select" name="xxx" th:name="${question.getName()}" id="xxx"  th:id="${'select_' + iterStat.index}" multiple="multiple">
                             <th:block th:each="child : ${question.getResultTypeHierarchical().getChildren()}">
-                                <option th:value="${child.getCode()}" th:text="${child.getQuestionTranslation().get(#locale)}"></option>
-                                <option th:each="subChild : ${child.getChildren()}" th:value="${subChild.getCode()}" th:text="${'-- ' + subChild.getQuestionTranslation().get(#locale)}"></option>
+                                <option th:value="${child.getCode()}" th:text="${child.getTranslation().get(#locale)}"></option>
+                                <option th:each="subChild : ${child.getChildren()}" th:value="${subChild.getCode()}" th:text="${'-- ' + subChild.getTranslation().get(#locale)}"></option>
                             </th:block>
                         </select>
                     </div>

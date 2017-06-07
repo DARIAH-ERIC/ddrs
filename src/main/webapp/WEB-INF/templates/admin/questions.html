@@ -26,12 +26,12 @@
                 <input type="hidden" name="questionId" th:value="${question.getId()}" />
                 <div class="form-group">
                     <div class="col-sm-1"></div>
-                    <label th:for="${'select_' + question.getId()}" for="xxx" class="col-sm-2 control-label" th:text="${question.getQuestionTranslation().get(#locale)}">XXX</label>
+                    <label th:for="${'select_' + question.getId()}" for="xxx" class="col-sm-2 control-label" th:text="${question.getTranslation().get(#locale)}">XXX</label>
                     <div class="col-sm-6" th:classappend="${question.getInUse()} ? 'background-green' : 'background-red'">
-                        <select class="form-control question-select" name="select_question" id="xxx"  th:id="${'select_' + question.getId()}" size="4" th:disabled="${! question.getEditable()}">
+                        <select class="form-control question-select" name="select_question" id="xxx"  th:id="${'select_' + question.getId()}" size="7" th:disabled="${! question.getEditable()}">
                             <th:block th:each="child : ${question.getResultTypeHierarchical().getChildren()}">
-                                <option th:value="${child.getId()}" th:text="${child.getQuestionTranslation().get(#locale) + ' (' + child.getCode() + ')'}"></option>
-                                <option th:each="subChild : ${child.getChildren()}" th:value="${subChild.getId()}" th:text="${'-- ' + subChild.getQuestionTranslation().get(#locale) + ' (' + subChild.getCode() + ')'}"></option>
+                                <option th:value="${child.getId()}" th:text="${child.getTranslation().get(#locale) + ' (' + child.getCode() + ')'}"></option>
+                                <option th:each="subChild : ${child.getChildren()}" th:value="${subChild.getId()}" th:text="${'-- ' + subChild.getTranslation().get(#locale) + ' (' + subChild.getCode() + ')'}"></option>
                             </th:block>
                         </select>
                     </div>
@@ -41,22 +41,28 @@
                             <button type="submit" name="action" value="delete" th:id="${'btn_delete_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.delete}">Delete</button>
                         </th:block>
                     </div>
-                    <div class="col-sm-2"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1">
+                        <button type="submit" name="action" value="qu_top" th:id="${'qu_top_' + question.getId()}" class="btn btn-block" th:title="#{ddrs.btn.top}"><span class="glyphicon glyphicon-arrow-up"></span><span class="glyphicon glyphicon-arrow-up"></span></button>
+                        <button type="submit" name="action" value="qu_up" th:id="${'qu_up_' + question.getId()}" class="btn btn-block" th:title="#{ddrs.btn.up}"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                        <button type="submit" name="action" value="qu_down" th:id="${'qu_down_' + question.getId()}" class="btn btn-block" th:title="#{ddrs.btn.down}"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                        <button type="submit" name="action" value="qu_bottom" th:id="${'qu_bottom_' + question.getId()}" class="btn btn-block" th:title="#{ddrs.btn.bottom}"><span class="glyphicon glyphicon-arrow-down"></span><span class="glyphicon glyphicon-arrow-down"></span></button>
+                    </div>
                 </div>
 
                 <div class="form-group" th:if="${question.getEditable()}">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="top" th:id="${'btn_top_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.top}">To the top</button>
+                        <button type="submit" name="action" value="top" th:id="${'btn_top_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:title="#{ddrs.btn.top}"><span class="glyphicon glyphicon-arrow-up"></span><span class="glyphicon glyphicon-arrow-up"></span></button>
                     </div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="up" th:id="${'btn_up_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.up}">Up a level</button>
+                        <button type="submit" name="action" value="up" th:id="${'btn_up_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:title="#{ddrs.btn.up}"><span class="glyphicon glyphicon-arrow-up"></span></button>
                     </div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="down" th:id="${'btn_down_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.down}">Down a level</button>
+                        <button type="submit" name="action" value="down" th:id="${'btn_down_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:title="#{ddrs.btn.down}"><span class="glyphicon glyphicon-arrow-down"></span></button>
                     </div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="bottom" th:id="${'btn_bottom_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.bottom}">To the bottom</button>
+                        <button type="submit" name="action" value="bottom" th:id="${'btn_bottom_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:title="#{ddrs.btn.bottom}"><span class="glyphicon glyphicon-arrow-down"></span><span class="glyphicon glyphicon-arrow-down"></span></button>
                     </div>
                     <div class="col-sm-1"></div>
                     <div class="col-sm-1">
@@ -80,9 +86,9 @@
                     <input id="add_question" class="form-control" name="name" type="text" maxlength="255"/>
                 </div>
 
-                <label for="add_question_translation" class="col-sm-2 control-label" th:text="#{ddrs.question.english.translation}">What is the name of your question?</label>
+                <label for="add_translation" class="col-sm-2 control-label" th:text="#{ddrs.question.english.translation}">What is the name of your question?</label>
                 <div class="col-sm-2">
-                    <input id="add_question_translation" class="form-control" name="english_translation" type="text" maxlength="255"/>
+                    <input id="add_translation" class="form-control" name="english_translation" type="text" maxlength="255"/>
                 </div>
 
                 <div class="col-sm-1">

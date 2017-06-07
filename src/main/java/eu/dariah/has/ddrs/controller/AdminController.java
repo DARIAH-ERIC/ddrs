@@ -3,7 +3,7 @@ package eu.dariah.has.ddrs.controller;
 import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
 import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
 import eu.dariah.has.ddrs.persistence.model.Question;
-import eu.dariah.has.ddrs.persistence.model.QuestionTranslation;
+import eu.dariah.has.ddrs.persistence.model.Translation;
 import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.Map;
 
 /**
  * Created by yoann on 02.06.17.
@@ -102,6 +100,39 @@ public class AdminController {
                         resultTypeHierarchicalDAO.update(resultTypeHierarchical);
                     }
                     break;
+                case "qu_top":
+                    int currentOrder = question.getQuestionOrder();
+                    question.setQuestionOrder(-1);
+                    questionDAO.update(question);
+                    for(Question restQuestion : questionDAO.findAllWrongOrdered()) {
+                        if(restQuestion.getQuestionOrder() < currentOrder && restQuestion.getQuestionOrder() != -1) {
+                            restQuestion.setQuestionOrder(restQuestion.getQuestionOrder() + 1);
+                            questionDAO.update(restQuestion);
+                        }
+                    }
+                    question.setQuestionOrder(1);
+                    questionDAO.update(question);
+                    break;
+                case "qu_up":
+
+                    break;
+                case "qu_down":
+
+                    break;
+                case "qu_bottom":
+                    currentOrder = question.getQuestionOrder();
+                    question.setQuestionOrder(-1);
+                    questionDAO.update(question);
+                    for(Question restQuestion : questionDAO.findAllOrdered()) {
+                        if(restQuestion.getQuestionOrder() > currentOrder) {
+                            currentOrder++;
+                            restQuestion.setQuestionOrder(restQuestion.getQuestionOrder() - 1);
+                            questionDAO.update(restQuestion);
+                        }
+                    }
+                    question.setQuestionOrder(currentOrder);
+                    questionDAO.update(question);
+                    break;
                 case "inuse":
                     question.setInUse(!question.getInUse());
                     questionDAO.update(question);
@@ -117,7 +148,7 @@ public class AdminController {
                             }
                         }
                         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical(code, highestOrder+1, parent);
-                        resultTypeHierarchical.setQuestionTranslation(new QuestionTranslation(englishTranslation));
+                        resultTypeHierarchical.setTranslation(new Translation(englishTranslation));
                         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
                         parent.addChild(resultTypeHierarchical);
                         resultTypeHierarchicalDAO.update(parent);
@@ -138,9 +169,9 @@ public class AdminController {
     public RedirectView save(@RequestParam(name = "name") String name,
                              @RequestParam(name = "english_translation") String englishTranslation) {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical("NONE", 0, null);
-        resultTypeHierarchical.setQuestionTranslation(new QuestionTranslation(StringUtils.capitalize(name)));
+        resultTypeHierarchical.setTranslation(new Translation(StringUtils.capitalize(name)));
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
-        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1, 0, resultTypeHierarchical, new QuestionTranslation(englishTranslation));
+        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1, 0, resultTypeHierarchical, new Translation(englishTranslation));
         questionDAO.create(question);
 
         return new RedirectView("/admin/questions", true);
@@ -150,6 +181,12 @@ public class AdminController {
     public String translations(Model model) {
         model.addAttribute("questions", questionDAO.findAll());
         model.addAttribute("results", resultTypeHierarchicalDAO.findAll());
+        return "admin/translations";
+    }
+
+    @RequestMapping(value = "/admin/saveTranslations", method = RequestMethod.POST)
+    public String saveTranslations(@RequestParam(name = "translationId") Long translationId,
+                                   @RequestParam(name = "translation") String translation) {
         return "admin/translations";
     }
 }

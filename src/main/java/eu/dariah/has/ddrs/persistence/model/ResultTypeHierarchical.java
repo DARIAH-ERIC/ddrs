@@ -28,8 +28,8 @@ public class ResultTypeHierarchical implements Serializable {
     private int resultTypeHierarchicalOrder;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, optional = false)
-    @JoinColumn(name = "question_translation_id")
-    private QuestionTranslation questionTranslation;
+    @JoinColumn(name = "translation_id")
+    private Translation translation;
 
     @ManyToOne
     private ResultTypeHierarchical parent;
@@ -70,12 +70,12 @@ public class ResultTypeHierarchical implements Serializable {
         this.resultTypeHierarchicalOrder = resultTypeHierarchicalOrder;
     }
 
-    public QuestionTranslation getQuestionTranslation() {
-        return questionTranslation;
+    public Translation getTranslation() {
+        return translation;
     }
 
-    public void setQuestionTranslation(QuestionTranslation questionTranslation) {
-        this.questionTranslation = questionTranslation;
+    public void setTranslation(Translation translation) {
+        this.translation = translation;
     }
 
     public ResultTypeHierarchical getParent() {

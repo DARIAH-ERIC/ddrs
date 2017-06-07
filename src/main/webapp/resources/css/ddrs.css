@@ -128,3 +128,9 @@ ul.alert-dropdown {
 .border {
     border:1px solid #0f0f0f;
 }
+.border-form {
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+    border:1px solid rgb(32, 58, 107);
+    border-radius: 20px;
+}

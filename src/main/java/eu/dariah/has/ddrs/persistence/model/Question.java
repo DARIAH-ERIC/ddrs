@@ -34,19 +34,19 @@ public class Question implements Serializable {
     private ResultTypeHierarchical resultTypeHierarchical;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, optional = false)
-    @JoinColumn(name = "question_translation_id")
-    private QuestionTranslation questionTranslation;
+    @JoinColumn(name = "translation_id")
+    private Translation translation;
 
     public Question() {}
 
-    public Question(String name, Boolean isEditable, Boolean isInUse, int questionOrder, int priority, ResultTypeHierarchical resultTypeHierarchical, QuestionTranslation questionTranslation) {
+    public Question(String name, Boolean isEditable, Boolean isInUse, int questionOrder, int priority, ResultTypeHierarchical resultTypeHierarchical, Translation translation) {
         this.name = name;
         this.isEditable = isEditable;
         this.isInUse = isInUse;
         this.questionOrder = questionOrder;
         this.priority = priority;
         this.resultTypeHierarchical = resultTypeHierarchical;
-        this.questionTranslation = questionTranslation;
+        this.translation = translation;
     }
 
     public Long getId() {
@@ -73,12 +73,12 @@ public class Question implements Serializable {
         this.resultTypeHierarchical = resultTypeHierarchical;
     }
 
-    public QuestionTranslation getQuestionTranslation() {
-        return questionTranslation;
+    public Translation getTranslation() {
+        return translation;
     }
 
-    public void setQuestionTranslation(QuestionTranslation questionTranslation) {
-        this.questionTranslation = questionTranslation;
+    public void setTranslation(Translation translation) {
+        this.translation = translation;
     }
 
     public int getQuestionOrder() {

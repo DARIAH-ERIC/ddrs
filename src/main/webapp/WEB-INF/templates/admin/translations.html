@@ -34,13 +34,18 @@
             </thead>
             <tbody>
                 <th:block th:each="question : ${questions}">
-                    <tr>
-                        <td><input type="text" class="form-control" th:value="${question.getQuestionTranslation().getEn()}"/></td>
-                        <td><input type="text" class="form-control" th:value="${question.getQuestionTranslation().getDe()}"/></td>
-                        <td><input type="text" class="form-control" th:value="${question.getQuestionTranslation().getFr()}"/></td>
-                        <td><input type="text" class="form-control" th:value="${question.getQuestionTranslation().getNl()}"/></td>
-                        <td><button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button></td>
-                    </tr>
+                    <form method="post" action="#" th:action="@{/admin/saveTranslation}">
+                        <tr th:id="${question.getTranslation().getId()}">
+                            <td><input type="text" class="form-control" th:value="${question.getTranslation().getEn()}"/></td>
+                            <td><input type="text" class="form-control" th:value="${question.getTranslation().getDe()}"/></td>
+                            <td><input type="text" class="form-control" th:value="${question.getTranslation().getFr()}"/></td>
+                            <td><input type="text" class="form-control" th:value="${question.getTranslation().getNl()}"/></td>
+                            <td>
+                                <input type="hidden" name="translationId" th:value="${question.getTranslation().getId()}">
+                                <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
+                            </td>
+                        </tr>
+                    </form>
                 </th:block>
             </tbody>
         </table>
@@ -48,24 +53,29 @@
         <h3 class="dariah-color-text text-center" th:text="#{page.admin.results}">Results</h3>
         <table class="table table-bordered table-hover">
             <thead>
-            <tr>
-                <th>English translations</th>
-                <th>German translations</th>
-                <th>French translations</th>
-                <th>Dutch translations</th>
-                <th>Action</th>
-            </tr>
+                <tr>
+                    <th>English translations</th>
+                    <th>German translations</th>
+                    <th>French translations</th>
+                    <th>Dutch translations</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
-            <th:block th:each="result : ${results}">
-                <tr>
-                    <td><input type="text" class="form-control" th:value="${result.getQuestionTranslation().getEn()}"/></td>
-                    <td><input type="text" class="form-control" th:value="${result.getQuestionTranslation().getDe()}"/></td>
-                    <td><input type="text" class="form-control" th:value="${result.getQuestionTranslation().getFr()}"/></td>
-                    <td><input type="text" class="form-control" th:value="${result.getQuestionTranslation().getNl()}"/></td>
-                    <td><button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button></td>
-                </tr>
-            </th:block>
+                <th:block th:each="result : ${results}">
+                    <form method="post" action="#" th:action="@{/admin/saveTranslation}">
+                        <tr th:id="${result.getTranslation().getId()}">
+                            <td><input type="text" name="english" class="form-control" th:value="${result.getTranslation().getEn()}"/></td>
+                            <td><input type="text" name="german" class="form-control" th:value="${result.getTranslation().getDe()}"/></td>
+                            <td><input type="text" name="french" class="form-control" th:value="${result.getTranslation().getFr()}"/></td>
+                            <td><input type="text" name="dutch" class="form-control" th:value="${result.getTranslation().getNl()}"/></td>
+                            <td>
+                                <input type="hidden" name="translationId" th:value="${result.getTranslation().getId()}">
+                                <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
+                            </td>
+                        </tr>
+                    </form>
+                </th:block>
             </tbody>
         </table>
     </div>
