@@ -107,6 +107,11 @@
             <version>3.0.6.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <version>3.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.1</version>
@@ -248,11 +253,41 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/</path>
-                    <!--<httpsPort>8443</httpsPort>-->
-                    <!--<keystoreFile>/Users/yoann/.keystore</keystoreFile>-->
-                    <!--<keystorePass>Dariah</keystorePass>-->
+                    <httpsPort>8443</httpsPort>
+                    <keystoreFile>${project.build.directory}/tomcat7.keystore</keystoreFile>
+                    <keystorePass>tomcat7</keystorePass>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>keytool-maven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <id>clean</id>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <id>genkey</id>
+                        <goals>
+                            <goal>generateKeyPair</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <keystore>${project.build.directory}/tomcat7.keystore</keystore>
+                    <dname>cn=localhost</dname>
+                    <keypass>tomcat7</keypass>
+                    <storepass>tomcat7</storepass>
+                    <alias>tomca7</alias>
+                    <keyalg>RSA</keyalg>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>

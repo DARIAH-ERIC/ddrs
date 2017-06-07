@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head></head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
@@ -12,7 +12,7 @@
                 <a class="navbar-brand" href="#" th:href="@{/}" th:me th:text="#{ddrs.menu.main}">DDRS page</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
                     <!--<li th:classappend="${module == 'home' ? 'active' : ''}">-->
                     <li>
                         <a href="#" th:href="@{/admin/questions}" th:text="#{ddrs.menu.administration}">Administration</a>
@@ -22,6 +22,16 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li sec:authorize="isAuthenticated()">
+                        <form method="post" action="#" th:action="@{/auth/logout}" id="logout_form">
+                            <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.logout}">Logout</button>
+                        </form>
+                    </li>
+                    <li sec:authorize="isAnonymous()">
+                        <form method="get" action="#" th:action="@{/auth/login}" id="login_form">
+                            <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.login}">Login</button>
+                        </form>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Languages <b class="caret"></b></a>
                         <ul class="dropdown-menu alert-dropdown">

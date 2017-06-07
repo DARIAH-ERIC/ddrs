@@ -48,6 +48,11 @@
     </bean>
     <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
         <property name="templateResolver" ref="templateResolver"/>
+        <property name="additionalDialects">
+            <set>
+                <bean class="org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect"/>
+            </set>
+        </property>
     </bean>
     <bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine"/>
@@ -85,25 +90,19 @@
     <bean id="persistenceExceptionTranslationPostProcessor"
           class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
-    <!-- todo: security -->
     <security:http auto-config="true">
-        <security:form-login authentication-failure-url="/access_denied"/>
-        <security:logout />
-        <security:intercept-url pattern="/" access="permitAll" requires-channel="http"/>
+        <security:form-login login-page="/auth/login" login-processing-url="/auth/loginuser" authentication-failure-url="/auth/login?error=true" default-target-url="/" />
+        <security:logout invalidate-session="true" logout-success-url="/" logout-url="/auth/logout"/>
+        <security:intercept-url pattern="/auth/*" access="permitAll" requires-channel="https"/>
+        <security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" requires-channel="https"/>
     </security:http>
     <security:authentication-manager>
         <security:authentication-provider>
+            <security:password-encoder ref="bcryptEncoder" />
             <security:user-service>
-                <security:user name="yoann" authorities="ROLE_USER" />
+                <security:user name="admin" authorities="ROLE_ADMIN" password="$2a$10$CIni7tbExy0HYyQbxWJwT.thd.BeWC1JIZ1/ejBQhMBlxX32FJwYu" />
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>
-    <!--<security:authentication-manager>-->
-        <!--<security:ldap-authentication-provider user-search-base="ou=people"-->
-                                               <!--user-search-filter="(uid={0})"-->
-                                               <!--group-search-base="ou=groups"-->
-                                               <!--group-search-filter="(member={0})" server-ref="gwdg">-->
-        <!--</security:ldap-authentication-provider>-->
-    <!--</security:authentication-manager>-->
-    <!--<security:ldap-server id="gwdg" url="ldaps://ldap.gwdg.de" />-->
+    <bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 </beans>

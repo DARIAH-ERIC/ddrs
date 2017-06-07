@@ -134,3 +134,6 @@ ul.alert-dropdown {
     border:1px solid rgb(32, 58, 107);
     border-radius: 20px;
 }
+.btn-drop {
+    margin-top: 10px;
+}
