@@ -9,16 +9,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#" th:href="@{/}" th:me th:text="#{page.index.welcome}">DDRS page</a>
+                <a class="navbar-brand" href="#" th:href="@{/}" th:me th:text="#{ddrs.menu.main}">DDRS page</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <!--<li th:classappend="${module == 'home' ? 'active' : ''}">-->
                     <li>
-                        <a href="#" th:href="@{/}">Home</a>
+                        <a href="#" th:href="@{/admin/questions}" th:text="#{ddrs.menu.administration}">Administration</a>
                     </li>
                     <li>
-                        <a href="#" th:href="@{/admin/questions}">Administration</a>
+                        <a href="#" th:href="@{/admin/translations}" th:text="#{ddrs.menu.translations}">Translations</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

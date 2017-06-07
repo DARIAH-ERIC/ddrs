@@ -145,4 +145,11 @@ public class AdminController {
 
         return new RedirectView("/admin/questions", true);
     }
+
+    @RequestMapping(value = "/admin/translations", method = RequestMethod.GET)
+    public String translations(Model model) {
+        model.addAttribute("questions", questionDAO.findAll());
+        model.addAttribute("results", resultTypeHierarchicalDAO.findAll());
+        return "admin/translations";
+    }
 }

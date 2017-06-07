@@ -20,8 +20,7 @@
         </div>
     </nav>
     <div id="page-wrapper">
-        <h2 class="dariah-color-text text-center" th:text="#{page.index.welcome}"></h2>
-        <h2 class="dariah-color-text text-center">Questions</h2>
+        <h2 class="dariah-color-text text-center" th:text="#{page.admin.questions}">Questions</h2>
         <th:block th:each="question : ${questions}">
             <form class="form-horizontal" method="post" action="#" th:action="@{/admin/saveQuestion}" th:object="${question}" id="question_form">
                 <input type="hidden" name="questionId" th:value="${question.getId()}" />
@@ -38,8 +37,8 @@
                     </div>
                     <div class="col-sm-1">
                         <th:block th:if="${question.getEditable()}">
-                            <button type="submit" th:id="${'btn_add_' + question.getId()}" class="btn btn-default btn-block btn_add" onclick="linkToModal('#modal_2');" th:onclick="'linkToModal(\'' + ${question.getId()} + '\');'">Add</button>
-                            <button type="submit" name="action" value="delete" th:id="${'btn_delete_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">Delete</button>
+                            <button type="submit" th:id="${'btn_add_' + question.getId()}" class="btn btn-default btn-block btn_add" onclick="linkToModal('#modal_2');" th:onclick="'linkToModal(\'' + ${question.getId()} + '\');'" th:text="#{ddrs.btn.add}">Add</button>
+                            <button type="submit" name="action" value="delete" th:id="${'btn_delete_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.delete}">Delete</button>
                         </th:block>
                     </div>
                     <div class="col-sm-2"></div>
@@ -48,20 +47,21 @@
                 <div class="form-group" th:if="${question.getEditable()}">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="top" th:id="${'btn_top_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">To the top</button>
+                        <button type="submit" name="action" value="top" th:id="${'btn_top_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.top}">To the top</button>
                     </div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="up" th:id="${'btn_up_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">Up a level</button>
+                        <button type="submit" name="action" value="up" th:id="${'btn_up_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.up}">Up a level</button>
                     </div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="down" th:id="${'btn_down_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">Down a level</button>
+                        <button type="submit" name="action" value="down" th:id="${'btn_down_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.down}">Down a level</button>
                     </div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="bottom" th:id="${'btn_bottom_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled">To the bottom</button>
+                        <button type="submit" name="action" value="bottom" th:id="${'btn_bottom_' + question.getId()}" class="btn btn-default btn-block" disabled="disabled" th:text="#{ddrs.btn.bottom}">To the bottom</button>
                     </div>
                     <div class="col-sm-1"></div>
                     <div class="col-sm-1">
-                        <button type="submit" name="action" value="inuse" th:id="${'in_use_' + question.getId()}" class="btn btn-block" th:classappend="${question.getInUse() ? 'btn-warning' : 'btn-success'}" th:text="${question.getInUse() ? 'Do not use' : 'Use'}">Save</button>
+                        <button th:if="${question.getInUse()}" type="submit" name="action" value="inuse" th:id="${'in_use_' + question.getId()}" class="btn btn-block btn-warning" th:text="#{ddrs.btn.dont.use}">XYX</button>
+                        <button th:unless="${question.getInUse()}" type="submit" name="action" value="inuse" th:id="${'in_use_' + question.getId()}" class="btn btn-block btn-success" th:text="#{ddrs.btn.use}">XYX</button>
                     </div>
                     <div class="col-sm-3"></div>
                 </div>
@@ -71,22 +71,22 @@
         <form class="form-horizontal" method="post" action="#" th:action="@{/admin/addQuestion}" id="create_form">
             <div class="divider-horizontal"></div>
             <div class="form-group">
-                <h3 class="dariah-color-text text-center">Create a new Question:</h3>
+                <h3 class="dariah-color-text text-center" th:text="#{ddrs.new.question}">Create a new Question:</h3>
             </div>
             <div class="form-group">
                 <div class="col-sm-1"></div>
-                <label for="add_question" class="col-sm-2 control-label">What is the RE3DATA filter name (ex: "countries")?</label>
+                <label for="add_question" class="col-sm-2 control-label" th:text="#{ddrs.filter.name.question}">What is the RE3DATA filter name (ex: "countries")?</label>
                 <div class="col-sm-2">
                     <input id="add_question" class="form-control" name="name" type="text" maxlength="255"/>
                 </div>
 
-                <label for="add_question_translation" class="col-sm-2 control-label">What is the name of your question?</label>
+                <label for="add_question_translation" class="col-sm-2 control-label" th:text="#{ddrs.question.english.translation}">What is the name of your question?</label>
                 <div class="col-sm-2">
                     <input id="add_question_translation" class="form-control" name="english_translation" type="text" maxlength="255"/>
                 </div>
 
                 <div class="col-sm-1">
-                    <button type="submit" name="action" value="add" id="add_question_submit" class="btn btn-success btn-block">Create</button>
+                    <button type="submit" name="action" value="add" id="add_question_submit" class="btn btn-success btn-block" th:text="#{ddrs.btn.create}">Create</button>
                 </div>
                 <div class="col-sm-2"></div>
             </div>
@@ -99,19 +99,18 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add or edit an entry</h4>
+                            <h4 class="modal-title" th:text="#{ddrs.add.entry}">Add an entry</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Here we need a form to create or edit an entry</p>
-                            <label for="modal_code">Code</label>
+                            <label for="modal_code" th:text="#{ddrs.add.code}">Code</label>
                             <input id="modal_code" name="result_code" type="text" maxlength="255"/>
-                            <label for="modal_english">English translation</label>
+                            <label for="modal_english" th:text="#{ddrs.english.translation}">English translation</label>
                             <input id="modal_english" name="english_translation" type="text" maxlength="255"/>
                             <input id="question_identifier" name="questionId" type="hidden" />
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" name="action" value="add" class="btn btn-default btn-primary">Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" name="action" value="add" class="btn btn-default btn-primary" th:text="#{ddrs.btn.save}">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{ddrs.btn.close}">Close</button>
                         </div>
                     </div>
 
