@@ -131,7 +131,7 @@ public class AdminController {
                     break;
             }
         }
-        return new RedirectView("/admin/questions");
+        return new RedirectView("/admin/questions", true);
     }
 
     @RequestMapping(value = "/admin/addQuestion", method = RequestMethod.POST)
@@ -143,6 +143,6 @@ public class AdminController {
         Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1, 0, resultTypeHierarchical, new QuestionTranslation(englishTranslation));
         questionDAO.create(question);
 
-        return new RedirectView("/admin/questions");
+        return new RedirectView("/admin/questions", true);
     }
 }
