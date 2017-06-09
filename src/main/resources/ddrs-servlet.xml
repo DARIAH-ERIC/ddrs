@@ -91,6 +91,10 @@
           class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
     <security:http auto-config="true">
+        <security:port-mappings>
+            <security:port-mapping http="8080" https="8443"/>
+            <security:port-mapping http="80" https="443"/>
+        </security:port-mappings>
         <security:form-login login-page="/auth/login" login-processing-url="/auth/loginuser" authentication-failure-url="/auth/login?error=true" default-target-url="/" />
         <security:logout invalidate-session="true" logout-success-url="/" logout-url="/auth/logout"/>
         <security:intercept-url pattern="/auth/*" access="permitAll" requires-channel="https"/>
