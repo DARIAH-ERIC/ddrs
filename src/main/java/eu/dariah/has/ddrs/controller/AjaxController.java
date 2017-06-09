@@ -25,8 +25,12 @@ import org.springframework.web.client.RestTemplate;
 public class AjaxController {
     private static final Logger LOGGER = Logger.getLogger(AjaxController.class);
 
+    private final Re3dataRepositoryAPIService re3dataRepositoryAPIService;
+
     @Autowired
-    private Re3dataRepositoryAPIService re3dataRepositoryAPIService;
+    public AjaxController(Re3dataRepositoryAPIService re3dataRepositoryAPIService) {
+        this.re3dataRepositoryAPIService = re3dataRepositoryAPIService;
+    }
 
     @JsonView(JsonViews.Public.class)
     @RequestMapping(value = "/refreshResults")
@@ -55,6 +59,8 @@ public class AjaxController {
                 if(repo.getDescription() != null)
                     repository.getRepositoryDetail().setDescription(repo.getDescription().getValue());
                 repository.getRepositoryDetail().setLastUpdate(repo.getLastUpdate());
+
+                repository.getRepositoryDetail().setContact(repo.getRepositoryContact().toString());
             }
         }
         LOGGER.info((System.currentTimeMillis() - veryStart) + "ms for everything");

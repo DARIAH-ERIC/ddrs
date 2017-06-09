@@ -11,6 +11,8 @@ public class RepositoryDetail {
     private String description;
     @JsonView(JsonViews.Public.class)
     private String lastUpdate;
+    @JsonView(JsonViews.Public.class)
+    private String contact;
 
     public String getDescription() {
         return description;
@@ -26,5 +28,13 @@ public class RepositoryDetail {
 
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }

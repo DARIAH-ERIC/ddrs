@@ -112,6 +112,7 @@
             if(this.repositoryDetail !== null) {
                 $clone.find(".repository_description").text(this.repositoryDetail.description);
                 $clone.find(".repository_lastUpdate").text(this.repositoryDetail.lastUpdate);
+                $clone.find(".repository_contact").text(this.repositoryDetail.contact);
             }
             $clone.appendTo("#results");
         });
@@ -129,11 +130,18 @@
         var $repositoryIdName = $("<p>", {"class": "repository_id_name"});
         var $repositoryDesc = $("<p>", {"class": "repository_description"});
         var $repositoryLastUpdate = $("<p>", {"class": "repository_lastUpdate"});
+        var $repositoryContact = $("<p>", {"class": "repository_contact"});
         var $repositoryUrl = $("<a>", {"class": "repository_url", "href": "#", "target": "_blank"});
         var $divider = $("<div>", {"class": "spacer divider-horizontal"});
 
-        return $div.append($divContainer.append($divRow.append($divCol.append($repositoryIdName))).append($divRow.append($divCol.append($repositoryDesc)))
-            .append($divRow.append($divCol.append($repositoryLastUpdate))).append($divCol.append($repositoryUrl))).append($divider);
+        return $div.append(
+            $divContainer
+                .append($divRow.clone().append($divCol.clone().append($repositoryIdName)))
+                .append($divRow.clone().append($divCol.clone().append($repositoryDesc)))
+                .append($divRow.clone().append($divCol.clone().append($repositoryLastUpdate)))
+                .append($divRow.clone().append($divCol.clone().append($repositoryContact)))
+                .append($divCol.clone().append($repositoryUrl)))
+            .append($divider);
     }
 </script>
 </html>
