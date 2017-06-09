@@ -2,6 +2,7 @@ package eu.dariah.has.ddrs.controller;
 
 import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
 import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
+import eu.dariah.has.ddrs.persistence.dao.ITranslationDAO;
 import eu.dariah.has.ddrs.persistence.model.Question;
 import eu.dariah.has.ddrs.persistence.model.Translation;
 import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
@@ -22,13 +23,15 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AdminController {
     private final IQuestionDAO questionDAO;
     private final IResultTypeHierarchicalDAO resultTypeHierarchicalDAO;
+    private final ITranslationDAO translationDAO;
 
     private static final Logger LOGGER = Logger.getLogger(AdminController.class);
 
     @Autowired
-    public AdminController(IQuestionDAO questionDAO, IResultTypeHierarchicalDAO resultTypeHierarchicalDAO) {
+    public AdminController(IQuestionDAO questionDAO, IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, ITranslationDAO translationDAO) {
         this.questionDAO = questionDAO;
         this.resultTypeHierarchicalDAO = resultTypeHierarchicalDAO;
+        this.translationDAO = translationDAO;
     }
 
     @RequestMapping(value = "/admin/questions", method = RequestMethod.GET)
@@ -178,15 +181,27 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/translations", method = RequestMethod.GET)
-    public String translations(Model model) {
+    public String translations(Model model, @RequestParam(name = "tr", required = false) Long translationId) {
         model.addAttribute("questions", questionDAO.findAll());
         model.addAttribute("results", resultTypeHierarchicalDAO.findAll());
+        model.addAttribute("savedTranslationId", translationId);
         return "admin/translations";
     }
 
-    @RequestMapping(value = "/admin/saveTranslations", method = RequestMethod.POST)
-    public String saveTranslations(@RequestParam(name = "translationId") Long translationId,
-                                   @RequestParam(name = "translation") String translation) {
-        return "admin/translations";
+    @RequestMapping(value = "/admin/saveTranslation", method = RequestMethod.POST)
+    public RedirectView saveTranslations(@RequestParam(name = "translationId") Long translationId,
+                                         @RequestParam(name = "english") String english,
+                                         @RequestParam(name = "german") String german,
+                                         @RequestParam(name = "french") String french,
+                                         @RequestParam(name = "dutch") String dutch) {
+
+        Translation translation = translationDAO.findOne(translationId);
+        translation.setEn(english);
+        translation.setDe(german);
+        translation.setFr(french);
+        translation.setNl(dutch);
+        translationDAO.update(translation);
+
+        return new RedirectView("/admin/translations?tr="+translationId, true);
     }
 }
