@@ -283,7 +283,7 @@
                     <dname>cn=localhost</dname>
                     <keypass>tomcat7</keypass>
                     <storepass>tomcat7</storepass>
-                    <alias>tomca7</alias>
+                    <alias>tomcat7</alias>
                     <keyalg>RSA</keyalg>
                 </configuration>
             </plugin>
