@@ -36,10 +36,10 @@
                 <th:block th:each="question : ${questions}">
                     <form method="post" action="#" th:action="@{/admin/saveTranslation}">
                         <tr th:id="${question.getTranslation().getId()}">
-                            <td><input type="text" class="form-control" th:value="${question.getTranslation().getEn()}"/></td>
-                            <td><input type="text" class="form-control" th:value="${question.getTranslation().getDe()}"/></td>
-                            <td><input type="text" class="form-control" th:value="${question.getTranslation().getFr()}"/></td>
-                            <td><input type="text" class="form-control" th:value="${question.getTranslation().getNl()}"/></td>
+                            <td><input type="text" name="english" class="form-control" th:value="${question.getTranslation().getEn()}"/></td>
+                            <td><input type="text" name="german" class="form-control" th:value="${question.getTranslation().getDe()}"/></td>
+                            <td><input type="text" name="french" class="form-control" th:value="${question.getTranslation().getFr()}"/></td>
+                            <td><input type="text" name="dutch" class="form-control" th:value="${question.getTranslation().getNl()}"/></td>
                             <td>
                                 <input type="hidden" name="translationId" th:value="${question.getTranslation().getId()}">
                                 <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
