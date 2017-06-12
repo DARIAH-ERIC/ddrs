@@ -1,8 +1,12 @@
 package eu.dariah.has.ddrs.conf;
 
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.jcache.JCacheCacheManager;
+import org.springframework.cache.jcache.JCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -12,6 +16,8 @@ import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+
+import java.io.IOException;
 
 /**
  * Created by yoann on 12.06.17.
@@ -65,6 +71,18 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public CacheManager cacheManager() throws IOException {
+        return new JCacheCacheManager(jCacheCacheManager().getObject());
+    }
+
+    @Bean
+    public JCacheManagerFactoryBean jCacheCacheManager() throws IOException {
+        JCacheManagerFactoryBean jCacheManagerFactoryBean = new JCacheManagerFactoryBean();
+        jCacheManagerFactoryBean.setCacheManagerUri(new ClassPathResource("ehcache3.xml").getURI());
+        return jCacheManagerFactoryBean;
     }
 
     @Override

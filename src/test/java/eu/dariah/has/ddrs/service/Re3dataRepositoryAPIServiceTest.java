@@ -8,12 +8,11 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestClientException;
 
 import static junit.framework.Assert.assertEquals;
@@ -21,8 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.number.OrderingComparison.greaterThan;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:ddrs-test.xml", "classpath:ddrs-servlet.xml"})
-@WebAppConfiguration
+@SpringBootTest
 public class Re3dataRepositoryAPIServiceTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Re3dataRepositoryAPIServiceTest.class);
@@ -80,11 +78,15 @@ public class Re3dataRepositoryAPIServiceTest {
         start = System.currentTimeMillis();
         re3dataRepositoryAPIService.findRe3Data("http://www.re3data.org/api/beta/repository/r3d100011933");
         end = System.currentTimeMillis();
-        LOGGER.info("Re3Data without Caching: " + (end-start) + "ms");
+        long withoutCache = end - start;
+        LOGGER.info("Re3Data without Caching: " + withoutCache + "ms");
 
         start = System.currentTimeMillis();
         re3dataRepositoryAPIService.findRe3Data("http://www.re3data.org/api/beta/repository/r3d100011933");
         end = System.currentTimeMillis();
-        LOGGER.info("Re3Data With Caching: " + (end-start) + "ms");
+        long withCache = end - start;
+        LOGGER.info("Re3Data With Caching: " + withCache + "ms");
+
+        assertThat("Without cache must take much longer than with cache", withoutCache > (withCache*10));
     }
 }
