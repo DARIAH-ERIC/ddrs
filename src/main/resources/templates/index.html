@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{project.ddrs.title}">DDRS</title>
-    <link href="../../resources/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
-    <link href="../../resources/css/ddrs.css" th:href="@{/css/ddrs.css}" rel="stylesheet" />
-    <script src="../../resources/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}" type="text/javascript"></script>
-    <script src="../../resources/js/bootstrap.js" th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+    <link href="../../webapp/resources/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../../webapp/resources/css/ddrs.css" th:href="@{/css/ddrs.css}" rel="stylesheet" />
+    <script src="../../webapp/resources/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}" type="text/javascript"></script>
+    <script src="../../webapp/resources/js/bootstrap.js" th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -123,16 +123,16 @@
     }
 
     function createEmptyDivContainer() {
-        var $div = $("<div>");
-        var $divContainer = $("<div>", {"class": "container-fluid"});
-        var $divRow = $("<div>", {"class": "row row-bold"});
-        var $divCol = $("<div>", {"class": "col-md-12"});
-        var $repositoryIdName = $("<p>", {"class": "repository_id_name"});
-        var $repositoryDesc = $("<p>", {"class": "repository_description"});
-        var $repositoryLastUpdate = $("<p>", {"class": "repository_lastUpdate"});
-        var $repositoryContact = $("<p>", {"class": "repository_contact"});
-        var $repositoryUrl = $("<a>", {"class": "repository_url", "href": "#", "target": "_blank"});
-        var $divider = $("<div>", {"class": "spacer divider-horizontal"});
+        var $div = $("<div/>");
+        var $divContainer = $("<div/>", {"class": "container-fluid"});
+        var $divRow = $("<div/>", {"class": "row row-bold"});
+        var $divCol = $("<div/>", {"class": "col-md-12"});
+        var $repositoryIdName = $("<p/>", {"class": "repository_id_name"});
+        var $repositoryDesc = $("<p/>", {"class": "repository_description"});
+        var $repositoryLastUpdate = $("<p/>", {"class": "repository_lastUpdate"});
+        var $repositoryContact = $("<p/>", {"class": "repository_contact"});
+        var $repositoryUrl = $("<a/>", {"class": "repository_url", "href": "#", "target": "_blank"});
+        var $divider = $("<div/>", {"class": "spacer divider-horizontal"});
 
         return $div.append(
             $divContainer
