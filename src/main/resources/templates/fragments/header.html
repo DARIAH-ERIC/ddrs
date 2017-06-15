@@ -20,6 +20,9 @@
                     <li>
                         <a href="#" th:href="@{/admin/translations}" th:text="#{ddrs.menu.translations}">Translations</a>
                     </li>
+                    <li>
+                        <a href="#" th:href="@{/admin/contactRepositories}" th:text="#{ddrs.menu.contact.repositories}">Contacts of repositories</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li sec:authorize="isAuthenticated()">

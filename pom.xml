@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.dariah.has</groupId>
     <artifactId>ddrs</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>DDRS for DARIAH</name>
     <version>0.1-SNAPSHOT</version>
     <url>http://has.dariah.eu</url>
@@ -19,8 +19,6 @@
 
     <properties>
         <slf4j.version>1.6.1</slf4j.version>
-        <spring.version>4.3.7.RELEASE</spring.version>
-        <spring.security.version>4.2.2.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>
@@ -61,17 +59,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -105,6 +92,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -164,22 +155,49 @@
         </dependency>
     </dependencies>
 
-    
+    <profiles>
+        <profile>
+            <id>development</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>keytool-maven-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <phase>generate-resources</phase>
+                                <id>clean</id>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <phase>generate-resources</phase>
+                                <id>genkey</id>
+                                <goals>
+                                    <goal>generateKeyPair</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <keystore>${project.build.directory}/tomcat7.p12</keystore>
+                            <dname>cn=localhost</dname>
+                            <keypass>tomcat7</keypass>
+                            <storepass>tomcat7</storepass>
+                            <alias>tomcat7</alias>
+                            <keyalg>RSA</keyalg>
+                            <storetype>PKCS12</storetype>
+                            <keysize>2048</keysize>
+                            <validity>3650</validity>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <build>
-        <!--<finalName>ddrs</finalName>-->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>.</directory>
-                <includes>
-                    <include>plugin.xml</include>
-                    <include>META-INF/*</include>
-                </includes>
-            </resource>
-        </resources>
-
+        <finalName>ddrs</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
@@ -190,53 +208,13 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>keytool-maven-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <id>clean</id>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <id>genkey</id>
-                        <goals>
-                            <goal>generateKeyPair</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
-                    <keystore>${project.build.directory}/tomcat7.p12</keystore>
-                    <dname>cn=localhost</dname>
-                    <keypass>tomcat7</keypass>
-                    <storepass>tomcat7</storepass>
-                    <alias>tomcat7</alias>
-                    <keyalg>RSA</keyalg>
-                    <storetype>PKCS12</storetype>
-                    <keysize>2048</keysize>
-                    <validity>3650</validity>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                    <warName>ddrs</warName>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <profiles>
+                        <profile>development</profile>
+                    </profiles>
                 </configuration>
             </plugin>
         </plugins>

@@ -27,7 +27,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(bcryptEncoder)
-//                .withUser("admin").password("dariah_pwd")
                 .withUser("admin").password("$2a$10$CIni7tbExy0HYyQbxWJwT.thd.BeWC1JIZ1/ejBQhMBlxX32FJwYu")
                 .authorities("ROLE_ADMIN");
     }
@@ -36,19 +35,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/*").permitAll()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN").anyRequest()
-                .authenticated().and().formLogin()
-                .loginPage("/auth/login").failureUrl("/auth/login?error=true")
-                .defaultSuccessUrl("/").loginProcessingUrl("/auth/loginuser")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                .antMatchers("/*", "/auth/**").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN").anyRequest().authenticated()
+
+                .and().formLogin().loginPage("/auth/login").failureUrl("/auth/login?error=true").defaultSuccessUrl("/")
+                .loginProcessingUrl("/auth/loginuser").usernameParameter("username").passwordParameter("password")
+
                 .and().logout().invalidateHttpSession(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling()
-                .accessDeniedPage("/access-denied")
-                .and().requiresChannel().antMatchers("/auth/**", "/admin/**").requiresSecure()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout")).logoutSuccessUrl("/")
+
+                .and().exceptionHandling().accessDeniedPage("/access-denied")
+
+                .and().requiresChannel().antMatchers("/**").requiresSecure()
+
                 .and().rememberMe();
     }
 

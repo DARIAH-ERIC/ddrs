@@ -71,6 +71,14 @@
                     </div>
                     <div class="col-sm-3"></div>
                 </div>
+                <div class="form-group" th:if="${!question.getEditable()}">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-1">
+                        <button th:if="${question.getInUse()}" type="submit" name="action" value="inuse" th:id="${'in_use_' + question.getId()}" class="btn btn-block btn-warning" th:text="#{ddrs.btn.dont.use}">XYX</button>
+                        <button th:unless="${question.getInUse()}" type="submit" name="action" value="inuse" th:id="${'in_use_' + question.getId()}" class="btn btn-block btn-success" th:text="#{ddrs.btn.use}">XYX</button>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
             </form>
         </th:block>
 
@@ -80,21 +88,27 @@
                 <h3 class="dariah-color-text text-center" th:text="#{ddrs.new.question}">Create a new Question:</h3>
             </div>
             <div class="form-group">
-                <div class="col-sm-1"></div>
-                <label for="add_question" class="col-sm-2 control-label" th:text="#{ddrs.filter.name.question}">What is the RE3DATA filter name (ex: "countries")?</label>
-                <div class="col-sm-2">
-                    <input id="add_question" class="form-control" name="name" type="text" maxlength="255"/>
+                <div class="row row-bold">
+                    <div class="col-sm-1"></div>
+                    <label for="add_question" class="col-sm-4" th:text="#{ddrs.filter.name.question}">What is the RE3DATA filter name (ex: "countries")?</label>
+                    <div class="col-sm-1"></div>
+                    <label for="add_translation" class="col-sm-4" th:text="#{ddrs.question.english.translation}">What is the name of your question?</label>
+                    <div class="col-sm-2"></div>
                 </div>
-
-                <label for="add_translation" class="col-sm-2 control-label" th:text="#{ddrs.question.english.translation}">What is the name of your question?</label>
-                <div class="col-sm-2">
-                    <input id="add_translation" class="form-control" name="english_translation" type="text" maxlength="255"/>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <input id="add_question" class="form-control" name="name" type="text" maxlength="255"/>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <input id="add_translation" class="form-control" name="english_translation" type="text" maxlength="255"/>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" name="action" value="add" id="add_question_submit" class="btn btn-success btn-block" th:text="#{ddrs.btn.create}">Create</button>
+                    </div>
+                    <div class="col-sm-1"></div>
                 </div>
-
-                <div class="col-sm-1">
-                    <button type="submit" name="action" value="add" id="add_question_submit" class="btn btn-success btn-block" th:text="#{ddrs.btn.create}">Create</button>
-                </div>
-                <div class="col-sm-2"></div>
             </div>
         </form>
 
