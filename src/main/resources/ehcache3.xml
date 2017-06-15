@@ -9,7 +9,7 @@
             <!--<ehcache:ttl unit="hours">12</ehcache:ttl>-->
         </ehcache:expiry>
         <ehcache:resources>
-            <ehcache:heap unit="entries">150</ehcache:heap>
+            <ehcache:heap unit="entries">600</ehcache:heap>
         </ehcache:resources>
     </ehcache:cache>
 </ehcache:config>
