@@ -6,10 +6,6 @@ description: Index of DDRS documentation
 
 #Index page of DDRS documentation
 
-
-// draft by stefan
-:version:  0.4.5
-
 = Data Deposit Recommendation Service v{version}
 :Author: Humanities at Scale, WP 7
 
