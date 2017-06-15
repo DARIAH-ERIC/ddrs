@@ -43,15 +43,14 @@ public class IndexController {
         return "auth/login";
     }
 
-    //todo: Rewrite to use a real access denied page
     @RequestMapping(value = "/access-denied", method = RequestMethod.GET)
     public String errorAccessDenied(Model model) {
         model.addAttribute("error", "Access denied");
-        return "auth/login";
+        return "auth/accessDenied";
     }
     @RequestMapping(value = "/access-denied", method = RequestMethod.POST)
     public String errorAccessDeniedPost(Model model) {
         model.addAttribute("error", "Access denied");
-        return "auth/login";
+        return "auth/accessDenied";
     }
 }
