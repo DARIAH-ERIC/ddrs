@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonView;
 import eu.dariah.has.ddrs.model.AjaxResponseBody;
 import eu.dariah.has.ddrs.model.SearchObject;
 import eu.dariah.has.ddrs.json.JsonViews;
+import eu.dariah.has.ddrs.persistence.dao.IContactRepositoryDAO;
+import eu.dariah.has.ddrs.persistence.model.ContactRepository;
 import eu.dariah.has.ddrs.re3data.extra.RepositoryDetail;
 import eu.dariah.has.ddrs.re3data.search.Re3dataList;
 import eu.dariah.has.ddrs.re3data.search.Repository;
 import eu.dariah.has.ddrs.re3data.details.v2_2.Re3Data;
 import eu.dariah.has.ddrs.service.Re3dataQueryList;
 import eu.dariah.has.ddrs.service.Re3dataRepositoryAPIService;
+import eu.dariah.has.ddrs.service.RepositoryBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,10 +29,12 @@ public class AjaxController {
     private static final Logger LOGGER = Logger.getLogger(AjaxController.class);
 
     private final Re3dataRepositoryAPIService re3dataRepositoryAPIService;
+    private final IContactRepositoryDAO contactRepositoryDAO;
 
     @Autowired
-    public AjaxController(Re3dataRepositoryAPIService re3dataRepositoryAPIService) {
+    public AjaxController(Re3dataRepositoryAPIService re3dataRepositoryAPIService, IContactRepositoryDAO contactRepositoryDAO) {
         this.re3dataRepositoryAPIService = re3dataRepositoryAPIService;
+        this.contactRepositoryDAO = contactRepositoryDAO;
     }
 
     @JsonView(JsonViews.Public.class)
@@ -55,12 +60,7 @@ public class AjaxController {
             LOGGER.info((System.currentTimeMillis() - start) + "ms for " + repository.getLink().getHref());
             if(re3Data.getRepository().size() > 0) {
                 Re3Data.Repository repo = re3Data.getRepository().get(0);
-                repository.setRepositoryDetail(new RepositoryDetail());
-                if(repo.getDescription() != null)
-                    repository.getRepositoryDetail().setDescription(repo.getDescription().getValue());
-                repository.getRepositoryDetail().setLastUpdate(repo.getLastUpdate());
-
-                repository.getRepositoryDetail().setContact(repo.getRepositoryContact().toString());
+                RepositoryBuilder.addRepositoryDetails(repository, repo, contactRepositoryDAO.findByRepositoryId(repository.getId()));
             }
         }
         LOGGER.info((System.currentTimeMillis() - veryStart) + "ms for everything");

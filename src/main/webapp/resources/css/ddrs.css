@@ -16,6 +16,10 @@
     /*background-color: #9d9d9d;*/
 }
 
+.row-bold {
+    font-weight: bold;
+}
+
 .loader_img {
     max-height: 100px;
 }

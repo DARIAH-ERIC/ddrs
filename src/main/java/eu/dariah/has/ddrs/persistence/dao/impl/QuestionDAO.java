@@ -3,6 +3,7 @@ package eu.dariah.has.ddrs.persistence.dao.impl;
 import eu.dariah.has.ddrs.persistence.dao.AbstractJpaDAO;
 import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
 import eu.dariah.has.ddrs.persistence.model.Question;
+import eu.dariah.has.ddrs.persistence.model.Question_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
@@ -27,7 +28,7 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
         CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
         Root<Question> from = criteriaQuery.from(Question.class);
         CriteriaQuery<Question> select = criteriaQuery.select(from);
-        select.orderBy(criteriaBuilder.asc(from.get("questionOrder")));
+        select.orderBy(criteriaBuilder.asc(from.get(Question_.questionOrder)));
         TypedQuery<Question> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();
     }
@@ -38,7 +39,7 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
         CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
         Root<Question> from = criteriaQuery.from(Question.class);
         CriteriaQuery<Question> select = criteriaQuery.select(from);
-        select.orderBy(criteriaBuilder.desc(from.get("questionOrder")));
+        select.orderBy(criteriaBuilder.desc(from.get(Question_.questionOrder)));
         TypedQuery<Question> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();
     }
@@ -49,8 +50,8 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
         CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
         Root<Question> from = criteriaQuery.from(Question.class);
         CriteriaQuery<Question> select = criteriaQuery.select(from);
-        select.where(criteriaBuilder.equal(from.get("isInUse"), true ));
-        select.orderBy(criteriaBuilder.asc(from.get("questionOrder")));
+        select.where(criteriaBuilder.equal(from.get(Question_.isInUse), true ));
+        select.orderBy(criteriaBuilder.asc(from.get(Question_.questionOrder)));
         TypedQuery<Question> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();
     }
@@ -60,7 +61,7 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
         CriteriaBuilder cb1 = entityManager.getCriteriaBuilder();
         CriteriaQuery<Number> cq1 = cb1.createQuery(Number.class);
         Root<Question> root = cq1.from(Question.class);
-        cq1.select(cb1.max(root.<Number>get("questionOrder")));
+        cq1.select(cb1.max(root.get(Question_.questionOrder)));
         TypedQuery<Number> typedQuery = entityManager.createQuery(cq1);
         return typedQuery.getSingleResult().intValue();
     }

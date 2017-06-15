@@ -38,6 +38,9 @@ public class ResultTypeHierarchical implements Serializable {
     @OrderBy("resultTypeHierarchicalOrder")
     private List<ResultTypeHierarchical> children;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<DefaultRepository> defaultRepositories;
+
     public ResultTypeHierarchical() {}
 
     public ResultTypeHierarchical(String code, int order, ResultTypeHierarchical parent) {
@@ -94,6 +97,14 @@ public class ResultTypeHierarchical implements Serializable {
 
     public void setChildren(List<ResultTypeHierarchical> children) {
         this.children = children;
+    }
+
+    public List<DefaultRepository> getDefaultRepositories() {
+        return defaultRepositories;
+    }
+
+    public void setDefaultRepositories(List<DefaultRepository> defaultRepositories) {
+        this.defaultRepositories = defaultRepositories;
     }
 
     public void addChild(ResultTypeHierarchical child) {

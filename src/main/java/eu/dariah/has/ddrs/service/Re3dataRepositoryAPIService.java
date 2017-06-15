@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Service
 public class Re3dataRepositoryAPIService {
+    private static final String RE3DATA_URL = "http://www.re3data.org/api/beta/repository/";
     private RestTemplate restTemplate;
 
     @Autowired
@@ -21,6 +22,12 @@ public class Re3dataRepositoryAPIService {
 
     @Cacheable("repositoryDetails")
     public Re3Data findRe3Data(String link) {
+        return restTemplate.getForObject(link, Re3Data.class);
+    }
+
+    @Cacheable("repositoryDetails")
+    public Re3Data findRe3DataByIdentifier(String identifier) {
+        String link = RE3DATA_URL + identifier;
         return restTemplate.getForObject(link, Re3Data.class);
     }
 

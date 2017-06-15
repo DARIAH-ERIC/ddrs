@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{project.ddrs.admin}">Admin</title>
+    <link href="../../../webapp/resources/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../../../webapp/resources/css/ddrs.css" th:href="@{/css/ddrs.css}" rel="stylesheet" />
+    <script src="../../../webapp/resources/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}" type="text/javascript"></script>
+    <script src="../../../webapp/resources/js/bootstrap.js" th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Static header</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <h2 class="dariah-color-text text-center" th:text="#{page.admin.contact.repositories}">Header</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Repository Identifier</th>
+                <th>Contact information</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="contactRepository : ${contactRepositories}">
+                <form method="post" action="#" th:action="@{/admin/editContact}">
+                    <tr>
+                        <td><a href="#" target="_blank" th:href="${'http://www.re3data.org/repository/' + contactRepository.getRespositoryIdentifier()}" th:text="${contactRepository.getRespositoryIdentifier()}"></a></td>
+                        <td><input type="text" name="contact" class="form-control" th:value="${contactRepository.getContact()}"/></td>
+                        <td>
+                            <input type="hidden" name="contactRepositoryId" th:value="${contactRepository.getId()}"/>
+                            <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
+                        </td>
+                    </tr>
+                </form>
+            </th:block>
+            </tbody>
+        </table>
+
+        <form class="form-horizontal" method="post" action="#" th:action="@{/admin/addContact}" id="create_form">
+            <div class="divider-horizontal"></div>
+            <div class="form-group">
+                <h3 class="dariah-color-text text-center" th:text="#{ddrs.label.new.contact}">Create a new Contact:</h3>
+            </div>
+            <div class="form-group">
+                <div class="row row-bold">
+                    <div class="col-sm-1"></div>
+                    <label for="add_identifier" class="col-sm-4" th:text="#{ddrs.label.question.repository.identifier}">What is the RE3DATA repository identifier?</label>
+                    <div class="col-sm-1"></div>
+                    <label for="add_contact" class="col-sm-4" th:text="#{ddrs.label.question.repository.contact}">What is the new contact?</label>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <input id="add_identifier" class="form-control" name="repositoryId" type="text" maxlength="30"/>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <input id="add_contact" class="form-control" name="contact" type="text" maxlength="255"/>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" name="action" value="add" id="add_contact_submit" class="btn btn-success btn-block" th:text="#{ddrs.btn.create}">Create</button>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+</html>

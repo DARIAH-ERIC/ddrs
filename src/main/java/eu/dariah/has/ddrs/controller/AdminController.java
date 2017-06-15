@@ -1,8 +1,10 @@
 package eu.dariah.has.ddrs.controller;
 
+import eu.dariah.has.ddrs.persistence.dao.IContactRepositoryDAO;
 import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
 import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
 import eu.dariah.has.ddrs.persistence.dao.ITranslationDAO;
+import eu.dariah.has.ddrs.persistence.model.ContactRepository;
 import eu.dariah.has.ddrs.persistence.model.Question;
 import eu.dariah.has.ddrs.persistence.model.Translation;
 import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
@@ -24,14 +26,16 @@ public class AdminController {
     private final IQuestionDAO questionDAO;
     private final IResultTypeHierarchicalDAO resultTypeHierarchicalDAO;
     private final ITranslationDAO translationDAO;
+    private final IContactRepositoryDAO contactRepositoryDAO;
 
     private static final Logger LOGGER = Logger.getLogger(AdminController.class);
 
     @Autowired
-    public AdminController(IQuestionDAO questionDAO, IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, ITranslationDAO translationDAO) {
+    public AdminController(IQuestionDAO questionDAO, IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, ITranslationDAO translationDAO, IContactRepositoryDAO contactRepositoryDAO) {
         this.questionDAO = questionDAO;
         this.resultTypeHierarchicalDAO = resultTypeHierarchicalDAO;
         this.translationDAO = translationDAO;
+        this.contactRepositoryDAO = contactRepositoryDAO;
     }
 
     @RequestMapping(value = "/admin/questions", method = RequestMethod.GET)
@@ -203,5 +207,33 @@ public class AdminController {
         translationDAO.update(translation);
 
         return new RedirectView("/admin/translations?tr="+translationId, true);
+    }
+
+    @RequestMapping(value = "/admin/contactRepositories", method = RequestMethod.GET)
+    public String addContact(Model model) {
+        model.addAttribute("contactRepositories", contactRepositoryDAO.findAll());
+
+        return "admin/contact_repositories";
+    }
+
+    @RequestMapping(value = "/admin/addContact", method = RequestMethod.POST)
+    public RedirectView addContact(@RequestParam(name = "repositoryId") String repositoryId,
+                                   @RequestParam(name = "contact") String contact) {
+        ContactRepository contactRepository = new ContactRepository();
+        contactRepository.setRespositoryIdentifier(repositoryId);
+        contactRepository.setContact(contact);
+        contactRepositoryDAO.create(contactRepository);
+
+        return new RedirectView("/admin/contactRepositories", true);
+    }
+
+    @RequestMapping(value = "/admin/editContact", method = RequestMethod.POST)
+    public RedirectView editContact(@RequestParam(name = "contactRepositoryId") Long contactRepositoryId,
+                                    @RequestParam(name = "contact") String contact) {
+        ContactRepository contactRepository = contactRepositoryDAO.findOne(contactRepositoryId);
+        contactRepository.setContact(contact);
+        contactRepositoryDAO.update(contactRepository);
+
+        return new RedirectView("/admin/contactRepositories", true);
     }
 }

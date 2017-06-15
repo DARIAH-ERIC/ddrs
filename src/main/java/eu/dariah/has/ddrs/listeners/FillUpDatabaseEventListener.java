@@ -3,8 +3,10 @@ package eu.dariah.has.ddrs.listeners;
 /**
  * Created by yoann on 30.05.17.
  */
+import eu.dariah.has.ddrs.persistence.dao.IContactRepositoryDAO;
 import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
 import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
+import eu.dariah.has.ddrs.persistence.model.ContactRepository;
 import eu.dariah.has.ddrs.persistence.model.Question;
 import eu.dariah.has.ddrs.persistence.model.Translation;
 import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
@@ -19,11 +21,13 @@ import java.util.Arrays;
 public class FillUpDatabaseEventListener {
     private final IResultTypeHierarchicalDAO resultTypeHierarchicalDAO;
     private final IQuestionDAO questionDAO;
+    private final IContactRepositoryDAO contactRepositoryDAO;
 
     @Autowired
-    public FillUpDatabaseEventListener(IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, IQuestionDAO questionDAO) {
+    public FillUpDatabaseEventListener(IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, IQuestionDAO questionDAO, IContactRepositoryDAO contactRepositoryDAO) {
         this.resultTypeHierarchicalDAO = resultTypeHierarchicalDAO;
         this.questionDAO = questionDAO;
+        this.contactRepositoryDAO = contactRepositoryDAO;
     }
 
 
@@ -33,12 +37,13 @@ public class FillUpDatabaseEventListener {
         includeCountries();
         includeRepositoryLanguages();
         includeKeywords();
-
         includeQuestions();
+
+        includeContacts();
     }
 
     private void includeQuestions() {
-        Question question = new Question("subjects", false, true, 2, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("In which subjects are you interested?"));
+        Question question = new Question("subjects", false, false, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("In which subjects are you interested?"));
         questionDAO.create(question);
 
         question = new Question("countries", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new Translation("From which country should the repository come from?"));
@@ -47,7 +52,7 @@ public class FillUpDatabaseEventListener {
         question = new Question("repositoryLanguages", true, true, 3, 0, resultTypeHierarchicalDAO.findOne(40L), new Translation("Which languages should the repository have?"));
         questionDAO.create(question);
 
-        question = new Question("keywords", true, false, 4, 0, resultTypeHierarchicalDAO.findOne(46L), new Translation("Which keywords should the repository have?"));
+        question = new Question("keywords", true, true, 2, 0, resultTypeHierarchicalDAO.findOne(46L), new Translation("Which keywords should the repository have?"));
         questionDAO.create(question);
     }
 
@@ -204,5 +209,10 @@ public class FillUpDatabaseEventListener {
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
         
         return resultTypeHierarchical;
+    }
+
+    private void includeContacts() {
+        ContactRepository contactRepository = new ContactRepository("r3d100010832", "yoann.moranville.dariah+test@gmail.com");
+        contactRepositoryDAO.create(contactRepository);
     }
 }

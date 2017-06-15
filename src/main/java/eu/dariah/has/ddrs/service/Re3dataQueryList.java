@@ -14,7 +14,8 @@ public class Re3dataQueryList {
     private static final String QUERY = "query=";
     private static final String SUBJECTS = "subjects[]=";
 
-    private static final String SUBJECT_HUMANITIES = "11 Humanities";
+//    private static final String SUBJECT_HUMANITIES = "11 Humanities";
+    private static final String SUBJECT_HUMANITIES_AND_SOCIAL_SCIENCES = "1 Humanities and Social Sciences";
 
     private String url;
 
@@ -28,7 +29,7 @@ public class Re3dataQueryList {
         for(String key : searchObject.getSearchParameters().keySet()) {
             String filterName = key + "[]=";
             if(filterName.equals(SUBJECTS)) {
-                searchObject.getSearchParameters().get(key).add(SUBJECT_HUMANITIES);
+                searchObject.getSearchParameters().get(key).add(SUBJECT_HUMANITIES_AND_SOCIAL_SCIENCES);
             }
             addList(stringBuilder, filterName, searchObject.getSearchParameters().get(key));
         }
