@@ -5,7 +5,7 @@
 
     <ehcache:cache alias="repositoryDetails">
         <ehcache:expiry>
-            <ehcache:ttl unit="minutes">10</ehcache:ttl>
+            <ehcache:ttl unit="minutes">100</ehcache:ttl>
             <!--<ehcache:ttl unit="hours">12</ehcache:ttl>-->
         </ehcache:expiry>
         <ehcache:resources>
