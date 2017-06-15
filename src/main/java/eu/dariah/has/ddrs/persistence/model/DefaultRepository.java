@@ -1,8 +1,12 @@
 package eu.dariah.has.ddrs.persistence.model;
 
+import org.hibernate.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Parameter;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -12,8 +16,16 @@ import java.io.Serializable;
 @Table(name = "default_repository")
 public class DefaultRepository implements Serializable {
     @Id
-    @SequenceGenerator(name="default_repository_id_seq", sequenceName="default_repository_id_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="default_repository_id_seq")
+    @GenericGenerator(
+            name = "default_repository_id_seq",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "default_repository_id_seq"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator="default_repository_id_seq")
     @Column(name = "id", updatable = false)
     private Long id;
 

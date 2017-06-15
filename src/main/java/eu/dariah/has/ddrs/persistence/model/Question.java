@@ -1,6 +1,12 @@
 package eu.dariah.has.ddrs.persistence.model;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Parameter;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -10,8 +16,16 @@ import java.io.Serializable;
 @Table(name = "question")
 public class Question implements Serializable {
     @Id
-    @SequenceGenerator(name="question_id_seq", sequenceName="question_id_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="question_id_seq")
+    @GenericGenerator(
+            name = "question_id_seq",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "question_id_seq"),
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator="question_id_seq")
     @Column(name = "id", updatable = false)
     private Long id;
 
