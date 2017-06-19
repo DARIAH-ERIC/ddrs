@@ -3,7 +3,7 @@ layout: page
 title: DDRS
 description: Index of DDRS documentation
 ---
-![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_transparent_DARIAH_Farbton.png "Humanities at Scale")
+![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_klein.png "Humanities at Scale")
 
 # Data Deposit Recommendation Service for Research Data Repositories in the Humanities.
 ##### Authors: Humanities at Scale, WP 7

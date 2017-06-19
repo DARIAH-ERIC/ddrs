@@ -3,6 +3,10 @@ layout: page
 title: DDRS
 description: Architecture
 ---
+[Back to DDRS index](index.md)
+
+![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_klein.png "Humanities at Scale")
+
 # Data Deposit Recommendation Service for Research Data Repositories in the Humanities.
 ## Architecture of the Service
 
