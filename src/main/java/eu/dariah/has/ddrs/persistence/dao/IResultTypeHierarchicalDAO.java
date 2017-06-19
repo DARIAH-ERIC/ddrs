@@ -14,6 +14,5 @@ public interface IResultTypeHierarchicalDAO {
     ResultTypeHierarchical update(ResultTypeHierarchical resultTypeHierarchical);
     void delete(ResultTypeHierarchical resultTypeHierarchical);
     void deleteById(long resultTypeHierarchicalId);
-
-//    void changeOrder(int currentOrder, int lastLevel???);
+    ResultTypeHierarchical findByCode(String code);
 }
