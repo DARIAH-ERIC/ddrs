@@ -7,7 +7,6 @@ description: Use cases
 
 ![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_klein.png "Humanities at Scale")
 
-# Data Deposit Recommendation Service for Research Data Repositories in the Humanities.
 ## Use cases
 The following section describe the most relevant use cases for the DDRS. By describing the use cases in a structured way, we try to cover all necessary aspects that should be considered with the design of the service.
 

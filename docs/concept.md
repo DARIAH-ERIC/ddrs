@@ -7,7 +7,6 @@ description: Concept of the DDRS
 
 ![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_klein.png "Humanities at Scale")
 
-# Data Deposit Recommendation Service for Research Data Repositories in the Humanities.
 ## Concept of the service
 The concept of the DDRS is based on the following three assumptions taking the development concept within the Humanities at Scale project and a sustainability perspective for the service into account:
 * focus on one or at least only a few functionalities.
