@@ -1,13 +1,7 @@
 package eu.dariah.has.ddrs.controller;
 
-import eu.dariah.has.ddrs.persistence.dao.IContactRepositoryDAO;
-import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
-import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
-import eu.dariah.has.ddrs.persistence.dao.ITranslationDAO;
-import eu.dariah.has.ddrs.persistence.model.ContactRepository;
-import eu.dariah.has.ddrs.persistence.model.Question;
-import eu.dariah.has.ddrs.persistence.model.Translation;
-import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
+import eu.dariah.has.ddrs.persistence.dao.*;
+import eu.dariah.has.ddrs.persistence.model.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +21,17 @@ public class AdminController {
     private final IResultTypeHierarchicalDAO resultTypeHierarchicalDAO;
     private final ITranslationDAO translationDAO;
     private final IContactRepositoryDAO contactRepositoryDAO;
+    private final IDefaultRepositoryDAO defaultRepositoryDAO;
 
     private static final Logger LOGGER = Logger.getLogger(AdminController.class);
 
     @Autowired
-    public AdminController(IQuestionDAO questionDAO, IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, ITranslationDAO translationDAO, IContactRepositoryDAO contactRepositoryDAO) {
+    public AdminController(IQuestionDAO questionDAO, IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, ITranslationDAO translationDAO, IContactRepositoryDAO contactRepositoryDAO, IDefaultRepositoryDAO defaultRepositoryDAO) {
         this.questionDAO = questionDAO;
         this.resultTypeHierarchicalDAO = resultTypeHierarchicalDAO;
         this.translationDAO = translationDAO;
         this.contactRepositoryDAO = contactRepositoryDAO;
+        this.defaultRepositoryDAO = defaultRepositoryDAO;
     }
 
     @RequestMapping(value = "/admin/questions", method = RequestMethod.GET)
@@ -210,7 +206,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/contactRepositories", method = RequestMethod.GET)
-    public String addContact(Model model) {
+    public String viewContacts(Model model) {
         model.addAttribute("contactRepositories", contactRepositoryDAO.findAll());
 
         return "admin/contact_repositories";
@@ -235,5 +231,25 @@ public class AdminController {
         contactRepositoryDAO.update(contactRepository);
 
         return new RedirectView("/admin/contactRepositories", true);
+    }
+
+
+    @RequestMapping(value = "/admin/defaultRepositories", method = RequestMethod.GET)
+    public String viewDefaultRepositories(Model model) {
+        model.addAttribute("results", resultTypeHierarchicalDAO.findAll());
+
+        return "admin/default_repositories";
+    }
+
+    @RequestMapping(value = "/admin/editDefaultRepositories", method = RequestMethod.POST)
+    public RedirectView editDefaultRepositories(@RequestParam(name = "resultId") Long resultId,
+                                                @RequestParam(name = "repositoryId") String repositoryId) {
+        ResultTypeHierarchical resultTypeHierarchical = resultTypeHierarchicalDAO.findOne(resultId);
+        DefaultRepository defaultRepository = new DefaultRepository();
+        defaultRepository.setRe3dataIdentifier(repositoryId);
+        defaultRepositoryDAO.create(defaultRepository);
+        resultTypeHierarchical.addDefaultRepository(defaultRepository);
+        resultTypeHierarchicalDAO.update(resultTypeHierarchical);
+        return new RedirectView("/admin/defaultRepositories", true);
     }
 }
