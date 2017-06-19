@@ -12,6 +12,7 @@ description: Index of DDRS documentation
 ## Author: Humanities at Scale, WP 7
 
 * [DDRS on Github](https://github.com/DARIAH-ERIC/ddrs)
+* [A short description of the DDRS concept and its main functions](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/concept.md)
 * [A short user guide] (yet to come]
 * [Extensive use-case oriented tutorial] (yet to come)
 * [Technical documentation] (yet to come)
