@@ -24,6 +24,9 @@ public class RepositoryBuilder {
     }
 
     public static Repository addRepositoryDetails(Repository repository, Re3Data.Repository repo, ContactRepository contactRepository) {
+        if(repository.getName() == null) {
+            repository.setName(repo.getRepositoryName().getValue());
+        }
         repository.setRepositoryDetail(new RepositoryDetail());
         if(repo.getDescription() != null)
             repository.getRepositoryDetail().setDescription(repo.getDescription().getValue());
