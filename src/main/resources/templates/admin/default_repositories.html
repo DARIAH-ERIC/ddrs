@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: ddrshead">
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
+        <div class="navbar-header"><a class="navbar-brand" href="#">Static header</a></div>
+    </nav>
+    <div id="page-wrapper">
+        <h2 class="dariah-color-text text-center" th:text="#{page.admin.default.repositories}">Header</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Responses</th>
+                <th>Default repository identifiers</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="result : ${results}">
+                <form method="post" action="#" th:action="@{/admin/editDefaultRepositories}">
+                    <tr>
+                        <td th:text="${result.getTranslation().getEn()}">English translation</td>
+                        <td>
+                            <th:block th:each="defaultRepository : ${result.getDefaultRepositories()}">
+                                <span th:text="${defaultRepository.getRe3dataIdentifier()}"></span>&nbsp;
+                            </th:block>
+                            <input type="text" name="repositoryId" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="hidden" name="resultId" th:value="${result.getId()}"/>
+                            <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
+                        </td>
+                    </tr>
+                </form>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+</html>
