@@ -46,11 +46,11 @@ public class IndexController {
     @RequestMapping(value = "/access-denied", method = RequestMethod.GET)
     public String errorAccessDenied(Model model) {
         model.addAttribute("error", "Access denied");
-        return "auth/accessDenied";
+        return "errors/accessDenied";
     }
     @RequestMapping(value = "/access-denied", method = RequestMethod.POST)
     public String errorAccessDeniedPost(Model model) {
         model.addAttribute("error", "Access denied");
-        return "auth/accessDenied";
+        return "errors/accessDenied";
     }
 }
