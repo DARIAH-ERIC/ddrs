@@ -3,6 +3,8 @@ package eu.dariah.has.ddrs.re3data.search;
 import com.fasterxml.jackson.annotation.JsonView;
 import eu.dariah.has.ddrs.json.JsonViews;
 import eu.dariah.has.ddrs.re3data.extra.RepositoryDetail;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -54,5 +56,21 @@ public class Repository {
 
     public void setRepositoryDetail(RepositoryDetail repositoryDetail) {
         this.repositoryDetail = repositoryDetail;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
+                        append(id).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Repository))
+            return false;
+        if (obj == this)
+            return true;
+        Repository repository = (Repository) obj;
+        return new EqualsBuilder().append(id, repository.getId()).isEquals();
     }
 }
