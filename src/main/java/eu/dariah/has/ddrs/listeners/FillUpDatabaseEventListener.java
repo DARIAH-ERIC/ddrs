@@ -3,31 +3,31 @@ package eu.dariah.has.ddrs.listeners;
 /**
  * Created by yoann on 30.05.17.
  */
-import eu.dariah.has.ddrs.persistence.dao.IContactRepositoryDAO;
-import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
-import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
-import eu.dariah.has.ddrs.persistence.model.ContactRepository;
-import eu.dariah.has.ddrs.persistence.model.Question;
-import eu.dariah.has.ddrs.persistence.model.Translation;
-import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
+import eu.dariah.has.ddrs.persistence.dao.*;
+import eu.dariah.has.ddrs.persistence.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Component
 public class FillUpDatabaseEventListener {
     private final IResultTypeHierarchicalDAO resultTypeHierarchicalDAO;
     private final IQuestionDAO questionDAO;
     private final IContactRepositoryDAO contactRepositoryDAO;
+    private final IDefaultRepositoryDAO defaultRepositoryDAO;
+    private final ITranslationDAO translationDAO;
 
     @Autowired
-    public FillUpDatabaseEventListener(IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, IQuestionDAO questionDAO, IContactRepositoryDAO contactRepositoryDAO) {
+    public FillUpDatabaseEventListener(IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, IQuestionDAO questionDAO, IContactRepositoryDAO contactRepositoryDAO, IDefaultRepositoryDAO defaultRepositoryDAO, ITranslationDAO translationDAO) {
         this.resultTypeHierarchicalDAO = resultTypeHierarchicalDAO;
         this.questionDAO = questionDAO;
         this.contactRepositoryDAO = contactRepositoryDAO;
+        this.defaultRepositoryDAO = defaultRepositoryDAO;
+        this.translationDAO = translationDAO;
     }
 
 
@@ -38,7 +38,6 @@ public class FillUpDatabaseEventListener {
         includeRepositoryLanguages();
         includeKeywords();
         includeQuestions();
-
         includeContacts();
     }
 
@@ -60,13 +59,16 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical countries = new ResultTypeHierarchical();
         countries.setCode("NONE");
         countries.setTranslation(new Translation("Countries"));
+        DefaultRepository defaultRepository = new DefaultRepository("r3d100011632");
+        defaultRepositoryDAO.create(defaultRepository);
+        countries.setDefaultRepositories(Collections.singletonList(defaultRepository));
         resultTypeHierarchicalDAO.create(countries);
 
         ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 1, "France", countries);
         ResultTypeHierarchical germany = createResultTypeHierarchical("DEU", 2, "Germany", countries);
         ResultTypeHierarchical australia = createResultTypeHierarchical("AUS", 3, "Australia", countries);
         ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 4, "Austria", countries);
-        ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 5, "Croatia", countries);
+        ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 5, "Croatia", countries, "r3d100010831");
 
         countries.addChildren(Arrays.asList(france, germany, australia, austria, croatia));
         resultTypeHierarchicalDAO.update(countries);
@@ -79,6 +81,10 @@ public class FillUpDatabaseEventListener {
         resultTypeHierarchicalDAO.create(repositoryLanguages);
 
         ResultTypeHierarchical french = createResultTypeHierarchical("fra", 1, "French", repositoryLanguages);
+        Translation translation = french.getTranslation();
+        translation.setFr("Français");
+        translation.setDe("Französisch");
+        translationDAO.update(translation);
         ResultTypeHierarchical german = createResultTypeHierarchical("deu", 2, "German", repositoryLanguages);
         ResultTypeHierarchical english = createResultTypeHierarchical("eng", 3, "English", repositoryLanguages);
         ResultTypeHierarchical finnish = createResultTypeHierarchical("fin", 4, "Finnish", repositoryLanguages);
@@ -203,9 +209,14 @@ public class FillUpDatabaseEventListener {
         resultTypeHierarchicalDAO.update(humanities);
     }
 
-    private ResultTypeHierarchical createResultTypeHierarchical(String code, int order, String englishTranslation, ResultTypeHierarchical parent) {
+    private ResultTypeHierarchical createResultTypeHierarchical(String code, int order, String englishTranslation, ResultTypeHierarchical parent, String... defaultRepositories) {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical(code, order, parent);
         resultTypeHierarchical.setTranslation(new Translation(englishTranslation));
+        if(defaultRepositories.length > 0) {
+            DefaultRepository defaultRepository = new DefaultRepository(defaultRepositories[0]);
+            defaultRepositoryDAO.create(defaultRepository);
+            resultTypeHierarchical.setDefaultRepositories(Collections.singletonList(defaultRepository));
+        }
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
         
         return resultTypeHierarchical;

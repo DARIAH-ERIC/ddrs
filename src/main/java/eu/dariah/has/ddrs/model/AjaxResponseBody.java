@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import eu.dariah.has.ddrs.json.JsonViews;
 import eu.dariah.has.ddrs.re3data.search.Repository;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by yoannmoranville on 12/05/17.
@@ -18,7 +18,7 @@ public class AjaxResponseBody {
     private String code;
 
     @JsonView(JsonViews.Public.class)
-    private List<Repository> repositories;
+    private Set<Repository> repositories;
 
     public String getMsg() {
         return msg;
@@ -36,11 +36,11 @@ public class AjaxResponseBody {
         this.code = code;
     }
 
-    public List<Repository> getRepositories() {
+    public Set<Repository> getRepositories() {
         return repositories;
     }
 
-    public void setRepositories(List<Repository> repositories) {
+    public void setRepositories(Set<Repository> repositories) {
         this.repositories = repositories;
     }
 }

@@ -31,6 +31,12 @@ public class DefaultRepository implements Serializable {
 
     private String re3dataIdentifier;
 
+    public DefaultRepository() {}
+
+    public DefaultRepository(String re3dataIdentifier) {
+        this.re3dataIdentifier = re3dataIdentifier;
+    }
+
     public Long getId() {
         return id;
     }

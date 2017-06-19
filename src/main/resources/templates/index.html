@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title th:text="#{project.ddrs.title}">DDRS</title>
-    <link href="../../webapp/resources/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
-    <link href="../../webapp/resources/css/ddrs.css" th:href="@{/css/ddrs.css}" rel="stylesheet" />
-    <script src="../../webapp/resources/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}" type="text/javascript"></script>
-    <script src="../../webapp/resources/js/bootstrap.js" th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+<head th:replace="fragments/header :: ddrshead">
 </head>
 <body>
 <div id="wrapper">
@@ -58,6 +53,10 @@
 </body>
 <script type="text/javascript" th:inline="javascript">
     $(document).ready(function () {
+        if($(".question-select option:selected").length) {
+            ajaxSearch();
+        }
+
         $("#search_form").find("[id^='select_']").each(function() {
             $(this).on("change", function(e) {
                 ajaxSearch();
@@ -105,6 +104,9 @@
         });
     }
     function display(data) {
+        if(data.repositories !== null) {
+            $("<h4></h4>").text("There are " + data.repositories.length + " results.").appendTo("#results");
+        }
         $(data.repositories).each(function(index) {
             var $clone = createEmptyDivContainer();
             $clone.find(".repository_id_name").text(this.id + " -> " + this.name);

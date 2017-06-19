@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Created by yoannmoranville on 11/05/17.
@@ -18,25 +18,30 @@ import java.util.List;
 public class Re3dataList {
 
     @XmlElement(name = "repository")
-    private List<Repository> repositories;
+    private Set<Repository> repositories;
     private Boolean hasError = false;
 
     public Boolean getHasError() {
         return hasError;
     }
 
-    public void setHasError(Boolean hasError) {
-        this.hasError = hasError;
+    public void setHasError() {
+        this.hasError = true;
     }
 
     @Cacheable("repositoryDetails")
-    public List<Repository> getRepositories() {
+    public Set<Repository> getRepositories() {
         if(repositories == null)
-            return new ArrayList<>();
+            return new LinkedHashSet<>();
         return repositories;
     }
 
-    public void setRepository(List<Repository> repositories) {
+    public void setRepository(Set<Repository> repositories) {
         this.repositories = repositories;
+    }
+
+    public void addRepository(Repository repository) {
+        repositories = new LinkedHashSet<>(getRepositories());
+        repositories.add(repository);
     }
 }

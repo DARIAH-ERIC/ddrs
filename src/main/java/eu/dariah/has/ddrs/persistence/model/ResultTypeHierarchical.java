@@ -134,4 +134,11 @@ public class ResultTypeHierarchical implements Serializable {
         children = new ArrayList<>(oldChildren.size());
         children.addAll(oldChildren);
     }
+
+    public void addDefaultRepository(DefaultRepository defaultRepository) {
+        List<DefaultRepository> oldDefaultRepositories = getDefaultRepositories();
+        defaultRepositories = new ArrayList<>(defaultRepositories.size() + 1);
+        defaultRepositories.addAll(oldDefaultRepositories);
+        defaultRepositories.add(defaultRepository);
+    }
 }

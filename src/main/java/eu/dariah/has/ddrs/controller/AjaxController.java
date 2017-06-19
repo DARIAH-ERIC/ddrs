@@ -5,8 +5,6 @@ import eu.dariah.has.ddrs.model.AjaxResponseBody;
 import eu.dariah.has.ddrs.model.SearchObject;
 import eu.dariah.has.ddrs.json.JsonViews;
 import eu.dariah.has.ddrs.persistence.dao.IContactRepositoryDAO;
-import eu.dariah.has.ddrs.persistence.model.ContactRepository;
-import eu.dariah.has.ddrs.re3data.extra.RepositoryDetail;
 import eu.dariah.has.ddrs.re3data.search.Re3dataList;
 import eu.dariah.has.ddrs.re3data.search.Repository;
 import eu.dariah.has.ddrs.re3data.details.v2_2.Re3Data;
@@ -50,20 +48,24 @@ public class AjaxController {
         try {
             re3dataList = rest.getForObject(re3dataQueryList.getUrl(), Re3dataList.class);
         } catch (RestClientException e) {
-            re3dataList.setHasError(true);
+            LOGGER.error("There was an error in the RestTemplate", e);
+            re3dataList.setHasError();
         }
-        LOGGER.info((System.currentTimeMillis() - start) + "ms for " + re3dataQueryList.getUrl());
+        LOGGER.debug((System.currentTimeMillis() - start) + "ms for " + re3dataQueryList.getUrl());
 
+        re3dataRepositoryAPIService.addDefaultRepositories(searchObject, re3dataList);
+
+        LOGGER.debug("Size of repository list: " + re3dataList.getRepositories().size());
         for(Repository repository : re3dataList.getRepositories()) {
             start = System.currentTimeMillis();
             Re3Data re3Data = re3dataRepositoryAPIService.findRe3Data(repository.getLink().getHref());
-            LOGGER.info((System.currentTimeMillis() - start) + "ms for " + repository.getLink().getHref());
+            LOGGER.debug((System.currentTimeMillis() - start) + "ms for " + repository.getLink().getHref());
             if(re3Data.getRepository().size() > 0) {
                 Re3Data.Repository repo = re3Data.getRepository().get(0);
                 RepositoryBuilder.addRepositoryDetails(repository, repo, contactRepositoryDAO.findByRepositoryId(repository.getId()));
             }
         }
-        LOGGER.info((System.currentTimeMillis() - veryStart) + "ms for everything");
+        LOGGER.info("It took " + (System.currentTimeMillis() - veryStart) + "ms for this search and the retrieval of the detailed data: " + re3dataQueryList.getUrl());
 
         if(re3dataList.getRepositories().size() > 0) {
             result.setCode("200");

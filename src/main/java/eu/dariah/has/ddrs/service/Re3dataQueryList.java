@@ -14,9 +14,10 @@ public class Re3dataQueryList {
 
     private static final String QUERY = "query=";
     private static final String SUBJECTS = "subjects";
+    private static final String PROVIDER_TYPES = "providerTypes";
 
-//    private static final String SUBJECT_HUMANITIES = "11 Humanities";
     private static final String SUBJECT_HUMANITIES_AND_SOCIAL_SCIENCES = "1 Humanities and Social Sciences";
+    private static final String DATA_PROVIDER = "dataProvider";
 
     private String url;
 
@@ -32,6 +33,12 @@ public class Re3dataQueryList {
         } else {
             searchObject.getSearchParameters().get(SUBJECTS).add(SUBJECT_HUMANITIES_AND_SOCIAL_SCIENCES);
         }
+        if(! searchObject.getSearchParameters().keySet().contains(PROVIDER_TYPES)) {
+            searchObject.getSearchParameters().put(PROVIDER_TYPES, Collections.singletonList(DATA_PROVIDER));
+        } else {
+            searchObject.getSearchParameters().get(PROVIDER_TYPES).add(DATA_PROVIDER);
+        }
+
         for(String key : searchObject.getSearchParameters().keySet()) {
             String filterName = key + "[]=";
             addList(stringBuilder, filterName, searchObject.getSearchParameters().get(key));

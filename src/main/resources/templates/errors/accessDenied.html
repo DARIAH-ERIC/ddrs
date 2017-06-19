@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: ddrshead">
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Static header</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <h2 class="dariah-color-text text-center" th:text="#{page.error.access.denied}"></h2>
+
+        <h4 th:text="#{ddrs.label.error.access.denied}">Access denied</h4>
+        <a href="#" th:href="@{/}" th:text="#{ddrs.label.go.back}">Return to home page</a>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
+</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+</html>
