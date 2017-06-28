@@ -42,10 +42,10 @@ public class FillUpDatabaseEventListener {
     }
 
     private void includeQuestions() {
-        Question question = new Question("subjects", false, false, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("In which subjects are you interested?"));
+        Question question = new Question("countries", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new Translation("From which country should the repository come from?"));
         questionDAO.create(question);
 
-        question = new Question("countries", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new Translation("From which country should the repository come from?"));
+        question = new Question("subjects", false, false, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("In which subjects are you interested?"));
         questionDAO.create(question);
 
         question = new Question("repositoryLanguages", true, true, 3, 0, resultTypeHierarchicalDAO.findOne(40L), new Translation("Which languages should the repository have?"));
@@ -59,18 +59,19 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical countries = new ResultTypeHierarchical();
         countries.setCode("NONE");
         countries.setTranslation(new Translation("Countries"));
-        DefaultRepository defaultRepository = new DefaultRepository("r3d100011632");
+        DefaultRepository defaultRepository = new DefaultRepository("r3d100011728");
         defaultRepositoryDAO.create(defaultRepository);
         countries.setDefaultRepositories(Collections.singletonList(defaultRepository));
         resultTypeHierarchicalDAO.create(countries);
 
-        ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 1, "France", countries);
-        ResultTypeHierarchical germany = createResultTypeHierarchical("DEU", 2, "Germany", countries);
-        ResultTypeHierarchical australia = createResultTypeHierarchical("AUS", 3, "Australia", countries);
-        ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 4, "Austria", countries);
-        ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 5, "Croatia", countries, "r3d100010831");
+        ResultTypeHierarchical australia = createResultTypeHierarchical("AUS", 1, "Australia", countries);
+        ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 2, "Austria", countries);
+        ResultTypeHierarchical germany = createResultTypeHierarchical("DEU", 3, "Germany", countries, "r3d100011345");
+        ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 4, "France", countries);
+        ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 5, "Croatia", countries, "r3d100012223");
+        ResultTypeHierarchical netherlands = createResultTypeHierarchical("NLD", 6, "Netherlands", countries, "r3d100010214");
 
-        countries.addChildren(Arrays.asList(france, germany, australia, austria, croatia));
+        countries.addChildren(Arrays.asList(france, germany, australia, austria, croatia, netherlands));
         resultTypeHierarchicalDAO.update(countries);
     }
 
