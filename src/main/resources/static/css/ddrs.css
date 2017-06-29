@@ -16,6 +16,15 @@
     /*background-color: #9d9d9d;*/
 }
 
+.logo {
+    background-color: #ffffff;
+    padding: 8px;
+}
+.logo:hover {
+    background-color: #dddddd !important;
+}
+
+
 .row-bold {
     font-weight: bold;
 }
