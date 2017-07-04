@@ -138,39 +138,7 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".question-select").change(function() {
-            changeButtons($(this));
-        });
+        bindQuestionsPage();
     });
-
-    function changeButtons(selectElement) {
-        var $ident = $(selectElement).attr('id').replace("select_", "");
-        changeAttr([], ["#btn_delete_" + $ident, "#btn_edit_" + $ident]);
-        if($(selectElement).children('option:first-child').is(':selected')) {
-            changeAttr(["#btn_top_" + $ident, "#btn_up_" + $ident], ["#btn_down_" + $ident, "#btn_bottom_" + $ident]);
-        } else if($(selectElement).children('option:last-child').is(':selected')) {
-            changeAttr(["#btn_down_" + $ident, "#btn_bottom_" + $ident], ["#btn_top_" + $ident, "#btn_up_" + $ident]);
-        } else if($(selectElement).children('option').is(':selected')) {
-            changeAttr([], ["#btn_top_" + $ident, "#btn_up_" + $ident, "#btn_down_" + $ident, "#btn_bottom_" + $ident]);
-        }
-    }
-
-    function changeAttr(toDisable, toEnable) {
-        $.each(toDisable, function(index, value) {
-            $(value).attr("disabled", "disabled");
-        });
-        $.each(toEnable, function(index, value) {
-            $(value).removeAttr("disabled");
-        });
-    }
-
-    function linkToModal(questionId) {
-        $("#modal").modal('show');
-        event.preventDefault();
-
-        $("#modal_code").val("");
-        $("#modal_english").val("");
-        $("#question_identifier").val(questionId);
-    }
 </script>
 </html>
