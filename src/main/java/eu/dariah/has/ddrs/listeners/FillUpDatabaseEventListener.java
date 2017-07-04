@@ -48,10 +48,10 @@ public class FillUpDatabaseEventListener {
         question = new Question("subjects", false, false, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("In which subjects are you interested?"));
         questionDAO.create(question);
 
-        question = new Question("repositoryLanguages", true, true, 3, 0, resultTypeHierarchicalDAO.findOne(40L), new Translation("Which languages should the repository have?"));
+        question = new Question("repositoryLanguages", true, true, 3, 0, resultTypeHierarchicalDAO.findOne(41L), new Translation("Which languages should the repository have?"));
         questionDAO.create(question);
 
-        question = new Question("keywords", true, true, 2, 0, resultTypeHierarchicalDAO.findOne(46L), new Translation("Which keywords should the repository have?"));
+        question = new Question("keywords", true, true, 2, 0, resultTypeHierarchicalDAO.findOne(47L), new Translation("Which keywords should the repository have?"));
         questionDAO.create(question);
     }
 
