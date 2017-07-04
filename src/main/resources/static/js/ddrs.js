@@ -1,18 +1,18 @@
 var xhr = null;
 
-function bindIndexPage() {
+function bindIndexPage(searchUrl, selectRepositoryUrl, selectRepositoryText) {
     if($(".question-select option:selected").length) {
-        ajaxSearch();
+        ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText);
     }
 
     $("#search_form").find("[id^='select_']").each(function() {
         $(this).on("change", function(e) {
-            ajaxSearch();
+            ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText);
         });
     });
     $("#search_form").submit(function(event) {
         event.preventDefault();
-        ajaxSearch();
+        ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText);
     });
 }
 
@@ -22,7 +22,7 @@ function bindQuestionsPage() {
     });
 }
 
-function ajaxSearch() {
+function ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText) {
     if(xhr !== null) {
         xhr.abort();
         xhr = null;
@@ -40,12 +40,12 @@ function ajaxSearch() {
     xhr = $.ajax({
         type : "POST",
         contentType : "application/json",
-        url : /*[[@{/refreshResults}]]*/ '',
+        url : searchUrl,
         data : JSON.stringify(data),
         dataType : 'json',
         timeout : 100000,
         success : function(data) {
-            display(data);
+            display(data, selectRepositoryUrl, selectRepositoryText);
         },
         error : function(e) {
             console.log("ERROR: ", e);
@@ -61,16 +61,16 @@ function ajaxSearch() {
     });
 }
 
-function display(data) {
+function display(data, selectRepositoryUrl, selectRepositoryText) {
     if(data.repositories !== null) {
         $("<h4></h4>").text("There are " + data.repositories.length + " results.").appendTo("#results");
     }
     $(data.repositories).each(function(index) {
         var $clone = createEmptyDivContainer();
         $clone.find(".repository_id_name").text(this.id + " -> " + this.name);
-        $clone.find(".repository_id_name_url").attr("href", /*[[@{/selectRepository}]]*/ '');
+        $clone.find(".repository_id_name_url").attr("href", selectRepositoryUrl);
         $clone.find(".repository_id_name_url").attr("href", $clone.find(".repository_id_name_url").attr("href") + "?id=" + this.id);
-        $clone.find(".repository_id_name_url").text(/*[[#{ddrs.label.select}]]*/ '');
+        $clone.find(".repository_id_name_url").text(selectRepositoryText);
         $clone.find(".repository_url").attr("href", this.link.href);
         $clone.find(".repository_url").text(this.link.href);
         if(this.repositoryDetail !== null) {
