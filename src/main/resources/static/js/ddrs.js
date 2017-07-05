@@ -70,7 +70,7 @@ function display(data, selectRepositoryUrl, selectRepositoryText) {
         $clone.find(".repository_id_name").text(this.id + " -> " + this.name);
         $clone.find(".repository_id_name_url").attr("href", selectRepositoryUrl);
         $clone.find(".repository_id_name_url").attr("href", $clone.find(".repository_id_name_url").attr("href") + "?id=" + this.id);
-        $clone.find(".repository_id_name_url").text(selectRepositoryText);
+        $clone.find(".repository_id_name_url").attr("title", selectRepositoryText);
         $clone.find(".repository_url").attr("href", this.link.href);
         $clone.find(".repository_url").text(this.link.href);
         if(this.repositoryDetail !== null) {
@@ -92,7 +92,7 @@ function createEmptyDivContainer() {
     var $divRow = $("<div/>", {"class": "row"});
     var $divCol = $("<div/>", {"class": "col-md-12"});
     var $repositoryIdName = $("<p/>", {"class": "repository_id_name"});
-    var $repositoryIdNameUrl = $("<a/>", {"class": "repository_id_name_url", "href": "#"});
+    var $repositoryIdNameUrl = $("<a/>", {"class": "repository_id_name_url btn btn-default glyphicon glyphicon-eye-open", "href": "#"});
     var $repositoryDesc = $("<p/>", {"class": "repository_description"});
     var $repositoryLastUpdate = $("<p/>", {"class": "repository_lastUpdate"});
     var $repositoryContact = $("<p/>", {"class": "repository_contact"});
