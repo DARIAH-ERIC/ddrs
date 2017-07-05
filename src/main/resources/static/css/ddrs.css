@@ -154,15 +154,21 @@ ul.alert-dropdown {
 .ddrstable {
     display: table;
     width: 100%;
+    overflow: hidden;
 }
 
 .ddrsrow {
     display: table-row;
 }
+.ddrsrow:hover {
+    background-color: #F5F5F5;
+}
 .ddrscell {
     border: 1px solid #999999;
     display: table-cell;
     padding: 3px 10px;
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
 }
 .ddrstablebody {
     display: table-row-group;

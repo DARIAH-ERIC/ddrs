@@ -10,12 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Created by yoann on 02.06.17.
  */
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
     private final IQuestionDAO questionDAO;
     private final IResultTypeHierarchicalDAO resultTypeHierarchicalDAO;
@@ -34,13 +36,13 @@ public class AdminController {
         this.defaultRepositoryDAO = defaultRepositoryDAO;
     }
 
-    @RequestMapping(value = "/admin/questions", method = RequestMethod.GET)
+    @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String admin(Model model) {
         model.addAttribute("questions", questionDAO.findAllOrdered());
         return "admin/questions";
     }
 
-    @RequestMapping(value = "/admin/saveQuestion", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveQuestion", method = RequestMethod.POST)
     public RedirectView save(@RequestParam(name = "select_question", required = false) Long resultTypeHierarchicalId,
                              @RequestParam(name = "questionId") Long questionId,
                              @RequestParam(name = "action") String action,
@@ -165,10 +167,10 @@ public class AdminController {
                     break;
             }
         }
-        return new RedirectView("/admin/questions", true);
+        return new RedirectView("/questions", true);
     }
 
-    @RequestMapping(value = "/admin/addQuestion", method = RequestMethod.POST)
+    @RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
     public RedirectView save(@RequestParam(name = "name") String name,
                              @RequestParam(name = "english_translation") String englishTranslation) {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical("NONE", 0, null);
@@ -180,7 +182,7 @@ public class AdminController {
         return new RedirectView("/admin/questions", true);
     }
 
-    @RequestMapping(value = "/admin/translations", method = RequestMethod.GET)
+    @RequestMapping(value = "/translations", method = RequestMethod.GET)
     public String translations(Model model, @RequestParam(name = "tr", required = false) Long translationId) {
         model.addAttribute("questions", questionDAO.findAll());
         model.addAttribute("results", resultTypeHierarchicalDAO.findAll());
@@ -188,7 +190,7 @@ public class AdminController {
         return "admin/translations";
     }
 
-    @RequestMapping(value = "/admin/saveTranslation", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveTranslation", method = RequestMethod.POST)
     public RedirectView saveTranslations(@RequestParam(name = "translationId") Long translationId,
                                          @RequestParam(name = "english") String english,
                                          @RequestParam(name = "german") String german,
@@ -205,14 +207,14 @@ public class AdminController {
         return new RedirectView("/admin/translations?tr="+translationId, true);
     }
 
-    @RequestMapping(value = "/admin/contactRepositories", method = RequestMethod.GET)
+    @RequestMapping(value = "/contactRepositories", method = RequestMethod.GET)
     public String viewContacts(Model model) {
         model.addAttribute("contactRepositories", contactRepositoryDAO.findAll());
 
         return "admin/contact_repositories";
     }
 
-    @RequestMapping(value = "/admin/addContact", method = RequestMethod.POST)
+    @RequestMapping(value = "/addContact", method = RequestMethod.POST)
     public RedirectView addContact(@RequestParam(name = "repositoryId") String repositoryId,
                                    @RequestParam(name = "contact") String contact) {
         ContactRepository contactRepository = new ContactRepository();
@@ -223,7 +225,7 @@ public class AdminController {
         return new RedirectView("/admin/contactRepositories", true);
     }
 
-    @RequestMapping(value = "/admin/editContact", method = RequestMethod.POST)
+    @RequestMapping(value = "/editContact", method = RequestMethod.POST)
     public RedirectView editContact(@RequestParam(name = "contactRepositoryId") Long contactRepositoryId,
                                     @RequestParam(name = "contact") String contact) {
         ContactRepository contactRepository = contactRepositoryDAO.findOne(contactRepositoryId);
@@ -234,29 +236,26 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "/admin/defaultRepositories", method = RequestMethod.GET)
+    @RequestMapping(value = "/defaultRepositories", method = RequestMethod.GET)
     public String viewDefaultRepositories(Model model) {
         model.addAttribute("results", resultTypeHierarchicalDAO.findAll());
 
         return "admin/default_repositories";
     }
 
-    @RequestMapping(value = "/admin/editDefaultRepositories", method = RequestMethod.POST)
+    @RequestMapping(value = "/editDefaultRepositories", method = RequestMethod.POST)
     public RedirectView editDefaultRepositories(@RequestParam(name = "resultId") Long resultId,
-                                                @RequestParam(name = "repositoryId") String repositoryId) {
+                                                @RequestParam(name = "repositoryId") String repositoryId, RedirectAttributes redirectAttributes) {
         ResultTypeHierarchical resultTypeHierarchical = resultTypeHierarchicalDAO.findOne(resultId);
-        if(StringUtils.isNotEmpty(repositoryId)) {
-            DefaultRepository defaultRepository = new DefaultRepository();
-            defaultRepository.setRe3dataIdentifier(repositoryId);
-            defaultRepositoryDAO.create(defaultRepository);
-            resultTypeHierarchical.addDefaultRepository(defaultRepository);
-            resultTypeHierarchicalDAO.update(resultTypeHierarchical);
+        if(StringUtils.isNotEmpty(repositoryId) && resultTypeHierarchical != null) {
+            defaultRepositoryDAO.create(new DefaultRepository(repositoryId, resultTypeHierarchical));
+            redirectAttributes.addFlashAttribute("savedResultId", resultId);
         }
         return new RedirectView("/admin/defaultRepositories", true);
     }
 
-    @RequestMapping(value = "/admin/deleteDefaultRepositories", method = RequestMethod.POST)
-    public RedirectView editDefaultRepositories(@RequestParam(name = "defaultRepositoryId") Long repositoryId) {
+    @RequestMapping(value = "/deleteDefaultRepositories", method = RequestMethod.POST)
+    public RedirectView deleteDefaultRepositories(@RequestParam(name = "defaultRepositoryId") Long repositoryId) {
         defaultRepositoryDAO.deleteById(repositoryId);
         return new RedirectView("/admin/defaultRepositories", true);
     }

@@ -20,7 +20,7 @@
             </div>
             <div class="ddrstablebody">
                 <th:block th:each="result : ${results}">
-                    <div class="ddrsrow">
+                    <div class="ddrsrow" th:id="${'result_' + result.getId()}">
                         <div class="col-md-7 ddrscell"><p class="form-control-static" th:text="${result.getTranslation().getEn()}">English translation</p></div>
                         <div class="col-md-2 ddrscell">
                             <p class="form-control-static" th:if="${result.getDefaultRepositories().isEmpty()}"></p>
@@ -34,10 +34,10 @@
                             </th:block>
                         </div>
                         <form method="post" action="#" th:action="@{/admin/editDefaultRepositories}">
-                            <div class="col-md-2 ddrscell">
+                            <div class="form-group col-md-2 ddrscell">
                                 <input title="repositoryId" type="text" name="repositoryId" class="form-control" />
                             </div>
-                            <div class="col-md-1 ddrscell">
+                            <div class="form-group col-md-1 ddrscell">
                                 <input type="hidden" name="resultId" th:value="${result.getId()}"/>
                                 <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
                             </div>
@@ -50,9 +50,20 @@
     <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
 </div>
 </body>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript" th:if="${savedResultId != null}">
     $(document).ready(function () {
-
+        var savedResultId = /*[[${savedResultId}]]*/ '';
+        var $element = $("#result_"+savedResultId);
+        $('html, body').animate({
+            scrollTop: $element.offset().top - 100
+        }, 200);
+        $element.stop().animate({
+            backgroundColor: '#F0AD4E'
+        }, 100, function() {
+            $(this).animate({
+                backgroundColor: '#FFFFFF'
+            }, 1000);
+        });
     });
 </script>
 </html>
