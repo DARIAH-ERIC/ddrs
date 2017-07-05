@@ -31,10 +31,15 @@ public class DefaultRepository implements Serializable {
 
     private String re3dataIdentifier;
 
+    @ManyToOne
+    @JoinColumn(name="result_type_hierarchical_id", nullable=false)
+    private ResultTypeHierarchical resultTypeHierarchical;
+
     public DefaultRepository() {}
 
-    public DefaultRepository(String re3dataIdentifier) {
+    public DefaultRepository(String re3dataIdentifier, ResultTypeHierarchical resultTypeHierarchical) {
         this.re3dataIdentifier = re3dataIdentifier;
+        this.resultTypeHierarchical = resultTypeHierarchical;
     }
 
     public Long getId() {
@@ -51,5 +56,13 @@ public class DefaultRepository implements Serializable {
 
     public void setRe3dataIdentifier(String re3dataIdentifier) {
         this.re3dataIdentifier = re3dataIdentifier;
+    }
+
+    public ResultTypeHierarchical getResultTypeHierarchical() {
+        return resultTypeHierarchical;
+    }
+
+    public void setResultTypeHierarchical(ResultTypeHierarchical resultTypeHierarchical) {
+        this.resultTypeHierarchical = resultTypeHierarchical;
     }
 }

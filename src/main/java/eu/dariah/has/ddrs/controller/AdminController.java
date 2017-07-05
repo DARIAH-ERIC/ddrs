@@ -245,11 +245,19 @@ public class AdminController {
     public RedirectView editDefaultRepositories(@RequestParam(name = "resultId") Long resultId,
                                                 @RequestParam(name = "repositoryId") String repositoryId) {
         ResultTypeHierarchical resultTypeHierarchical = resultTypeHierarchicalDAO.findOne(resultId);
-        DefaultRepository defaultRepository = new DefaultRepository();
-        defaultRepository.setRe3dataIdentifier(repositoryId);
-        defaultRepositoryDAO.create(defaultRepository);
-        resultTypeHierarchical.addDefaultRepository(defaultRepository);
-        resultTypeHierarchicalDAO.update(resultTypeHierarchical);
+        if(StringUtils.isNotEmpty(repositoryId)) {
+            DefaultRepository defaultRepository = new DefaultRepository();
+            defaultRepository.setRe3dataIdentifier(repositoryId);
+            defaultRepositoryDAO.create(defaultRepository);
+            resultTypeHierarchical.addDefaultRepository(defaultRepository);
+            resultTypeHierarchicalDAO.update(resultTypeHierarchical);
+        }
+        return new RedirectView("/admin/defaultRepositories", true);
+    }
+
+    @RequestMapping(value = "/admin/deleteDefaultRepositories", method = RequestMethod.POST)
+    public RedirectView editDefaultRepositories(@RequestParam(name = "defaultRepositoryId") Long repositoryId) {
+        defaultRepositoryDAO.deleteById(repositoryId);
         return new RedirectView("/admin/defaultRepositories", true);
     }
 }

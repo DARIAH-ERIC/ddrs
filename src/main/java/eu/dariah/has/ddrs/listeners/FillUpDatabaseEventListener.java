@@ -59,10 +59,8 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical countries = new ResultTypeHierarchical();
         countries.setCode("NONE");
         countries.setTranslation(new Translation("Countries"));
-        DefaultRepository defaultRepository = new DefaultRepository("r3d100011728");
-        defaultRepositoryDAO.create(defaultRepository);
-        countries.setDefaultRepositories(Collections.singletonList(defaultRepository));
         resultTypeHierarchicalDAO.create(countries);
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100011728", countries));
 
         ResultTypeHierarchical australia = createResultTypeHierarchical("AUS", 1, "Australia", countries);
         ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 2, "Austria", countries);
@@ -213,12 +211,9 @@ public class FillUpDatabaseEventListener {
     private ResultTypeHierarchical createResultTypeHierarchical(String code, int order, String englishTranslation, ResultTypeHierarchical parent, String... defaultRepositories) {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical(code, order, parent);
         resultTypeHierarchical.setTranslation(new Translation(englishTranslation));
-        if(defaultRepositories.length > 0) {
-            DefaultRepository defaultRepository = new DefaultRepository(defaultRepositories[0]);
-            defaultRepositoryDAO.create(defaultRepository);
-            resultTypeHierarchical.setDefaultRepositories(Collections.singletonList(defaultRepository));
-        }
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
+        if(defaultRepositories.length > 0)
+            defaultRepositoryDAO.create(new DefaultRepository(defaultRepositories[0], resultTypeHierarchical));
         
         return resultTypeHierarchical;
     }

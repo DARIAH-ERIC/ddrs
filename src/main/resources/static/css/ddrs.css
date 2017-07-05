@@ -150,3 +150,25 @@ ul.alert-dropdown {
 .btn-drop {
     margin-top: 10px;
 }
+
+.ddrstable {
+    display: table;
+    width: 100%;
+}
+
+.ddrsrow {
+    display: table-row;
+}
+.ddrscell {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+}
+.ddrstablebody {
+    display: table-row-group;
+}
+.ddrstablehead {
+    background-color: #eeeeee;
+    display: table-header-group;
+    font-weight: bold;
+}
