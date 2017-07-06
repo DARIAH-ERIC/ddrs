@@ -50,9 +50,9 @@ public class AjaxControllerTest {
     @Test
     public void test_create_user_success() throws Exception {
         SearchObject searchObject = new SearchObject();
-        Map<String, List<String>> searchParameters = new HashMap<>(1);
-        searchParameters.put("countries", Collections.singletonList("FRA"));
-        searchParameters.put("repositoryLanguages", Collections.singletonList("deu"));
+        Map<String, String> searchParameters = new HashMap<>(2);
+        searchParameters.put("countries", "FRA");
+        searchParameters.put("repositoryLanguages", "deu");
         searchObject.setSearchParameters(searchParameters);
 
         ObjectMapper mapper = new ObjectMapper();

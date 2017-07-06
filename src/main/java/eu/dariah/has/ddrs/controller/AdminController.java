@@ -36,7 +36,7 @@ public class AdminController {
         this.defaultRepositoryDAO = defaultRepositoryDAO;
     }
 
-    @RequestMapping(value = "/questions", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/questions"}, method = RequestMethod.GET)
     public String admin(Model model) {
         model.addAttribute("questions", questionDAO.findAllOrdered());
         return "admin/questions";
@@ -167,7 +167,7 @@ public class AdminController {
                     break;
             }
         }
-        return new RedirectView("/questions", true);
+        return new RedirectView("/admin/questions", true);
     }
 
     @RequestMapping(value = "/addQuestion", method = RequestMethod.POST)

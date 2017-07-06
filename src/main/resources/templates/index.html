@@ -15,32 +15,43 @@
         </div>
     </nav>
     <div id="page-wrapper">
-        <h2 class="dariah-color-text text-center" th:text="#{page.index.welcome}"></h2>
-        <form class="form-horizontal" method="post" action="#" th:action="@{/refreshResults}" th:object="${searchObject}" id="search_form">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2 class="dariah-color-text text-center" th:text="#{page.index.welcome}"></h2>
+                <h3 class="text-center">
+                    <span th:text="#{page.index.introduction.part1}"></span>
+                    <span class="dariah-color-text" th:text="#{page.index.introduction.part2}"></span>
+                    <span th:text="#{page.index.introduction.part3}"></span>
+                    <span class="dariah-color-text" th:text="#{page.index.introduction.part4}"></span>
+                    <span th:text="#{page.index.introduction.part5}"></span>
+                    <span class="dariah-color-text" th:text="#{page.index.introduction.part6}"></span>
+                    <span th:text="#{page.index.introduction.part7}"></span>
+                </h3>
+                <h3 class="text-center">
+                    <span th:text="#{page.index.introduction.part8}"></span>
+                </h3>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <form class="form-horizontal dariah-color-form" method="post" action="#" th:action="@{/refreshResults}" th:object="${searchObject}" id="search_form">
             <th:block th:each="question, iterStat : ${questions}">
-                <div class="form-group">
-                    <div class="col-sm-1"></div>
-                    <label th:for="${'select_' + question.getId()}" for="xxx" class="col-sm-2 control-label" th:text="${question.getTranslation().get(#locale)}">XXX</label>
-                    <div class="col-sm-6">
-                        <select class="form-control question-select" name="xxx" th:name="${question.getName()}" id="xxx"  th:id="${'select_' + iterStat.index}" multiple="multiple">
+                <div class="middle-spacer"></div>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <label th:for="${'select_' + question.getId()}" for="xxx" class="control-label white-text big-label" th:text="${question.getTranslation().get(#locale)}">XXX</label>
+                        <select class="form-control question-select" name="xxx" th:name="${question.getName()}" id="xxx"  th:id="${'select_' + iterStat.index}">
+                            <option value="">Select one</option>
                             <th:block th:each="child : ${question.getResultTypeHierarchical().getChildren()}">
                                 <option th:value="${child.getCode()}" th:text="${child.getTranslation().get(#locale)}"></option>
                                 <option th:each="subChild : ${child.getChildren()}" th:value="${subChild.getCode()}" th:text="${'-- ' + subChild.getTranslation().get(#locale)}"></option>
                             </th:block>
                         </select>
                     </div>
-                    <div class="col-sm-3"></div>
                 </div>
             </th:block>
-            <div class="form-group">
-                <div class="col-sm-5"></div>
-                <div class="col-sm-2">
-                    <button type="submit" id="search" class="btn btn-default" th:text="#{ddrs.btn.search}">Search</button>
-                </div>
-                <div class="col-sm-5"></div>
-            </div>
+            <div class="bottom-spacer"></div>
         </form>
-
+        <div class="spacer"></div>
         <div class="row">
             <div class="hidden col-sm-offset-5 col-lg-6" id="loader">
                 <img src="../images/page-loader.gif" th:src="@{/images/page-loader.gif}" class="loader_img"/>

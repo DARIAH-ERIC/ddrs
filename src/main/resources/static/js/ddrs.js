@@ -22,6 +22,14 @@ function bindQuestionsPage() {
     });
 }
 
+function isObjectEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
 function ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText) {
     if(xhr !== null) {
         xhr.abort();
@@ -30,47 +38,51 @@ function ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText) {
     var data = {};
     var list = {};
     $("#search_form").find("[id^='select_']").each(function() {
-        list[$(this).attr('name')] = $(this).val();
+        if($(this).val() !== "")
+            list[$(this).attr('name')] = $(this).val();
     });
-    data["searchParameters"] = list;
 
-    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-        jqXHR.setRequestHeader('X-CSRF-Token', $("input[name='_csrf']").val());
-    });
-    xhr = $.ajax({
-        type : "POST",
-        contentType : "application/json",
-        url : searchUrl,
-        data : JSON.stringify(data),
-        dataType : 'json',
-        timeout : 100000,
-        success : function(data) {
-            display(data, selectRepositoryUrl, selectRepositoryText);
-        },
-        error : function(e) {
-            console.log("ERROR: ", e);
-            $("#results").text("There was an error, please try again later...");
-        },
-        complete : function(e) {
-            $("#loader").addClass("hidden");
-        },
-        beforeSend : function(e) {
-            $("#results").empty();
-            $("#loader").removeClass("hidden");
-        }
-    });
+    if(! isObjectEmpty(list)) {
+        data["searchParameters"] = list;
+
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $("input[name='_csrf']").val());
+        });
+        xhr = $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: searchUrl,
+            data: JSON.stringify(data),
+            dataType: 'json',
+            timeout: 100000,
+            success: function (data) {
+                display(data, selectRepositoryUrl, selectRepositoryText);
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+                $("#results").text("There was an error, please try again later...");
+            },
+            complete: function (e) {
+                $("#loader").addClass("hidden");
+            },
+            beforeSend: function (e) {
+                $("#results").empty();
+                $("#loader").removeClass("hidden");
+            }
+        });
+    }
 }
 
 function display(data, selectRepositoryUrl, selectRepositoryText) {
     if(data.repositories !== null) {
-        $("<h4></h4>").text("There are " + data.repositories.length + " results.").appendTo("#results");
+        $("<h3></h3>").text("There are " + data.repositories.length + " results. Make a selection to continue.").appendTo("#results");
     }
     $(data.repositories).each(function(index) {
         var $clone = createEmptyDivContainer();
         $clone.find(".repository_id_name").text(this.id + " -> " + this.name);
         $clone.find(".repository_id_name_url").attr("href", selectRepositoryUrl);
         $clone.find(".repository_id_name_url").attr("href", $clone.find(".repository_id_name_url").attr("href") + "?id=" + this.id);
-        $clone.find(".repository_id_name_url").attr("title", selectRepositoryText);
+        $clone.find(".repository_id_name_url").text(selectRepositoryText);
         $clone.find(".repository_url").attr("href", this.link.href);
         $clone.find(".repository_url").text(this.link.href);
         if(this.repositoryDetail !== null) {
@@ -92,7 +104,7 @@ function createEmptyDivContainer() {
     var $divRow = $("<div/>", {"class": "row"});
     var $divCol = $("<div/>", {"class": "col-md-12"});
     var $repositoryIdName = $("<p/>", {"class": "repository_id_name"});
-    var $repositoryIdNameUrl = $("<a/>", {"class": "repository_id_name_url btn btn-default glyphicon glyphicon-eye-open", "href": "#"});
+    var $repositoryIdNameUrl = $("<a/>", {"class": "repository_id_name_url", "href": "#"});
     var $repositoryDesc = $("<p/>", {"class": "repository_description"});
     var $repositoryLastUpdate = $("<p/>", {"class": "repository_lastUpdate"});
     var $repositoryContact = $("<p/>", {"class": "repository_contact"});
