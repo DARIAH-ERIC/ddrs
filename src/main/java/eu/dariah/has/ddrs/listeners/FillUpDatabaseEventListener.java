@@ -70,10 +70,10 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 4, "Croatia", countries, "r3d100012223");;
         ResultTypeHierarchical cyprus = createResultTypeHierarchical("CYP", 5, "Cyprus", countries);
         ResultTypeHierarchical czech = createResultTypeHierarchical("CZE", 6, "Czech Republic", countries);
-        ResultTypeHierarchical denmark = createResultTypeHierarchical("DNK", 7, "Denmark", countries);
+        ResultTypeHierarchical denmark = createResultTypeHierarchical("DNK", 7, "Denmark", countries, "r3d100010486");
         ResultTypeHierarchical estonia = createResultTypeHierarchical("EST", 8, "Estonia", countries);
         ResultTypeHierarchical finland = createResultTypeHierarchical("FIN", 9, "Finland", countries);
-        ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 10, "France", countries);
+        ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 10, "France", countries, "r3d100010151", "r3d100012102");
         ResultTypeHierarchical germany = createResultTypeHierarchical("DEU", 11, "Germany", countries, "r3d100011345");
         ResultTypeHierarchical greece = createResultTypeHierarchical("GRC", 12, "Greece", countries);
         ResultTypeHierarchical hungary = createResultTypeHierarchical("HUN", 13, "Hungary", countries);
@@ -86,7 +86,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical malta = createResultTypeHierarchical("MLT", 20, "Malta", countries);
         ResultTypeHierarchical montenegro = createResultTypeHierarchical("MTN", 21, "Montenegro", countries);
         ResultTypeHierarchical netherlands = createResultTypeHierarchical("NLD", 22, "Netherlands", countries, "r3d100010214");
-        ResultTypeHierarchical norway = createResultTypeHierarchical("NOR", 23, "Norway", countries);
+        ResultTypeHierarchical norway = createResultTypeHierarchical("NOR", 23, "Norway", countries, "r3d100010493");
         ResultTypeHierarchical poland = createResultTypeHierarchical("POL", 24, "Poland", countries);
         ResultTypeHierarchical portugal = createResultTypeHierarchical("PRT", 25, "Portugal", countries);
         ResultTypeHierarchical romania = createResultTypeHierarchical("ROU", 26, "Romania", countries);
@@ -94,10 +94,10 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical slovakia = createResultTypeHierarchical("SVK", 28, "Slovakia", countries);
         ResultTypeHierarchical slovenia = createResultTypeHierarchical("SVN", 29, "Slovenia", countries);
         ResultTypeHierarchical spain = createResultTypeHierarchical("ESP", 30, "Spain", countries);
-        ResultTypeHierarchical sweden = createResultTypeHierarchical("SWE", 31, "Sweden", countries);
-        ResultTypeHierarchical switzerland = createResultTypeHierarchical("CHE", 32, "Switzerland", countries);
+        ResultTypeHierarchical sweden = createResultTypeHierarchical("SWE", 31, "Sweden", countries, "r3d100010146");
+        ResultTypeHierarchical switzerland = createResultTypeHierarchical("CHE", 32, "Switzerland", countries, "r3d100012374");
         ResultTypeHierarchical turkey = createResultTypeHierarchical("TUR", 33, "Turkey", countries);
-        ResultTypeHierarchical unitedKingdom = createResultTypeHierarchical("GBR", 34, "United Kingdom", countries);
+        ResultTypeHierarchical unitedKingdom = createResultTypeHierarchical("GBR", 34, "United Kingdom", countries, "r3d100010215");
 
         countries.addChildren(Arrays.asList(austria, belgium, bulgaria, croatia, cyprus, czech, denmark, estonia, finland, france, germany, greece,
                 hungary, iceland, ireland, italy, lithuania, luxembourg, latvia, malta, montenegro, netherlands, norway, poland, portugal, romania,
@@ -244,8 +244,8 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical(code, order, parent);
         resultTypeHierarchical.setTranslation(new Translation(englishTranslation));
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
-        if(defaultRepositories.length > 0)
-            defaultRepositoryDAO.create(new DefaultRepository(defaultRepositories[0], resultTypeHierarchical));
+        for(String defaultRepository : defaultRepositories)
+            defaultRepositoryDAO.create(new DefaultRepository(defaultRepository, resultTypeHierarchical));
         
         return resultTypeHierarchical;
     }
