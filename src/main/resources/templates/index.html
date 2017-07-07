@@ -47,7 +47,7 @@
                                 </th:block>
                             </select>
                             <span class="input-group-addon no-background-addon"><!--th:if="question has tooltip"-->
-                                <i class="glyphicon glyphicon-question-sign background-addon" data-toggle="tooltip" data-original-title="Some information to the user in order to understand what this field search is gonna do..."></i>
+                                <i class="glyphicon glyphicon-question-sign background-addon" data-toggle="tooltip" th:title="${question.getTooltip().get(#locale)}"></i>
                             </span>
                         </div>
                     </div>

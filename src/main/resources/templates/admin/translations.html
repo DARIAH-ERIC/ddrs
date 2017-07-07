@@ -40,6 +40,18 @@
                             </td>
                         </tr>
                     </form>
+                    <form method="post" action="#" th:action="@{/admin/saveTranslation}">
+                        <tr th:id="${question.getTooltip().getId()}">
+                            <td><input type="text" name="english" class="form-control" th:value="${question.getTooltip().getEn()}"/></td>
+                            <td><input type="text" name="german" class="form-control" th:value="${question.getTooltip().getDe()}"/></td>
+                            <td><input type="text" name="french" class="form-control" th:value="${question.getTooltip().getFr()}"/></td>
+                            <td><input type="text" name="dutch" class="form-control" th:value="${question.getTooltip().getNl()}"/></td>
+                            <td>
+                                <input type="hidden" name="translationId" th:value="${question.getTooltip().getId()}"/>
+                                <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
+                            </td>
+                        </tr>
+                    </form>
                 </th:block>
             </tbody>
         </table>

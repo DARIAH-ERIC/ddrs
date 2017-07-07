@@ -172,11 +172,12 @@ public class AdminController {
 
     @RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
     public RedirectView save(@RequestParam(name = "name") String name,
-                             @RequestParam(name = "english_translation") String englishTranslation) {
+                             @RequestParam(name = "english_translation") String englishTranslation,
+                             @RequestParam(name = "tooltip_english") String tooltipEnglish) {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical("NONE", 0, null);
         resultTypeHierarchical.setTranslation(new Translation(StringUtils.capitalize(name)));
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
-        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1, 0, resultTypeHierarchical, new Translation(englishTranslation));
+        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1, 0, resultTypeHierarchical, new Translation(englishTranslation), new Translation(tooltipEnglish));
         questionDAO.create(question);
 
         return new RedirectView("/admin/questions", true);

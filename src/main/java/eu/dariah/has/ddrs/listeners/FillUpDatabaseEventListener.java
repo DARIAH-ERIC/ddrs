@@ -42,16 +42,16 @@ public class FillUpDatabaseEventListener {
     }
 
     private void includeQuestions() {
-        Question question = new Question("countries", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new Translation("In which country are you based as a researcher?"));
+        Question question = new Question("countries", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new Translation("In which country are you based as a researcher?"), new Translation("Tooltip for country questions..."));
         questionDAO.create(question);
 
-        question = new Question("subjects", false, true, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("What is your disciplinary field?"));
+        question = new Question("subjects", false, true, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("What is your disciplinary field?"), new Translation("Tooltip for subject questions..."));
         questionDAO.create(question);
 
-        question = new Question("repositoryLanguages", true, false, 3, 0, resultTypeHierarchicalDAO.findOne(41L), new Translation("Which languages should the repository have?"));
+        question = new Question("repositoryLanguages", true, false, 3, 0, resultTypeHierarchicalDAO.findOne(69L), new Translation("Which languages should the repository have?"), new Translation("Tooltip for language questions..."));
         questionDAO.create(question);
 
-        question = new Question("keywords", true, false, 2, 0, resultTypeHierarchicalDAO.findOne(47L), new Translation("Which keywords should the repository have?"));
+        question = new Question("keywords", true, false, 2, 0, resultTypeHierarchicalDAO.findOne(75L), new Translation("Which keywords should the repository have?"), new Translation("Tooltip for keyword questions..."));
         questionDAO.create(question);
     }
 
@@ -60,7 +60,9 @@ public class FillUpDatabaseEventListener {
         countries.setCode("NONE");
         countries.setTranslation(new Translation("Countries"));
         resultTypeHierarchicalDAO.create(countries);
-        defaultRepositoryDAO.create(new DefaultRepository("r3d100011728", countries));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100010468", countries));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100011394", countries));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100010066", countries));
 
         ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 1, "Austria", countries);
         ResultTypeHierarchical belgium = createResultTypeHierarchical("BEL", 2, "Belgium", countries);
