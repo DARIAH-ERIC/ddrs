@@ -3,7 +3,6 @@
 <head th:replace="fragments/header :: ddrshead">
 </head>
 <body>
-<div id="wrapper">
     <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Static header</a>
@@ -16,7 +15,7 @@
     </nav>
     <div id="page-wrapper">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
                 <h2 class="dariah-color-text text-center" th:text="#{page.index.welcome}"></h2>
                 <h3 class="text-center">
                     <span th:text="#{page.index.introduction.part1}"></span>
@@ -37,7 +36,7 @@
             <th:block th:each="question, iterStat : ${questions}">
                 <div class="middle-spacer"></div>
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
                         <label th:for="${'select_' + question.getId()}" for="xxx" class="control-label white-text big-label" th:text="${question.getTranslation().get(#locale)}">XXX</label>
                         <select class="form-control question-select" name="xxx" th:name="${question.getName()}" id="xxx"  th:id="${'select_' + iterStat.index}">
                             <option value="">Select one</option>
@@ -53,14 +52,13 @@
         </form>
         <div class="spacer"></div>
         <div class="row">
-            <div class="hidden col-sm-offset-5 col-lg-6" id="loader">
+            <div class="hidden col-md-offset-5 col-lg-6" id="loader">
                 <img src="../images/page-loader.gif" th:src="@{/images/page-loader.gif}" class="loader_img"/>
             </div>
-            <div class="col-sm-offset-2 col-lg-6" id="results"></div>
+            <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" id="results"></div>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
-</div>
 </body>
 <script type="text/javascript" th:inline="javascript">
     $(document).ready(function () {
