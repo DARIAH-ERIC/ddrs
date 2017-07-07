@@ -62,14 +62,44 @@ public class FillUpDatabaseEventListener {
         resultTypeHierarchicalDAO.create(countries);
         defaultRepositoryDAO.create(new DefaultRepository("r3d100011728", countries));
 
-        ResultTypeHierarchical australia = createResultTypeHierarchical("AUS", 1, "Australia", countries);
-        ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 2, "Austria", countries);
-        ResultTypeHierarchical germany = createResultTypeHierarchical("DEU", 3, "Germany", countries, "r3d100011345");
-        ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 4, "France", countries);
-        ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 5, "Croatia", countries, "r3d100012223");
-        ResultTypeHierarchical netherlands = createResultTypeHierarchical("NLD", 6, "Netherlands", countries, "r3d100010214");
+        ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 1, "Austria", countries);
+        ResultTypeHierarchical belgium = createResultTypeHierarchical("BEL", 2, "Belgium", countries);
+        ResultTypeHierarchical bulgaria = createResultTypeHierarchical("BUL", 3, "Bulgaria", countries);
+        ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 4, "Croatia", countries, "r3d100012223");;
+        ResultTypeHierarchical cyprus = createResultTypeHierarchical("CYP", 5, "Cyprus", countries);
+        ResultTypeHierarchical czech = createResultTypeHierarchical("CZE", 6, "Czech Republic", countries);
+        ResultTypeHierarchical denmark = createResultTypeHierarchical("DNK", 7, "Denmark", countries);
+        ResultTypeHierarchical estonia = createResultTypeHierarchical("EST", 8, "Estonia", countries);
+        ResultTypeHierarchical finland = createResultTypeHierarchical("FIN", 9, "Finland", countries);
+        ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 10, "France", countries);
+        ResultTypeHierarchical germany = createResultTypeHierarchical("DEU", 11, "Germany", countries, "r3d100011345");
+        ResultTypeHierarchical greece = createResultTypeHierarchical("GRC", 12, "Greece", countries);
+        ResultTypeHierarchical hungary = createResultTypeHierarchical("HUN", 13, "Hungary", countries);
+        ResultTypeHierarchical iceland = createResultTypeHierarchical("ISL", 14, "Iceland", countries);
+        ResultTypeHierarchical ireland = createResultTypeHierarchical("IRL", 15, "Ireland", countries);
+        ResultTypeHierarchical italy = createResultTypeHierarchical("ITA", 16, "Italy", countries);
+        ResultTypeHierarchical latvia = createResultTypeHierarchical("LTV", 17, "Latvia", countries);
+        ResultTypeHierarchical lithuania = createResultTypeHierarchical("LTU", 18, "Lithuania", countries);
+        ResultTypeHierarchical luxembourg = createResultTypeHierarchical("LUX", 19, "Luxembourg", countries);
+        ResultTypeHierarchical malta = createResultTypeHierarchical("MLT", 20, "Malta", countries);
+        ResultTypeHierarchical montenegro = createResultTypeHierarchical("MTN", 21, "Montenegro", countries);
+        ResultTypeHierarchical netherlands = createResultTypeHierarchical("NLD", 22, "Netherlands", countries, "r3d100010214");
+        ResultTypeHierarchical norway = createResultTypeHierarchical("NOR", 23, "Norway", countries);
+        ResultTypeHierarchical poland = createResultTypeHierarchical("POL", 24, "Poland", countries);
+        ResultTypeHierarchical portugal = createResultTypeHierarchical("PRT", 25, "Portugal", countries);
+        ResultTypeHierarchical romania = createResultTypeHierarchical("ROU", 26, "Romania", countries);
+        ResultTypeHierarchical serbia = createResultTypeHierarchical("SRB", 27, "Serbia", countries);
+        ResultTypeHierarchical slovakia = createResultTypeHierarchical("SVK", 28, "Slovakia", countries);
+        ResultTypeHierarchical slovenia = createResultTypeHierarchical("SVN", 29, "Slovenia", countries);
+        ResultTypeHierarchical spain = createResultTypeHierarchical("ESP", 30, "Spain", countries);
+        ResultTypeHierarchical sweden = createResultTypeHierarchical("SWE", 31, "Sweden", countries);
+        ResultTypeHierarchical switzerland = createResultTypeHierarchical("CHE", 32, "Switzerland", countries);
+        ResultTypeHierarchical turkey = createResultTypeHierarchical("TUR", 33, "Turkey", countries);
+        ResultTypeHierarchical unitedKingdom = createResultTypeHierarchical("GBR", 34, "United Kingdom", countries);
 
-        countries.addChildren(Arrays.asList(france, germany, australia, austria, croatia, netherlands));
+        countries.addChildren(Arrays.asList(austria, belgium, bulgaria, croatia, cyprus, czech, denmark, estonia, finland, france, germany, greece,
+                hungary, iceland, ireland, italy, lithuania, luxembourg, latvia, malta, montenegro, netherlands, norway, poland, portugal, romania,
+                serbia, slovakia, slovenia, spain, sweden, switzerland, turkey, unitedKingdom));
         resultTypeHierarchicalDAO.update(countries);
     }
 
