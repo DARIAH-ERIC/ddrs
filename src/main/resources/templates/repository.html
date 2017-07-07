@@ -17,126 +17,53 @@
         <h2 class="dariah-color-text text-center" th:text="#{page.repository.details}"></h2>
         <div class="container-fluid">
             <div class="form-group">
-                <!--/*@thymesVar id="repository" type="eu.dariah.has.ddrs.re3data.search.Repository"*/-->
                 <div class="row row-bold">
-                    <div class="col-md-6" th:text="#{ddrs.label.repository.identifier}"></div>
-                    <div class="col-md-6" th:text="#{ddrs.label.repository.name}"></div>
+                    <div class="col-md-4 col-md-offset-2" th:text="#{ddrs.label.repository.identifier}"></div>
+                    <div class="col-md-4" th:text="#{ddrs.label.repository.name}"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6" th:text="${repository.getId()}"></div>
-                    <div class="col-md-6" th:text="${repository.getName()}"></div>
+                    <div class="col-md-4 col-md-offset-2" th:text="${repository.getId()}"></div>
+                    <div class="col-md-4" th:text="${repository.getName()}"></div>
                 </div>
                 <div class="spacer"></div>
 
                 <div class="row row-bold">
-                    <div class="col-md-12" th:text="#{ddrs.label.repository.description}"></div>
+                    <div class="col-md-8 col-md-offset-2" th:text="#{ddrs.label.repository.description}"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12" th:text="${repository.getRepositoryDetail().getDescription()}"></div>
+                    <div class="col-md-8 col-md-offset-2" th:text="${repository.getRepositoryDetail().getDescription()}"></div>
                 </div>
                 <div class="spacer"></div>
 
                 <div class="row row-bold">
-                    <div class="col-md-6" th:text="#{ddrs.label.repository.contact}"></div>
-                    <div class="col-md-6" th:text="#{ddrs.label.repository.last.update}"></div>
+                    <div class="col-md-4 col-md-offset-2" th:text="#{ddrs.label.repository.contact}"></div>
+                    <div class="col-md-4" th:text="#{ddrs.label.repository.last.update}"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6" th:text="${repository.getRepositoryDetail().getContact()}"></div>
-                    <div class="col-md-6" th:text="${repository.getRepositoryDetail().getLastUpdate()}"></div>
+                    <div class="col-md-4 col-md-offset-2" th:text="${repository.getRepositoryDetail().getContact()}"></div>
+                    <div class="col-md-4" th:text="${repository.getRepositoryDetail().getLastUpdate()}"></div>
+                </div>
+                <div class="space"></div>
+
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2">
+                        <a class="btn btn-warning btn-block back" href="#" th:text="#{ddrs.btn.back}">Back</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="btn btn-primary btn-block" href="#" th:href="@{/contactForm(id=${repository.getId()})}" th:text="#{ddrs.btn.continue.submit}">Continue and submit your information to the repository</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="divider-horizontal"></div>
-        <h2 class="dariah-color-text text-center" th:text="#{ddrs.label.repository.submit.information}"></h2>
-        <div class="container-fluid">
-            <div class="form-group">
-                <div class="row row-bold">
-                    <div class="col-md-6">
-                        <label class="control-label" for="name" th:text="#{ddrs.label.user.name}"></label>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="control-label" for="institution" th:text="#{ddrs.label.user.institution}"></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input class="form-control" id="name" type="text" name="name" size="64" />
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-control" id="institution" type="text" name="institution" size="64" />
-                    </div>
-                </div>
-                <div class="row row-bold">
-                    <div class="col-md-6">
-                        <label class="control-label" for="email" th:text="#{ddrs.label.user.email}"></label>
-                    </div>
-                    <div class="col-md-6"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input class="form-control" id="email" type="email" name="email" size="64" />
-                    </div>
-                    <div class="col-md-6"></div>
-                </div>
-                <div class="spacer"></div>
-                <div class="row row-bold">
-                    <div class="col-md-6">
-                        <label class="control-label" for="dataType" th:text="#{ddrs.label.user.data.type}"></label>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="control-label" for="format" th:text="#{ddrs.label.user.format}"></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input class="form-control" id="dataType" type="text" name="dataType" size="64" />
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-control" id="format" type="text" name="format" size="64" />
-                    </div>
-                </div>
-                <div class="row row-bold">
-                    <div class="col-md-6">
-                        <label class="control-label" for="metadataFormat" th:text="#{ddrs.label.user.metadata.format}"></label>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="control-label" for="access" th:text="#{ddrs.label.user.open.restricted.access}"></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input class="form-control" id="metadataFormat" type="text" name="metadataFormat" size="64" />
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-control" id="access" type="text" name="access" size="64" />
-                    </div>
-                </div>
-                <div class="row row-bold">
-                    <div class="col-md-12">
-                        <label class="control-label" for="description" th:text="#{ddrs.label.user.description}"></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <textarea class="form-control" id="description" name="description" rows="4"></textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-2">
-                        <button type="submit" class="form-control" id="submit" name="submit" th:text="#{ddrs.btn.send}"></button>
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-            </div>
-        </div>
-
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
 </body>
 <script type="text/javascript" th:inline="javascript">
     $(document).ready(function () {
-
+        $('a.back').click(function(){
+            parent.history.back();
+            return false;
+        });
     });
 </script>
 </html>

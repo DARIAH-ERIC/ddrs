@@ -14,6 +14,9 @@ function bindIndexPage(searchUrl, selectRepositoryUrl, selectRepositoryText) {
         event.preventDefault();
         ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText);
     });
+    $('[data-toggle="tooltip"]').tooltip({
+        placement : 'top'
+    });
 }
 
 function bindQuestionsPage() {
