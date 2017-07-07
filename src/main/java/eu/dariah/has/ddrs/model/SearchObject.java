@@ -1,9 +1,6 @@
 package eu.dariah.has.ddrs.model;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by yoannmoranville on 10/05/17.
@@ -24,7 +21,7 @@ public class SearchObject {
     public void setSearchParameters(Map<String, String> searchParameters) {
         internSearchParameters = new HashMap<>(searchParameters.size());
         for(String key : searchParameters.keySet()) {
-            internSearchParameters.put(key, Collections.singletonList(searchParameters.get(key)));
+            internSearchParameters.put(key, new ArrayList<>(Collections.singletonList(searchParameters.get(key))));
         }
     }
 
