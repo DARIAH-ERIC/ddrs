@@ -6,26 +6,6 @@
     <body>
         <div th:fragment="footer">
             <div>&copy; 2017 Humanities at Scale</div>
-            <script th:inline="javascript">
-                window.addEventListener("load", function(){
-                    window.cookieconsent.initialise({
-                        "palette": {
-                            "popup": {
-                                "background": "#f8f8f8"
-                            },
-                            "button": {
-                                "background": "#0870ac",
-                                "text": "#ffffff"
-                            }
-                        },
-                        "content": {
-                            "message": /*[[#{ddrs.label.cookie.message}]]*/ '',
-                            "dismiss": /*[[#{ddrs.label.cookie.btn}]]*/ '',
-                            "link": /*[[#{ddrs.label.cookie.learn.more}]]*/ '',
-                            "href": "http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm"
-                        }
-                    })});
-            </script>
         </div>
     </body>
 </html>
