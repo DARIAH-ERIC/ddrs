@@ -12,7 +12,7 @@ description: Index of DDRS documentation
 * [Architecture and technical components](architecture.md)
 * [Use cases](use_cases.md)
 * [Extensive use-case oriented tutorial] (yet to come)
-* [Installation](docs/installation.md)
+* [Installation](installation.md)
 * [Technical documentation] (yet to come)
 
 The tool and its tutorials have been developed with support from the European Digital Research Infrastructure for the Arts and Humanities [DARIAH-EU](http://www.dariah.eu/) within the project Humanities at Scale (HaS). Funding has been provided by the European Commission under the [INFRADEV-3-2015- Individual implementation and operation of ESFRI projects Grant Agreement no.: 675570.](http://cordis.europa.eu/project/rcn/198110_en.html)
