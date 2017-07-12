@@ -18,8 +18,8 @@
 
         <h4 th:text="#{ddrs.label.error.access.denied}">Access denied</h4>
         <a href="#" th:href="@{/}" th:text="#{ddrs.label.go.back}">Return to home page</a>
+        <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
     </div>
-    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
 </body>
 <script type="text/javascript" th:inline="javascript">
     $(document).ready(function () {
