@@ -52,6 +52,7 @@
         </script>
     </head>
     <body>
+        <span th:text="${#httpServletRequest.requestURL.toString()}"></span>
         <nav class="navbar navbar-default navbar-fixed-top" th:fragment="header">
             <div class="container-fluid">
                 <div class="navbar-header">
