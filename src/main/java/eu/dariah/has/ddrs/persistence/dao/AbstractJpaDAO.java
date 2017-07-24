@@ -45,7 +45,9 @@ public abstract class AbstractJpaDAO<T extends Serializable> {
 
     @Transactional
     public void deleteById(long entityId) {
+        System.out.println("deleteById " + entityId);
         T entity = findOne(entityId);
         delete(entity);
+        System.out.println("deleteById finished");
     }
 }

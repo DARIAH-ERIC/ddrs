@@ -11,7 +11,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.LinkedHashSet;
 
 @Component
 public class FillUpDatabaseEventListener {
@@ -99,9 +99,9 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical turkey = createResultTypeHierarchical("TUR", 33, "Turkey", countries);
         ResultTypeHierarchical unitedKingdom = createResultTypeHierarchical("GBR", 34, "United Kingdom", countries, "r3d100010215");
 
-        countries.addChildren(Arrays.asList(austria, belgium, bulgaria, croatia, cyprus, czech, denmark, estonia, finland, france, germany, greece,
+        countries.addChildren(new LinkedHashSet<>(Arrays.asList(austria, belgium, bulgaria, croatia, cyprus, czech, denmark, estonia, finland, france, germany, greece,
                 hungary, iceland, ireland, italy, lithuania, luxembourg, latvia, malta, montenegro, netherlands, norway, poland, portugal, romania,
-                serbia, slovakia, slovenia, spain, sweden, switzerland, turkey, unitedKingdom));
+                serbia, slovakia, slovenia, spain, sweden, switzerland, turkey, unitedKingdom)));
         resultTypeHierarchicalDAO.update(countries);
     }
 
@@ -121,7 +121,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical finnish = createResultTypeHierarchical("fin", 4, "Finnish", repositoryLanguages);
         ResultTypeHierarchical croatian = createResultTypeHierarchical("hrv", 5, "Croatian", repositoryLanguages);
 
-        repositoryLanguages.addChildren(Arrays.asList(french, german, english, finnish, croatian));
+        repositoryLanguages.addChildren(new LinkedHashSet<>(Arrays.asList(french, german, english, finnish, croatian)));
         resultTypeHierarchicalDAO.update(repositoryLanguages);
     }
 
@@ -137,7 +137,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical multidisciplinary = createResultTypeHierarchical("multidisciplinary", 4, "Multidisciplinary", keywords);
         ResultTypeHierarchical music = createResultTypeHierarchical("music", 5, "Music", keywords);
 
-        keywords.addChildren(Arrays.asList(corpora, history, linguistics, multidisciplinary, music));
+        keywords.addChildren(new LinkedHashSet<>(Arrays.asList(corpora, history, linguistics, multidisciplinary, music)));
         resultTypeHierarchicalDAO.update(keywords);
     }
 
@@ -157,7 +157,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical classicalArchaeology = createResultTypeHierarchical("10104 Classical Archaeology", 3, "Classical Archaeology", ancientCultures);
         ResultTypeHierarchical egyptology = createResultTypeHierarchical("10105 Egyptology and Ancient Near Eastern Studies", 4, "Egyptology and Ancient Near Eastern Studies", ancientCultures);
 
-        ancientCultures.addChildren(Arrays.asList(prehistory, ancientHistory, classicalArchaeology, egyptology));
+        ancientCultures.addChildren(new LinkedHashSet<>(Arrays.asList(prehistory, ancientHistory, classicalArchaeology, egyptology)));
         resultTypeHierarchicalDAO.update(ancientCultures);
 
         //Level 1
@@ -169,7 +169,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical modernAndCurrentHistory = createResultTypeHierarchical("10203 Modern and Current History", 3, "Modern and Current History", history);
         ResultTypeHierarchical historyOfScience = createResultTypeHierarchical("10204 History of Science", 4, "History of Science", history);
 
-        history.addChildren(Arrays.asList(medievalHistory, earlyModernHistory, modernAndCurrentHistory, historyOfScience));
+        history.addChildren(new LinkedHashSet<>(Arrays.asList(medievalHistory, earlyModernHistory, modernAndCurrentHistory, historyOfScience)));
         resultTypeHierarchicalDAO.update(history);
 
         //Level 1
@@ -180,7 +180,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical musicology = createResultTypeHierarchical("10302 Musicology", 2, "Musicology", fineArts);
         ResultTypeHierarchical theatre = createResultTypeHierarchical("10303 Theatre and Media Studies", 3, "Theatre and Media Studies", fineArts);
 
-        fineArts.addChildren(Arrays.asList(artHistory, musicology, theatre));
+        fineArts.addChildren(new LinkedHashSet<>(Arrays.asList(artHistory, musicology, theatre)));
         resultTypeHierarchicalDAO.update(fineArts);
 
         //Level 1
@@ -191,7 +191,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical individualLinguistics = createResultTypeHierarchical("10402 Individual Linguistics", 2, "Individual Linguistics", linguistics);
         ResultTypeHierarchical typology = createResultTypeHierarchical("10403 Typology, Non-European Languages, Historical Linguistics", 3, "Typology, Non-European Languages, Historical Linguistics", linguistics);
 
-        linguistics.addChildren(Arrays.asList(generalAndAppliedLinguistics, individualLinguistics, typology));
+        linguistics.addChildren(new LinkedHashSet<>(Arrays.asList(generalAndAppliedLinguistics, individualLinguistics, typology)));
         resultTypeHierarchicalDAO.update(linguistics);
 
         //Level 1
@@ -201,7 +201,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical europeanAndAmericanLiterature = createResultTypeHierarchical("10503 European and American Literature", 1, "European and American Literature", literaryStudies);
         ResultTypeHierarchical generalAndComparativeLiterature = createResultTypeHierarchical("10504 General and Comparative Literature and Cultural Studies", 2, "General and Comparative Literature and Cultural Studies", literaryStudies);
 
-        literaryStudies.addChildren(Arrays.asList(europeanAndAmericanLiterature, generalAndComparativeLiterature));
+        literaryStudies.addChildren(new LinkedHashSet<>(Arrays.asList(europeanAndAmericanLiterature, generalAndComparativeLiterature)));
         resultTypeHierarchicalDAO.update(literaryStudies);
 
         //Level 1
@@ -214,7 +214,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical islamicStudies = createResultTypeHierarchical("10604 Islamic Studies, Arabian Studies, Semitic Studies", 4, "Islamic Studies, Arabian Studies, Semitic Studies", nonEuropean);
         ResultTypeHierarchical religiousStudiesAndJewishStudies = createResultTypeHierarchical("10605 Religious Studies and Jewish Studies", 5, "Religious Studies and Jewish Studies", nonEuropean);
 
-        nonEuropean.addChildren(Arrays.asList(socialAndCulturalAnthropology, asianStudies, africanAmericanAndOceaniaStudies, islamicStudies, religiousStudiesAndJewishStudies));
+        nonEuropean.addChildren(new LinkedHashSet<>(Arrays.asList(socialAndCulturalAnthropology, asianStudies, africanAmericanAndOceaniaStudies, islamicStudies, religiousStudiesAndJewishStudies)));
         resultTypeHierarchicalDAO.update(nonEuropean);
 
         //Level 1
@@ -224,7 +224,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical protestantTheology = createResultTypeHierarchical("10701 Protestant Theology", 1, "Protestant Theology", theology);
         ResultTypeHierarchical romanCatholicTheology = createResultTypeHierarchical("10702 Roman Catholic Theology", 2, "Roman Catholic Theology", theology);
 
-        theology.addChildren(Arrays.asList(protestantTheology, romanCatholicTheology));
+        theology.addChildren(new LinkedHashSet<>(Arrays.asList(protestantTheology, romanCatholicTheology)));
         resultTypeHierarchicalDAO.update(theology);
 
         //Level 1
@@ -236,7 +236,7 @@ public class FillUpDatabaseEventListener {
         philosophy.addChild(historyOfPhilosophy);
         resultTypeHierarchicalDAO.update(philosophy);
 
-        humanities.addChildren(Arrays.asList(ancientCultures, history, fineArts, linguistics, literaryStudies, nonEuropean, theology, philosophy));
+        humanities.addChildren(new LinkedHashSet<>(Arrays.asList(ancientCultures, history, fineArts, linguistics, literaryStudies, nonEuropean, theology, philosophy)));
         resultTypeHierarchicalDAO.update(humanities);
     }
 

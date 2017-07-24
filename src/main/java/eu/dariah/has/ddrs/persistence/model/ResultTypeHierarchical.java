@@ -1,5 +1,6 @@
 package eu.dariah.has.ddrs.persistence.model;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -8,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by yoann on 29.05.17.
@@ -44,12 +43,12 @@ public class ResultTypeHierarchical implements Serializable {
     @ManyToOne
     private ResultTypeHierarchical parent;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("resultTypeHierarchicalOrder")
-    private List<ResultTypeHierarchical> children;
+    private Set<ResultTypeHierarchical> children;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "resultTypeHierarchical")
-    private List<DefaultRepository> defaultRepositories;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "resultTypeHierarchical", cascade = CascadeType.REMOVE)
+    private Set<DefaultRepository> defaultRepositories;
 
     public ResultTypeHierarchical() {}
 
@@ -99,53 +98,53 @@ public class ResultTypeHierarchical implements Serializable {
         this.parent = parent;
     }
 
-    public List<ResultTypeHierarchical> getChildren() {
+    public Set<ResultTypeHierarchical> getChildren() {
         if(children == null)
-            return new ArrayList<>();
+            return new LinkedHashSet<>();
         return children;
     }
 
-    public void setChildren(List<ResultTypeHierarchical> children) {
+    public void setChildren(Set<ResultTypeHierarchical> children) {
         this.children = children;
     }
 
-    public List<DefaultRepository> getDefaultRepositories() {
+    public Set<DefaultRepository> getDefaultRepositories() {
         return defaultRepositories;
     }
 
-    public void setDefaultRepositories(List<DefaultRepository> defaultRepositories) {
+    public void setDefaultRepositories(Set<DefaultRepository> defaultRepositories) {
         this.defaultRepositories = defaultRepositories;
     }
 
     public void addChild(ResultTypeHierarchical child) {
-        addChildren(Collections.singletonList(child));
+        addChildren(Collections.singleton(child));
     }
 
-    public void addChildren(List<ResultTypeHierarchical> newChildren) {
-        List<ResultTypeHierarchical> oldChildren = getChildren();
-        children = new ArrayList<>(oldChildren.size() + newChildren.size());
+    public void addChildren(Set<ResultTypeHierarchical> newChildren) {
+        Set<ResultTypeHierarchical> oldChildren = getChildren();
+        children = new LinkedHashSet<>(oldChildren.size() + newChildren.size());
         children.addAll(oldChildren);
         children.addAll(newChildren);
     }
 
     public void removeChild(ResultTypeHierarchical oldChild) {
-        List<ResultTypeHierarchical> oldChildren = getChildren();
+        Set<ResultTypeHierarchical> oldChildren = getChildren();
         oldChildren.remove(oldChild);
-        children = new ArrayList<>(oldChildren.size());
+        children = new LinkedHashSet<>(oldChildren.size());
         children.addAll(oldChildren);
     }
 
     public void addDefaultRepository(DefaultRepository defaultRepository) {
-        List<DefaultRepository> oldDefaultRepositories = getDefaultRepositories();
-        defaultRepositories = new ArrayList<>(defaultRepositories.size() + 1);
+        Set<DefaultRepository> oldDefaultRepositories = getDefaultRepositories();
+        defaultRepositories = new LinkedHashSet<>(defaultRepositories.size() + 1);
         defaultRepositories.addAll(oldDefaultRepositories);
         defaultRepositories.add(defaultRepository);
     }
 
     public void removeDefaultRepository(DefaultRepository oldDefaultRepository) {
-        List<DefaultRepository> oldDefaultRepositories = getDefaultRepositories();
+        Set<DefaultRepository> oldDefaultRepositories = getDefaultRepositories();
         oldDefaultRepositories.remove(oldDefaultRepository);
-        defaultRepositories = new ArrayList<>(oldDefaultRepositories.size());
+        defaultRepositories = new LinkedHashSet<>(oldDefaultRepositories.size());
         defaultRepositories.addAll(oldDefaultRepositories);
     }
 }
