@@ -29,6 +29,9 @@ public class RepositoryServiceTest {
         repositoryService.createIndex();
     }
 
+    @Test
+    public void emptyTest() {}
+
 //    @Test
 //    public void testSave() {
 //        LOGGER.info("testSave");
