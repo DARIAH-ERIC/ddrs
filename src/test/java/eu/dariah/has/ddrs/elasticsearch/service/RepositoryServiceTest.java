@@ -69,19 +69,19 @@ public class RepositoryServiceTest {
 //        assertNull(testRepository);
 //    }
 //
-    @Test
-    public void testFindMultiple() {
-        LOGGER.info("testFindMultiple");
+//    @Test
+//    public void testFindMultiple() {
+//        LOGGER.info("testFindMultiple");
 //        Repository repository = new Repository("4", "Repository in France - 4");
 //        repositoryService.save(repository, true);
 //
 //        repository = new Repository("5", "Repository in France - 5");
 //        repositoryService.save(repository, true);
-
-        List<Repository> repositories = repositoryService.findByName("Repository");
-        assertFalse(repositories.isEmpty());
-        assertEquals(10, repositories.size());
-    }
+//
+//        List<Repository> repositories = repositoryService.findByName("Repository");
+//        assertFalse(repositories.isEmpty());
+//        assertEquals(10, repositories.size());
+//    }
 //
 //    @Test
 //    public void testFindAll() {
