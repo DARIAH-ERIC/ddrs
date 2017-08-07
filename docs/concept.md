@@ -28,8 +28,6 @@ After answering a very few mandatory questions the user receives a ranked list o
 
 A good visualisation of such a faceted browsing could look like [re3data.org](http://www.re3data.org/) has implemented the browsing by subject. The underlying technical solution uses a database with repositories tagged with classifications of the covered content. The user browses through this metadata and gets very quickly results, leading him to the desired repositories.
 
-A similar solution is at hand for HaS. Depending on the detail of the metadata on the repositories that is available various use cases become possible. With a more detailed description of the metadata a more branched inquiry of the researcher’s individual requirements becomes feasible allowing more individually tailored results and thereby improving the user experience. To achieve such a maturity and usefulness in service quality requires one the hand a stable technical solution, on the other hand - and possibly more important - a rich and reliable database.
-
 ![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/concept.png "Concept")
 
 ##### Individual case description to initiate the communication process between researcher and repository
