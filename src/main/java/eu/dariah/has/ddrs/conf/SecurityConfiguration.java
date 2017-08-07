@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and().exceptionHandling().accessDeniedPage("/access-denied")
 
-                .and().requiresChannel().antMatchers("/**").requiresSecure()
+                .and().requiresChannel().antMatchers("/**").requiresInsecure()
 
                 .and().rememberMe();
     }

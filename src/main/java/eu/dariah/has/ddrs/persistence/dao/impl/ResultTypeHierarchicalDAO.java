@@ -36,8 +36,9 @@ public class ResultTypeHierarchicalDAO extends AbstractJpaDAO<ResultTypeHierarch
     @Override
     public void deleteById(long id) {
         ResultTypeHierarchical resultTypeHierarchical = entityManager.find(ResultTypeHierarchical.class, id);
-        resultTypeHierarchical.getParent().removeChild(resultTypeHierarchical);
-        update(resultTypeHierarchical.getParent());
+        ResultTypeHierarchical parent = resultTypeHierarchical.getParent();
+        parent.removeChild(resultTypeHierarchical);
+        update(parent);
         delete(resultTypeHierarchical);
     }
 

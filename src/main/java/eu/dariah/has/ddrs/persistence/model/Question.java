@@ -51,9 +51,13 @@ public class Question implements Serializable {
     @JoinColumn(name = "translation_id")
     private Translation translation;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "tooltip_id")
+    private Translation tooltip;
+
     public Question() {}
 
-    public Question(String name, Boolean isEditable, Boolean isInUse, int questionOrder, int priority, ResultTypeHierarchical resultTypeHierarchical, Translation translation) {
+    public Question(String name, Boolean isEditable, Boolean isInUse, int questionOrder, int priority, ResultTypeHierarchical resultTypeHierarchical, Translation translation, Translation tooltip) {
         this.name = name;
         this.isEditable = isEditable;
         this.isInUse = isInUse;
@@ -61,6 +65,7 @@ public class Question implements Serializable {
         this.priority = priority;
         this.resultTypeHierarchical = resultTypeHierarchical;
         this.translation = translation;
+        this.tooltip = tooltip;
     }
 
     public Long getId() {
@@ -93,6 +98,14 @@ public class Question implements Serializable {
 
     public void setTranslation(Translation translation) {
         this.translation = translation;
+    }
+
+    public Translation getTooltip() {
+        return tooltip;
+    }
+
+    public void setTooltip(Translation tooltip) {
+        this.tooltip = tooltip;
     }
 
     public int getQuestionOrder() {

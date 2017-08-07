@@ -41,4 +41,10 @@ public class RepositoryController {
         return "repository";
     }
 
+    @RequestMapping(value = "/contactForm", method = RequestMethod.GET)
+    public String viewContactForm(@RequestParam(value = "id") String identifier, Model model) {
+        model.addAttribute("repositoryId", identifier);
+        return "contact_form";
+    }
+
 }

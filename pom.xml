@@ -9,6 +9,11 @@
     <name>DDRS for DARIAH</name>
     <version>0.1-SNAPSHOT</version>
     <url>http://has.dariah.eu</url>
+    <scm>
+        <connection>scm:git:git@github.com:DARIAH-ERIC/ddrs.git</connection>
+        <developerConnection>scm:git:git@github.com:DARIAH-ERIC/ddrs.git</developerConnection>
+        <url>git@github.com:DARIAH-ERIC/ddrs.git</url>
+    </scm>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -19,6 +24,7 @@
 
     <properties>
         <slf4j.version>1.6.1</slf4j.version>
+        <elasticsearch.version>1.7.6</elasticsearch.version>
     </properties>
 
     <dependencies>
@@ -58,6 +64,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.searchbox</groupId>
+            <artifactId>jest</artifactId>
         </dependency>
 
         <dependency>
@@ -155,47 +169,6 @@
         </dependency>
     </dependencies>
 
-    <!--<profiles>-->
-        <!--<profile>-->
-            <!--<id>createKeytool</id>-->
-            <!--<build>-->
-                <!--<plugins>-->
-                    <!--<plugin>-->
-                        <!--<groupId>org.codehaus.mojo</groupId>-->
-                        <!--<artifactId>keytool-maven-plugin</artifactId>-->
-                        <!--<version>1.5</version>-->
-                        <!--<executions>-->
-                            <!--<execution>-->
-                                <!--<phase>generate-resources</phase>-->
-                                <!--<id>clean</id>-->
-                                <!--<goals>-->
-                                    <!--<goal>clean</goal>-->
-                                <!--</goals>-->
-                            <!--</execution>-->
-                            <!--<execution>-->
-                                <!--<phase>generate-resources</phase>-->
-                                <!--<id>genkey</id>-->
-                                <!--<goals>-->
-                                    <!--<goal>generateKeyPair</goal>-->
-                                <!--</goals>-->
-                            <!--</execution>-->
-                        <!--</executions>-->
-                        <!--<configuration>-->
-                            <!--<keystore>${project.build.directory}/tomcat7.p12</keystore>-->
-                            <!--<dname>cn=localhost</dname>-->
-                            <!--<keypass>tomcat7</keypass>-->
-                            <!--<storepass>tomcat7</storepass>-->
-                            <!--<alias>tomcat7</alias>-->
-                            <!--<keyalg>RSA</keyalg>-->
-                            <!--<storetype>PKCS12</storetype>-->
-                            <!--<keysize>2048</keysize>-->
-                            <!--<validity>3650</validity>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
-                <!--</plugins>-->
-            <!--</build>-->
-        <!--</profile>-->
-    <!--</profiles>-->
     <build>
         <finalName>ddrs</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -213,9 +186,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <executable>true</executable>
-                    <profiles>
-                        <profile>createKeytool</profile>
-                    </profiles>
                 </configuration>
             </plugin>
         </plugins>

@@ -28,20 +28,20 @@ public class Re3dataQueryList {
     public Re3dataQueryList(SearchObject searchObject) {
         StringBuilder stringBuilder = new StringBuilder(URL_PREFIX);
         stringBuilder.append(QUERY);
-        if(! searchObject.getSearchParameters().keySet().contains(SUBJECTS)) {
-            searchObject.getSearchParameters().put(SUBJECTS, Collections.singletonList(SUBJECT_HUMANITIES_AND_SOCIAL_SCIENCES));
+        if(! searchObject.getInternSearchParameters().keySet().contains(SUBJECTS)) {
+            searchObject.getInternSearchParameters().put(SUBJECTS, Collections.singletonList(SUBJECT_HUMANITIES_AND_SOCIAL_SCIENCES));
         } else {
-            searchObject.getSearchParameters().get(SUBJECTS).add(SUBJECT_HUMANITIES_AND_SOCIAL_SCIENCES);
+            searchObject.getInternSearchParameters().get(SUBJECTS).add(SUBJECT_HUMANITIES_AND_SOCIAL_SCIENCES);
         }
-        if(! searchObject.getSearchParameters().keySet().contains(PROVIDER_TYPES)) {
-            searchObject.getSearchParameters().put(PROVIDER_TYPES, Collections.singletonList(DATA_PROVIDER));
+        if(! searchObject.getInternSearchParameters().keySet().contains(PROVIDER_TYPES)) {
+            searchObject.getInternSearchParameters().put(PROVIDER_TYPES, Collections.singletonList(DATA_PROVIDER));
         } else {
-            searchObject.getSearchParameters().get(PROVIDER_TYPES).add(DATA_PROVIDER);
+            searchObject.getInternSearchParameters().get(PROVIDER_TYPES).add(DATA_PROVIDER);
         }
 
-        for(String key : searchObject.getSearchParameters().keySet()) {
+        for(String key : searchObject.getInternSearchParameters().keySet()) {
             String filterName = key + "[]=";
-            addList(stringBuilder, filterName, searchObject.getSearchParameters().get(key));
+            addList(stringBuilder, filterName, searchObject.getInternSearchParameters().get(key));
         }
         url = stringBuilder.toString();
     }

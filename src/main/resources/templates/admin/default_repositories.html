@@ -3,47 +3,65 @@
 <head th:replace="fragments/header :: ddrshead">
 </head>
 <body>
-<div id="wrapper">
     <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
         <div class="navbar-header"><a class="navbar-brand" href="#">Static header</a></div>
     </nav>
     <div id="page-wrapper">
         <h2 class="dariah-color-text text-center" th:text="#{page.admin.default.repositories}">Header</h2>
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>Responses</th>
-                <th>Default repository identifiers</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <th:block th:each="result : ${results}">
-                <form method="post" action="#" th:action="@{/admin/editDefaultRepositories}">
-                    <tr>
-                        <td th:text="${result.getTranslation().getEn()}">English translation</td>
-                        <td>
+        <div class="ddrstable">
+            <div class="ddrstablehead">
+                <div class="ddrsrow">
+                    <div class="col-md-7 ddrscell">Responses</div>
+                    <div class="col-md-2 ddrscell">Default repository identifiers</div>
+                    <div class="col-md-2 ddrscell">Add new identifier</div>
+                    <div class="col-md-1 ddrscell">Action</div>
+                </div>
+            </div>
+            <div class="ddrstablebody">
+                <th:block th:each="result : ${results}">
+                    <div class="ddrsrow" th:id="${'result_' + result.getId()}">
+                        <div class="col-md-7 ddrscell"><p class="form-control-static" th:text="${result.getTranslation().getEn()}">English translation</p></div>
+                        <div class="col-md-2 ddrscell">
+                            <p class="form-control-static" th:if="${result.getDefaultRepositories().isEmpty()}"></p>
                             <th:block th:each="defaultRepository : ${result.getDefaultRepositories()}">
-                                <span th:text="${defaultRepository.getRe3dataIdentifier()}"></span>&nbsp;
+                                <form method="post" action="#" th:action="@{/admin/deleteDefaultRepositories}">
+                                    <input type="hidden" name="defaultRepositoryId" th:value="${defaultRepository.getId()}" />
+                                    <div class="control-label">
+                                        <span th:text="${defaultRepository.getRe3dataIdentifier()}"></span>&nbsp;<button type="submit" class="btn btn-danger glyphicon glyphicon-remove"></button>
+                                    </div>
+                                </form>
                             </th:block>
-                            <input type="text" name="repositoryId" class="form-control" />
-                        </td>
-                        <td>
-                            <input type="hidden" name="resultId" th:value="${result.getId()}"/>
-                            <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
-                        </td>
-                    </tr>
-                </form>
-            </th:block>
-            </tbody>
-        </table>
+                        </div>
+                        <form method="post" action="#" th:action="@{/admin/editDefaultRepositories}">
+                            <div class="form-group col-md-2 ddrscell">
+                                <input title="repositoryId" type="text" name="repositoryId" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-1 ddrscell">
+                                <input type="hidden" name="resultId" th:value="${result.getId()}"/>
+                                <button type="submit" class="form-control btn btn-success" th:text="#{ddrs.btn.save}"></button>
+                            </div>
+                        </form>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
     </div>
-    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
-</div>
 </body>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript" th:if="${savedResultId != null}">
     $(document).ready(function () {
-
+        var savedResultId = /*[[${savedResultId}]]*/ '';
+        var $element = $("#result_"+savedResultId);
+        $('html, body').animate({
+            scrollTop: $element.offset().top - 100
+        }, 200);
+        $element.stop().animate({
+            backgroundColor: '#F0AD4E'
+        }, 100, function() {
+            $(this).animate({
+                backgroundColor: '#FFFFFF'
+            }, 1000);
+        });
     });
 </script>
 </html>

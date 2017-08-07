@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: ddrshead">
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Static header</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="page-wrapper">
+    <h2 class="dariah-color-text text-center" th:text="${repositoryId}"></h2>
+    <h2 class="dariah-color-text text-center" th:text="#{ddrs.label.repository.submit.information}"></h2>
+    <div class="container-fluid">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label class="control-label" for="name" th:text="#{ddrs.label.user.name}"></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" id="name" type="text" name="name" size="64" />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label class="control-label" for="institution" th:text="#{ddrs.label.user.institution}"></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" id="institution" type="text" name="institution" size="64" />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label class="control-label" for="email" th:text="#{ddrs.label.user.email}"></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" id="email" type="text" name="email" size="64" />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label class="control-label" for="dataType" th:text="#{ddrs.label.user.data.type}"></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" id="dataType" type="text" name="dataType" size="64" />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label class="control-label" for="format" th:text="#{ddrs.label.user.format}"></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" id="format" type="text" name="format" size="64" />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label class="control-label" for="metadataFormat" th:text="#{ddrs.label.user.metadata.format}"></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" id="metadataFormat" type="text" name="metadataFormat" size="64" />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label class="control-label" for="access" th:text="#{ddrs.label.user.open.restricted.access}"></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" id="access" type="text" name="access" size="64" />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2 row-bold">
+                    <label class="control-label" for="description" th:text="#{ddrs.label.user.description}"></label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <button type="submit" class="form-control" id="submit" name="submit" th:text="#{ddrs.btn.send}"></button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
+</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+</html>

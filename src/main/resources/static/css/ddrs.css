@@ -1,9 +1,39 @@
 .dariah-color-text {
-    color: rgb(32, 58, 107);
+    color: rgb(8, 112, 172);
+}
+
+.dariah-color-form {
+    background-color: rgb(8, 112, 172);
+    padding: 10px 10px 30px 10px;
+    border-radius: 10px;
+}
+
+.big-label {
+    font-size: 150%;
+}
+
+.white-text {
+    color: #FFFFFF;
 }
 
 .spacer {
     margin-top: 20px;
+}
+.middle-spacer {
+    margin-top: 40px;
+}
+.bottom-spacer {
+    margin-top: 30px;
+}
+
+.no-background-addon {
+    background-color: inherit;
+    border: none;
+}
+.background-addon {
+    background-color: #FFFFFF;
+    border-radius: 13px;
+    font-size: 1.9em;
 }
 
 .divider-horizontal {
@@ -17,7 +47,6 @@
 }
 
 .logo {
-    background-color: #ffffff;
     padding: 8px;
 }
 .logo:hover {
@@ -35,7 +64,6 @@
 
 body {
     margin-top: 100px;
-    background-color: #222;
 }
 
 @media(min-width:768px) {
@@ -149,4 +177,32 @@ ul.alert-dropdown {
 }
 .btn-drop {
     margin-top: 10px;
+}
+
+.ddrstable {
+    display: table;
+    width: 100%;
+    overflow: hidden;
+}
+
+.ddrsrow {
+    display: table-row;
+}
+.ddrsrow:hover {
+    background-color: #F5F5F5;
+}
+.ddrscell {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+.ddrstablebody {
+    display: table-row-group;
+}
+.ddrstablehead {
+    background-color: #eeeeee;
+    display: table-header-group;
+    font-weight: bold;
 }

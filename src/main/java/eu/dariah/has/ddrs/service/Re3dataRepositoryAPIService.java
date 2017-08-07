@@ -56,8 +56,8 @@ public class Re3dataRepositoryAPIService {
 
     public void addDefaultRepositories(SearchObject searchObject, Re3dataList re3dataList) {
         Set<Repository> newSet = new LinkedHashSet<>(re3dataList.getRepositories().size());
-        for(String key : searchObject.getSearchParameters().keySet()) {
-            for(String code : searchObject.getSearchParameters().get(key)) {
+        for(String key : searchObject.getInternSearchParameters().keySet()) {
+            for(String code : searchObject.getInternSearchParameters().get(key)) {
                 LOGGER.debug("Search for code: " + code);
                 ResultTypeHierarchical resultTypeHierarchical = resultTypeHierarchicalDAO.findByCode(code);
                 if(resultTypeHierarchical != null) {

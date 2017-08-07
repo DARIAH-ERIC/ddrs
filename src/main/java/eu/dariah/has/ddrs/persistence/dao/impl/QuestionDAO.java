@@ -4,6 +4,7 @@ import eu.dariah.has.ddrs.persistence.dao.AbstractJpaDAO;
 import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
 import eu.dariah.has.ddrs.persistence.model.Question;
 import eu.dariah.has.ddrs.persistence.model.Question_;
+import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;

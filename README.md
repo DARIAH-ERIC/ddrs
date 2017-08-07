@@ -1,1 +1,4 @@
-# ddrs
+# DDRS (Data Deposit Recommendation Service)
+
+* [Documentation index](docs/index.md)
+* [Installation](docs/installation.md)

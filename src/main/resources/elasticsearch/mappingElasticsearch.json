@@ -1,0 +1,662 @@
+{
+  "repository" : {
+    "_all" : {
+      "auto_boost" : true
+    },
+    "properties" : {
+      "additionalNames" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "language" : {
+            "type" : "string",
+            "store" : true
+          },
+          "text" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "aidSystems" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "apis" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "url" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "certificates" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "citationGuidelineUrl" : {
+        "type" : "string",
+        "store" : true
+      },
+      "contentTypes" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "scheme" : {
+            "type" : "string",
+            "store" : true
+          },
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "created" : {
+        "type" : "string",
+        "store" : true
+      },
+      "dataAccesses" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "restrictions" : {
+            "type" : "nested",
+            "include_in_parent" : true,
+            "properties" : {
+              "text" : {
+                "type" : "string",
+                "store" : true,
+                "fields" : {
+                  "raw" : {
+                    "type" : "string",
+                    "index" : "not_analyzed"
+                  }
+                }
+              }
+            }
+          },
+          "type" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "dataLicenses" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "url" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "dataUploadLicenses" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "url" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "dataUploads" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "restrictions" : {
+            "type" : "nested",
+            "include_in_parent" : true,
+            "properties" : {
+              "text" : {
+                "type" : "string",
+                "store" : true,
+                "fields" : {
+                  "raw" : {
+                    "type" : "string",
+                    "index" : "not_analyzed"
+                  }
+                }
+              }
+            }
+          },
+          "type" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "databaseAccess" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "restrictions" : {
+            "type" : "nested",
+            "include_in_parent" : true,
+            "properties" : {
+              "text" : {
+                "type" : "string",
+                "store" : true,
+                "fields" : {
+                  "raw" : {
+                    "type" : "string",
+                    "index" : "not_analyzed"
+                  }
+                }
+              }
+            }
+          },
+          "type" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "databaseLicenses" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "url" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "description" : {
+        "type" : "string",
+        "store" : true
+      },
+      "descriptionLanguage" : {
+        "type" : "string",
+        "store" : true
+      },
+      "endDate" : {
+        "type" : "string",
+        "store" : true
+      },
+      "enhancedPublication" : {
+        "type" : "string",
+        "store" : true,
+        "fields" : {
+          "raw" : {
+            "type" : "string",
+            "index" : "not_analyzed"
+          }
+        }
+      },
+      "identifier" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "doi" : {
+            "type" : "string",
+            "boost" : 5.0,
+            "store" : true
+          },
+          "re3data" : {
+            "type" : "integer",
+            "boost" : 5.0,
+            "store" : true,
+            "norms" : {
+              "enabled" : true
+            }
+          }
+        }
+      },
+      "institutions" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "additionalNames" : {
+            "type" : "nested",
+            "include_in_parent" : true,
+            "properties" : {
+              "language" : {
+                "type" : "string",
+                "store" : true
+              },
+              "text" : {
+                "type" : "string",
+                "store" : true
+              }
+            }
+          },
+          "contacts" : {
+            "type" : "nested",
+            "include_in_parent" : true,
+            "properties" : {
+              "text" : {
+                "type" : "string",
+                "store" : true
+              }
+            }
+          },
+          "country" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "identifiers" : {
+            "type" : "nested",
+            "include_in_parent" : true,
+            "properties" : {
+              "text" : {
+                "type" : "string",
+                "store" : true
+              }
+            }
+          },
+          "name" : {
+            "type" : "string",
+            "store" : true
+          },
+          "nameLanguage" : {
+            "type" : "string",
+            "store" : true
+          },
+          "responsibilityEndDate" : {
+            "type" : "string",
+            "store" : true
+          },
+          "responsibilityStartDate" : {
+            "type" : "string",
+            "store" : true
+          },
+          "responsibilityTypes" : {
+            "type" : "nested",
+            "include_in_parent" : true,
+            "properties" : {
+              "text" : {
+                "type" : "string",
+                "store" : true,
+                "fields" : {
+                  "raw" : {
+                    "type" : "string",
+                    "index" : "not_analyzed"
+                  }
+                }
+              }
+            }
+          },
+          "type" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "url" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "keywords" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "metadataStandards" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "metadataStandardName" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "metadataStandardScheme" : {
+            "type" : "string",
+            "store" : true
+          },
+          "metadataStandardUrl" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "missionStatementUrl" : {
+        "type" : "string",
+        "store" : true
+      },
+      "pidSystems" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "policies" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "url" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "providerTypes" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "qualityManagement" : {
+        "type" : "string",
+        "store" : true,
+        "fields" : {
+          "raw" : {
+            "type" : "string",
+            "index" : "not_analyzed"
+          }
+        }
+      },
+      "remarks" : {
+        "type" : "string",
+        "store" : true
+      },
+      "repositoryContacts" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "repositoryIdentifiers" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "repositoryLanguages" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "repositoryName" : {
+        "type" : "string",
+        "boost" : 2.0,
+        "store" : true,
+        "fields" : {
+          "raw" : {
+            "type" : "string",
+            "index" : "not_analyzed"
+          },
+          "sortable" : {
+            "type" : "string"
+          }
+        }
+      },
+      "repositoryNameLanguage" : {
+        "type" : "string",
+        "store" : true
+      },
+      "repositoryUrl" : {
+        "type" : "string",
+        "store" : true
+      },
+      "size" : {
+        "type" : "string",
+        "store" : true
+      },
+      "sizeUpdated" : {
+        "type" : "string",
+        "store" : true
+      },
+      "software" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "startDate" : {
+        "type" : "string",
+        "store" : true
+      },
+      "subjects" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "scheme" : {
+            "type" : "string",
+            "store" : true
+          },
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "syndications" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "url" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      },
+      "types" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "updated" : {
+        "type" : "string",
+        "store" : true
+      },
+      "versioning" : {
+        "type" : "string",
+        "store" : true,
+        "fields" : {
+          "raw" : {
+            "type" : "string",
+            "index" : "not_analyzed"
+          }
+        }
+      }
+    }
+  }
+}

@@ -11,7 +11,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.LinkedHashSet;
 
 @Component
 public class FillUpDatabaseEventListener {
@@ -42,16 +42,16 @@ public class FillUpDatabaseEventListener {
     }
 
     private void includeQuestions() {
-        Question question = new Question("subjects", false, false, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("In which subjects are you interested?"));
+        Question question = new Question("countries", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new Translation("In which country are you based as a researcher?"), new Translation("Tooltip for country questions..."));
         questionDAO.create(question);
 
-        question = new Question("countries", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new Translation("From which country should the repository come from?"));
+        question = new Question("subjects", false, true, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("What is your disciplinary field?"), new Translation("Tooltip for subject questions..."));
         questionDAO.create(question);
 
-        question = new Question("repositoryLanguages", true, true, 3, 0, resultTypeHierarchicalDAO.findOne(40L), new Translation("Which languages should the repository have?"));
+        question = new Question("repositoryLanguages", true, false, 3, 0, resultTypeHierarchicalDAO.findOne(69L), new Translation("Which languages should the repository have?"), new Translation("Tooltip for language questions..."));
         questionDAO.create(question);
 
-        question = new Question("keywords", true, true, 2, 0, resultTypeHierarchicalDAO.findOne(46L), new Translation("Which keywords should the repository have?"));
+        question = new Question("keywords", true, false, 2, 0, resultTypeHierarchicalDAO.findOne(75L), new Translation("Which keywords should the repository have?"), new Translation("Tooltip for keyword questions..."));
         questionDAO.create(question);
     }
 
@@ -59,18 +59,49 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical countries = new ResultTypeHierarchical();
         countries.setCode("NONE");
         countries.setTranslation(new Translation("Countries"));
-        DefaultRepository defaultRepository = new DefaultRepository("r3d100011632");
-        defaultRepositoryDAO.create(defaultRepository);
-        countries.setDefaultRepositories(Collections.singletonList(defaultRepository));
         resultTypeHierarchicalDAO.create(countries);
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100010468", countries));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100011394", countries));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100010066", countries));
 
-        ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 1, "France", countries);
-        ResultTypeHierarchical germany = createResultTypeHierarchical("DEU", 2, "Germany", countries);
-        ResultTypeHierarchical australia = createResultTypeHierarchical("AUS", 3, "Australia", countries);
-        ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 4, "Austria", countries);
-        ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 5, "Croatia", countries, "r3d100010831");
+        ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 1, "Austria", countries);
+        ResultTypeHierarchical belgium = createResultTypeHierarchical("BEL", 2, "Belgium", countries);
+        ResultTypeHierarchical bulgaria = createResultTypeHierarchical("BUL", 3, "Bulgaria", countries);
+        ResultTypeHierarchical croatia = createResultTypeHierarchical("HRV", 4, "Croatia", countries, "r3d100012223");;
+        ResultTypeHierarchical cyprus = createResultTypeHierarchical("CYP", 5, "Cyprus", countries);
+        ResultTypeHierarchical czech = createResultTypeHierarchical("CZE", 6, "Czech Republic", countries);
+        ResultTypeHierarchical denmark = createResultTypeHierarchical("DNK", 7, "Denmark", countries, "r3d100010486");
+        ResultTypeHierarchical estonia = createResultTypeHierarchical("EST", 8, "Estonia", countries);
+        ResultTypeHierarchical finland = createResultTypeHierarchical("FIN", 9, "Finland", countries);
+        ResultTypeHierarchical france = createResultTypeHierarchical("FRA", 10, "France", countries, "r3d100010151", "r3d100012102");
+        ResultTypeHierarchical germany = createResultTypeHierarchical("DEU", 11, "Germany", countries, "r3d100011345");
+        ResultTypeHierarchical greece = createResultTypeHierarchical("GRC", 12, "Greece", countries);
+        ResultTypeHierarchical hungary = createResultTypeHierarchical("HUN", 13, "Hungary", countries);
+        ResultTypeHierarchical iceland = createResultTypeHierarchical("ISL", 14, "Iceland", countries);
+        ResultTypeHierarchical ireland = createResultTypeHierarchical("IRL", 15, "Ireland", countries);
+        ResultTypeHierarchical italy = createResultTypeHierarchical("ITA", 16, "Italy", countries);
+        ResultTypeHierarchical latvia = createResultTypeHierarchical("LTV", 17, "Latvia", countries);
+        ResultTypeHierarchical lithuania = createResultTypeHierarchical("LTU", 18, "Lithuania", countries);
+        ResultTypeHierarchical luxembourg = createResultTypeHierarchical("LUX", 19, "Luxembourg", countries);
+        ResultTypeHierarchical malta = createResultTypeHierarchical("MLT", 20, "Malta", countries);
+        ResultTypeHierarchical montenegro = createResultTypeHierarchical("MTN", 21, "Montenegro", countries);
+        ResultTypeHierarchical netherlands = createResultTypeHierarchical("NLD", 22, "Netherlands", countries, "r3d100010214");
+        ResultTypeHierarchical norway = createResultTypeHierarchical("NOR", 23, "Norway", countries, "r3d100010493");
+        ResultTypeHierarchical poland = createResultTypeHierarchical("POL", 24, "Poland", countries);
+        ResultTypeHierarchical portugal = createResultTypeHierarchical("PRT", 25, "Portugal", countries);
+        ResultTypeHierarchical romania = createResultTypeHierarchical("ROU", 26, "Romania", countries);
+        ResultTypeHierarchical serbia = createResultTypeHierarchical("SRB", 27, "Serbia", countries);
+        ResultTypeHierarchical slovakia = createResultTypeHierarchical("SVK", 28, "Slovakia", countries);
+        ResultTypeHierarchical slovenia = createResultTypeHierarchical("SVN", 29, "Slovenia", countries);
+        ResultTypeHierarchical spain = createResultTypeHierarchical("ESP", 30, "Spain", countries);
+        ResultTypeHierarchical sweden = createResultTypeHierarchical("SWE", 31, "Sweden", countries, "r3d100010146");
+        ResultTypeHierarchical switzerland = createResultTypeHierarchical("CHE", 32, "Switzerland", countries, "r3d100012374");
+        ResultTypeHierarchical turkey = createResultTypeHierarchical("TUR", 33, "Turkey", countries);
+        ResultTypeHierarchical unitedKingdom = createResultTypeHierarchical("GBR", 34, "United Kingdom", countries, "r3d100010215");
 
-        countries.addChildren(Arrays.asList(france, germany, australia, austria, croatia));
+        countries.addChildren(new LinkedHashSet<>(Arrays.asList(austria, belgium, bulgaria, croatia, cyprus, czech, denmark, estonia, finland, france, germany, greece,
+                hungary, iceland, ireland, italy, lithuania, luxembourg, latvia, malta, montenegro, netherlands, norway, poland, portugal, romania,
+                serbia, slovakia, slovenia, spain, sweden, switzerland, turkey, unitedKingdom)));
         resultTypeHierarchicalDAO.update(countries);
     }
 
@@ -90,7 +121,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical finnish = createResultTypeHierarchical("fin", 4, "Finnish", repositoryLanguages);
         ResultTypeHierarchical croatian = createResultTypeHierarchical("hrv", 5, "Croatian", repositoryLanguages);
 
-        repositoryLanguages.addChildren(Arrays.asList(french, german, english, finnish, croatian));
+        repositoryLanguages.addChildren(new LinkedHashSet<>(Arrays.asList(french, german, english, finnish, croatian)));
         resultTypeHierarchicalDAO.update(repositoryLanguages);
     }
 
@@ -106,7 +137,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical multidisciplinary = createResultTypeHierarchical("multidisciplinary", 4, "Multidisciplinary", keywords);
         ResultTypeHierarchical music = createResultTypeHierarchical("music", 5, "Music", keywords);
 
-        keywords.addChildren(Arrays.asList(corpora, history, linguistics, multidisciplinary, music));
+        keywords.addChildren(new LinkedHashSet<>(Arrays.asList(corpora, history, linguistics, multidisciplinary, music)));
         resultTypeHierarchicalDAO.update(keywords);
     }
 
@@ -126,7 +157,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical classicalArchaeology = createResultTypeHierarchical("10104 Classical Archaeology", 3, "Classical Archaeology", ancientCultures);
         ResultTypeHierarchical egyptology = createResultTypeHierarchical("10105 Egyptology and Ancient Near Eastern Studies", 4, "Egyptology and Ancient Near Eastern Studies", ancientCultures);
 
-        ancientCultures.addChildren(Arrays.asList(prehistory, ancientHistory, classicalArchaeology, egyptology));
+        ancientCultures.addChildren(new LinkedHashSet<>(Arrays.asList(prehistory, ancientHistory, classicalArchaeology, egyptology)));
         resultTypeHierarchicalDAO.update(ancientCultures);
 
         //Level 1
@@ -138,7 +169,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical modernAndCurrentHistory = createResultTypeHierarchical("10203 Modern and Current History", 3, "Modern and Current History", history);
         ResultTypeHierarchical historyOfScience = createResultTypeHierarchical("10204 History of Science", 4, "History of Science", history);
 
-        history.addChildren(Arrays.asList(medievalHistory, earlyModernHistory, modernAndCurrentHistory, historyOfScience));
+        history.addChildren(new LinkedHashSet<>(Arrays.asList(medievalHistory, earlyModernHistory, modernAndCurrentHistory, historyOfScience)));
         resultTypeHierarchicalDAO.update(history);
 
         //Level 1
@@ -149,7 +180,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical musicology = createResultTypeHierarchical("10302 Musicology", 2, "Musicology", fineArts);
         ResultTypeHierarchical theatre = createResultTypeHierarchical("10303 Theatre and Media Studies", 3, "Theatre and Media Studies", fineArts);
 
-        fineArts.addChildren(Arrays.asList(artHistory, musicology, theatre));
+        fineArts.addChildren(new LinkedHashSet<>(Arrays.asList(artHistory, musicology, theatre)));
         resultTypeHierarchicalDAO.update(fineArts);
 
         //Level 1
@@ -160,7 +191,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical individualLinguistics = createResultTypeHierarchical("10402 Individual Linguistics", 2, "Individual Linguistics", linguistics);
         ResultTypeHierarchical typology = createResultTypeHierarchical("10403 Typology, Non-European Languages, Historical Linguistics", 3, "Typology, Non-European Languages, Historical Linguistics", linguistics);
 
-        linguistics.addChildren(Arrays.asList(generalAndAppliedLinguistics, individualLinguistics, typology));
+        linguistics.addChildren(new LinkedHashSet<>(Arrays.asList(generalAndAppliedLinguistics, individualLinguistics, typology)));
         resultTypeHierarchicalDAO.update(linguistics);
 
         //Level 1
@@ -170,7 +201,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical europeanAndAmericanLiterature = createResultTypeHierarchical("10503 European and American Literature", 1, "European and American Literature", literaryStudies);
         ResultTypeHierarchical generalAndComparativeLiterature = createResultTypeHierarchical("10504 General and Comparative Literature and Cultural Studies", 2, "General and Comparative Literature and Cultural Studies", literaryStudies);
 
-        literaryStudies.addChildren(Arrays.asList(europeanAndAmericanLiterature, generalAndComparativeLiterature));
+        literaryStudies.addChildren(new LinkedHashSet<>(Arrays.asList(europeanAndAmericanLiterature, generalAndComparativeLiterature)));
         resultTypeHierarchicalDAO.update(literaryStudies);
 
         //Level 1
@@ -183,7 +214,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical islamicStudies = createResultTypeHierarchical("10604 Islamic Studies, Arabian Studies, Semitic Studies", 4, "Islamic Studies, Arabian Studies, Semitic Studies", nonEuropean);
         ResultTypeHierarchical religiousStudiesAndJewishStudies = createResultTypeHierarchical("10605 Religious Studies and Jewish Studies", 5, "Religious Studies and Jewish Studies", nonEuropean);
 
-        nonEuropean.addChildren(Arrays.asList(socialAndCulturalAnthropology, asianStudies, africanAmericanAndOceaniaStudies, islamicStudies, religiousStudiesAndJewishStudies));
+        nonEuropean.addChildren(new LinkedHashSet<>(Arrays.asList(socialAndCulturalAnthropology, asianStudies, africanAmericanAndOceaniaStudies, islamicStudies, religiousStudiesAndJewishStudies)));
         resultTypeHierarchicalDAO.update(nonEuropean);
 
         //Level 1
@@ -193,7 +224,7 @@ public class FillUpDatabaseEventListener {
         ResultTypeHierarchical protestantTheology = createResultTypeHierarchical("10701 Protestant Theology", 1, "Protestant Theology", theology);
         ResultTypeHierarchical romanCatholicTheology = createResultTypeHierarchical("10702 Roman Catholic Theology", 2, "Roman Catholic Theology", theology);
 
-        theology.addChildren(Arrays.asList(protestantTheology, romanCatholicTheology));
+        theology.addChildren(new LinkedHashSet<>(Arrays.asList(protestantTheology, romanCatholicTheology)));
         resultTypeHierarchicalDAO.update(theology);
 
         //Level 1
@@ -205,19 +236,16 @@ public class FillUpDatabaseEventListener {
         philosophy.addChild(historyOfPhilosophy);
         resultTypeHierarchicalDAO.update(philosophy);
 
-        humanities.addChildren(Arrays.asList(ancientCultures, history, fineArts, linguistics, literaryStudies, nonEuropean, theology, philosophy));
+        humanities.addChildren(new LinkedHashSet<>(Arrays.asList(ancientCultures, history, fineArts, linguistics, literaryStudies, nonEuropean, theology, philosophy)));
         resultTypeHierarchicalDAO.update(humanities);
     }
 
     private ResultTypeHierarchical createResultTypeHierarchical(String code, int order, String englishTranslation, ResultTypeHierarchical parent, String... defaultRepositories) {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical(code, order, parent);
         resultTypeHierarchical.setTranslation(new Translation(englishTranslation));
-        if(defaultRepositories.length > 0) {
-            DefaultRepository defaultRepository = new DefaultRepository(defaultRepositories[0]);
-            defaultRepositoryDAO.create(defaultRepository);
-            resultTypeHierarchical.setDefaultRepositories(Collections.singletonList(defaultRepository));
-        }
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
+        for(String defaultRepository : defaultRepositories)
+            defaultRepositoryDAO.create(new DefaultRepository(defaultRepository, resultTypeHierarchical));
         
         return resultTypeHierarchical;
     }
