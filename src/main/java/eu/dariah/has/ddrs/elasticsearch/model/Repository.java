@@ -1,7 +1,7 @@
 package eu.dariah.has.ddrs.elasticsearch.model;
 
-import eu.dariah.has.ddrs.re3data.details.v2_2.Re3Data;
-import io.searchbox.annotations.JestId;
+import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.json.JsonViews;
 
 import java.util.List;
 
@@ -9,46 +9,89 @@ import java.util.List;
  * Created by yoann on 18.07.17.
  */
 public class Repository {
+    @JsonView(JsonViews.Public.class)
     private List<AdditionalName> additionalNames;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> aidSystems;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataType> apis;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataType> certificates;
+    @JsonView(JsonViews.Public.class)
     private String citationGuidelineUrl;
-    private List<ContentType> contentTypes;
+    @JsonView(JsonViews.Public.class)
+    private List<Re3dataSchemeText> contentTypes;
+    @JsonView(JsonViews.Public.class)
     private String created;
+    @JsonView(JsonViews.Public.class)
     private List<DataAccess> dataAccesses;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataName> dataLicenses;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataName> dataUploadLicenses;
+    @JsonView(JsonViews.Public.class)
     private List<DataUpload> dataUploads;
+    @JsonView(JsonViews.Public.class)
     private DatabaseAccess databaseAccess;
+    @JsonView(JsonViews.Public.class)
     private List<DatabaseLicense> databaseLicenses;
+    @JsonView(JsonViews.Public.class)
     private String description;
+    @JsonView(JsonViews.Public.class)
     private String descriptionLanguage;
+    @JsonView(JsonViews.Public.class)
     private String endDate;
+    @JsonView(JsonViews.Public.class)
     private String enhancedPublication;
+    @JsonView(JsonViews.Public.class)
     private Identifier identifier;
+    @JsonView(JsonViews.Public.class)
     private List<Institution> institutions;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> keywords;
+    @JsonView(JsonViews.Public.class)
     private List<MetadataStandard> metadataStandards;
+    @JsonView(JsonViews.Public.class)
     private String missionStatementUrl;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> pidSystems;
+    @JsonView(JsonViews.Public.class)
     private List<Policy> policies;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> providerTypes;
+    @JsonView(JsonViews.Public.class)
     private String qualityManagement;
+    @JsonView(JsonViews.Public.class)
     private String remarks;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> repositoryContacts;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> repositoryIdentifiers;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> repositoryLanguages;
+    @JsonView(JsonViews.Public.class)
+    private String repositoryName;
+    @JsonView(JsonViews.Public.class)
     private String repositoryNameLanguage;
+    @JsonView(JsonViews.Public.class)
     private String repositoryUrl;
+    @JsonView(JsonViews.Public.class)
     private String size;
+    @JsonView(JsonViews.Public.class)
     private String sizeUpdated;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataName> software;
+    @JsonView(JsonViews.Public.class)
     private String startDate;
-    private List<Subject> subjects;
+    @JsonView(JsonViews.Public.class)
+    private List<Re3dataSchemeText> subjects;
+    @JsonView(JsonViews.Public.class)
     private List<Syndication> syndications;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataType> types;
+    @JsonView(JsonViews.Public.class)
     private String updated;
+    @JsonView(JsonViews.Public.class)
     private String versioning;
 
 
@@ -95,11 +138,11 @@ public class Repository {
         this.citationGuidelineUrl = citationGuidelineUrl;
     }
 
-    public List<ContentType> getContentTypes() {
+    public List<Re3dataSchemeText> getContentTypes() {
         return contentTypes;
     }
 
-    public void setContentTypes(List<ContentType> contentTypes) {
+    public void setContentTypes(List<Re3dataSchemeText> contentTypes) {
         this.contentTypes = contentTypes;
     }
 
@@ -295,6 +338,14 @@ public class Repository {
         this.repositoryLanguages = repositoryLanguages;
     }
 
+    public String getRepositoryName() {
+        return repositoryName;
+    }
+
+    public void setRepositoryName(String repositoryName) {
+        this.repositoryName = repositoryName;
+    }
+
     public String getRepositoryNameLanguage() {
         return repositoryNameLanguage;
     }
@@ -343,11 +394,11 @@ public class Repository {
         this.startDate = startDate;
     }
 
-    public List<Subject> getSubjects() {
+    public List<Re3dataSchemeText> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(List<Subject> subjects) {
+    public void setSubjects(List<Re3dataSchemeText> subjects) {
         this.subjects = subjects;
     }
 

@@ -1,7 +1,12 @@
 package eu.dariah.has.ddrs.elasticsearch.model;
 
-public class Subject {
+import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.json.JsonViews;
+
+public class Re3dataSchemeText {
+    @JsonView(JsonViews.Public.class)
     private String scheme;
+    @JsonView(JsonViews.Public.class)
     private String text;
 
     public String getScheme() {

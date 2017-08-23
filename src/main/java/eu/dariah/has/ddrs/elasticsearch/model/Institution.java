@@ -1,18 +1,32 @@
 package eu.dariah.has.ddrs.elasticsearch.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.json.JsonViews;
+
 import java.util.List;
 
 public class Institution {
+    @JsonView(JsonViews.Public.class)
     private List<AdditionalName> additionalNames;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> contacts;
+    @JsonView(JsonViews.Public.class)
     private String country;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> identifiers;
+    @JsonView(JsonViews.Public.class)
     private String name;
+    @JsonView(JsonViews.Public.class)
     private String nameLanguage;
+    @JsonView(JsonViews.Public.class)
     private String responsabilityEndDate;
+    @JsonView(JsonViews.Public.class)
     private String responsabilityStartDate;
+    @JsonView(JsonViews.Public.class)
     private List<Re3dataText> responsabilityTypes;
+    @JsonView(JsonViews.Public.class)
     private String type;
+    @JsonView(JsonViews.Public.class)
     private String url;
 
     public List<AdditionalName> getAdditionalNames() {

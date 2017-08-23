@@ -1,6 +1,10 @@
 package eu.dariah.has.ddrs.elasticsearch.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.json.JsonViews;
+
 public class Re3dataName {
+    @JsonView(JsonViews.Public.class)
     private String name;
 
     public String getName() {

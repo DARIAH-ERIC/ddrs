@@ -1,8 +1,14 @@
 package eu.dariah.has.ddrs.elasticsearch.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.json.JsonViews;
+
 public class MetadataStandard {
+    @JsonView(JsonViews.Public.class)
     private String metadataStandardName;
+    @JsonView(JsonViews.Public.class)
     private String metadataStandardScheme;
+    @JsonView(JsonViews.Public.class)
     private String metadataStandardUrl;
 
     public String getMetadataStandardName() {

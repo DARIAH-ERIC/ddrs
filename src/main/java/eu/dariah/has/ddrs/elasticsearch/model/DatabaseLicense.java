@@ -1,7 +1,12 @@
 package eu.dariah.has.ddrs.elasticsearch.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.json.JsonViews;
+
 public class DatabaseLicense {
+    @JsonView(JsonViews.Public.class)
     private String name;
+    @JsonView(JsonViews.Public.class)
     private String url;
 
     public String getName() {

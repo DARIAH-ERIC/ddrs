@@ -1,7 +1,12 @@
 package eu.dariah.has.ddrs.elasticsearch.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.json.JsonViews;
+
 public class AdditionalName {
+    @JsonView(JsonViews.Public.class)
     private String language;
+    @JsonView(JsonViews.Public.class)
     private String text;
 
     public String getLanguage() {
