@@ -30,7 +30,7 @@ public class RepositoryServiceTest {
         repositoryService.createIndex();
     }
 
-//    @Test
+    @Test
     public void emptyTest() {}
 
 //    @Test
@@ -101,7 +101,7 @@ public class RepositoryServiceTest {
         assertEquals(2, repositories.size());
     }
 
-    @Test
+//    @Test
     public void testSearchWithRestrictions() {
         LOGGER.info("testSearchWithRestrictions");
         SearchObject searchObject = new SearchObject();
