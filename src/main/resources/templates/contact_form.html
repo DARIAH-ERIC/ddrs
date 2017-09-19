@@ -14,7 +14,7 @@
     </div>
 </nav>
 <div id="page-wrapper">
-    <h2 class="dariah-color-text text-center" th:text="${repositoryId}"></h2>
+    <h2 class="dariah-color-text text-center" th:text="${repository.repositoryName}"></h2>
     <h2 class="dariah-color-text text-center" th:text="#{ddrs.label.repository.submit.information}"></h2>
     <div class="container-fluid">
         <div class="form-group">
@@ -147,7 +147,7 @@
             </div>
             <div class="row row-spacer">
                 <div class="col-md-3 col-md-offset-4">
-                    <a class="btn btn-warning btn-block back" th:href="@{/selectRepository(id=${repositoryId})}" th:text="#{ddrs.btn.back}">Back</a>
+                    <a class="btn btn-warning btn-block back" th:href="@{/selectRepository(id=${repository.identifier.re3data})}" th:text="#{ddrs.btn.back.repository}">Back</a>
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-default btn-block form-control" id="submit" name="submit" th:text="#{ddrs.btn.send}">Send</button>

@@ -39,7 +39,10 @@ public class RepositoryController {
 
     @RequestMapping(value = "/contactForm", method = RequestMethod.GET)
     public String viewContactForm(@RequestParam(value = "id") String identifier, Model model) {
-        model.addAttribute("repositoryId", identifier);
+        if(identifier.startsWith("r3d"))
+            identifier = identifier.replace("r3d", "");
+        Repository repository = repositoryService.searchByRe3Identifier(identifier);
+        model.addAttribute("repository", repository);
         return "contact_form";
     }
 
