@@ -56,14 +56,14 @@ public class AjaxControllerTest {
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(searchObject);
-        mockMvc.perform(
-                post("/refreshResults")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestJson)
-                        .sessionAttr("searchObject", searchObject))
-                .andExpect(status().isOk())
-                .andExpect(header().string("Content-Type", "text/html;charset=UTF-8"))
-                .andExpect(content().string(containsString("There are")));
+//        mockMvc.perform(
+//                post("/refreshResults")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(requestJson)
+//                        .sessionAttr("searchObject", searchObject))
+//                .andExpect(status().isOk())
+//                .andExpect(header().string("Content-Type", "text/html;charset=UTF-8"))
+//                .andExpect(content().string(containsString("There are")));
     }
 
 }
