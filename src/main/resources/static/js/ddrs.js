@@ -1,21 +1,31 @@
 var xhr = null;
 
-function bindIndexPage(searchUrl, selectRepositoryUrl, selectRepositoryText) {
+function bindIndexPage(searchUrl, selectRepositoryUrl, searchObject) {
+    checkOldSelectedRepositories(searchObject);
+
     if($(".question-select option:selected").length) {
-        ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText);
+        ajaxSearch(searchUrl, selectRepositoryUrl);
     }
 
     $("#search_form").find("[id^='select_']").each(function() {
         $(this).on("change", function(e) {
-            ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText);
+            ajaxSearch(searchUrl, selectRepositoryUrl);
         });
     });
     $("#search_form").submit(function(event) {
         event.preventDefault();
-        ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText);
+        ajaxSearch(searchUrl, selectRepositoryUrl);
     });
     $('[data-toggle="tooltip"]').tooltip({
         placement : 'top'
+    });
+}
+
+function checkOldSelectedRepositories(searchObject) {
+    $("#search_form").find("[id^='select_']").each(function() {
+        if(searchObject.internSearchParameters.hasOwnProperty($(this).attr("name"))) {
+            $(this).val(searchObject.internSearchParameters[$(this).attr("name")][0]);
+        }
     });
 }
 
@@ -33,7 +43,7 @@ function isObjectEmpty(obj) {
     return true;
 }
 
-function ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText) {
+function ajaxSearch(searchUrl, selectRepositoryUrl) {
     if(xhr !== null) {
         xhr.abort();
         xhr = null;
@@ -56,10 +66,9 @@ function ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText) {
             contentType: "application/json",
             url: searchUrl,
             data: JSON.stringify(data),
-            dataType: 'json',
             timeout: 100000,
             success: function (data) {
-                display(data, selectRepositoryUrl, selectRepositoryText);
+                $("#results").html(data);
             },
             error: function (e) {
                 console.log("ERROR: ", e);
@@ -74,54 +83,6 @@ function ajaxSearch(searchUrl, selectRepositoryUrl, selectRepositoryText) {
             }
         });
     }
-}
-
-function display(data, selectRepositoryUrl, selectRepositoryText) {
-    if(data.repositories !== null) {
-        $("<h3></h3>").text("There are " + data.repositories.length + " results. Make a selection to continue.").appendTo("#results");
-    }
-    $(data.repositories).each(function(index) {
-        var $clone = createEmptyDivContainer();
-        $clone.find(".repository_id_name").text(this.id + " -> " + this.name);
-        $clone.find(".repository_id_name_url").attr("href", selectRepositoryUrl);
-        $clone.find(".repository_id_name_url").attr("href", $clone.find(".repository_id_name_url").attr("href") + "?id=" + this.id);
-        $clone.find(".repository_id_name_url").text(selectRepositoryText);
-        $clone.find(".repository_url").attr("href", this.link.href);
-        $clone.find(".repository_url").text(this.link.href);
-        if(this.repositoryDetail !== null) {
-            $clone.find(".repository_description").text(this.repositoryDetail.description);
-            $clone.find(".repository_lastUpdate").text(this.repositoryDetail.lastUpdate);
-            $clone.find(".repository_contact").text(this.repositoryDetail.contact);
-        }
-        $clone.appendTo("#results");
-    });
-
-    if(data.code === "204") {
-        $("#results").text(data.msg);
-    }
-}
-
-function createEmptyDivContainer() {
-    var $div = $("<div/>");
-    var $divContainer = $("<div/>", {"class": "container-fluid"});
-    var $divRow = $("<div/>", {"class": "row"});
-    var $divCol = $("<div/>", {"class": "col-md-12"});
-    var $repositoryIdName = $("<p/>", {"class": "repository_id_name"});
-    var $repositoryIdNameUrl = $("<a/>", {"class": "repository_id_name_url", "href": "#"});
-    var $repositoryDesc = $("<p/>", {"class": "repository_description"});
-    var $repositoryLastUpdate = $("<p/>", {"class": "repository_lastUpdate"});
-    var $repositoryContact = $("<p/>", {"class": "repository_contact"});
-    var $repositoryUrl = $("<a/>", {"class": "repository_url", "href": "#", "target": "_blank"});
-    var $divider = $("<div/>", {"class": "spacer divider-horizontal"});
-
-    return $div.append(
-        $divContainer
-            .append($divRow.clone().append($divCol.clone().append($repositoryIdName).append($repositoryIdNameUrl)))
-            .append($divRow.clone().append($divCol.clone().append($repositoryDesc)))
-            .append($divRow.clone().append($divCol.clone().append($repositoryLastUpdate)))
-            .append($divRow.clone().append($divCol.clone().append($repositoryContact)))
-            .append($divCol.clone().append($repositoryUrl)))
-        .append($divider);
 }
 
 function changeButtons(selectElement) {

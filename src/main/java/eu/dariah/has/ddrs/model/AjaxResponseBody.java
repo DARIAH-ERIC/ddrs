@@ -2,8 +2,9 @@ package eu.dariah.has.ddrs.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import eu.dariah.has.ddrs.json.JsonViews;
-import eu.dariah.has.ddrs.re3data.search.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.Repository;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,7 +19,7 @@ public class AjaxResponseBody {
     private String code;
 
     @JsonView(JsonViews.Public.class)
-    private Set<Repository> repositories;
+    private List<Repository> repositories;
 
     public String getMsg() {
         return msg;
@@ -36,11 +37,11 @@ public class AjaxResponseBody {
         this.code = code;
     }
 
-    public Set<Repository> getRepositories() {
+    public List<Repository> getRepositories() {
         return repositories;
     }
 
-    public void setRepositories(Set<Repository> repositories) {
+    public void setRepositories(List<Repository> repositories) {
         this.repositories = repositories;
     }
 }

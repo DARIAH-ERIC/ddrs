@@ -1,6 +1,7 @@
 package eu.dariah.has.ddrs.elasticsearch.service;
 
 import eu.dariah.has.ddrs.elasticsearch.model.Repository;
+import eu.dariah.has.ddrs.model.SearchObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,5 +18,7 @@ public interface RepositoryService {
     Boolean delete(String repositoryId);
     Repository findOne(String id);
     List<Repository> findAll();
+    Repository searchByRe3Identifier(String identifier);
+    List<Repository> searchWithRestrictions(SearchObject searchObject, List<String> r3dIdentifiers);
     List<Repository> findByName(String name);
 }

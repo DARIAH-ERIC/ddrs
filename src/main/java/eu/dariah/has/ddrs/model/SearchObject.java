@@ -25,4 +25,7 @@ public class SearchObject {
         }
     }
 
+    public void setInternSearchParameters(Map<String, List<String>> internSearchParameters) {
+        this.internSearchParameters = internSearchParameters;
+    }
 }

@@ -15,7 +15,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -77,6 +79,29 @@ public class Re3dataRepositoryAPIService {
         }
         newSet.addAll(re3dataList.getRepositories());
         re3dataList.setRepository(newSet);
+    }
+
+    public List<String> getDefaultRepositories(SearchObject searchObject) {
+        List<String> defaultRepositoryIdentifiers = new ArrayList<>();
+        for(String key : searchObject.getInternSearchParameters().keySet()) {
+            for(String code : searchObject.getInternSearchParameters().get(key)) {
+                LOGGER.debug("Search for code: " + code);
+                ResultTypeHierarchical resultTypeHierarchical = resultTypeHierarchicalDAO.findByCode(code);
+                if(resultTypeHierarchical != null) {
+                    LOGGER.debug("Found the code and search for his default repositories");
+                    for(DefaultRepository defaultRepository : resultTypeHierarchical.getDefaultRepositories()) {
+                        defaultRepositoryIdentifiers.add(defaultRepository.getRe3dataIdentifier());
+                    }
+                    if(resultTypeHierarchical.getParent() != null) {
+                        LOGGER.debug("Search for his parent's default repositories");
+                        for (DefaultRepository defaultRepository : resultTypeHierarchical.getParent().getDefaultRepositories()) {
+                            defaultRepositoryIdentifiers.add(defaultRepository.getRe3dataIdentifier());
+                        }
+                    }
+                }
+            }
+        }
+        return defaultRepositoryIdentifiers;
     }
 
     private void addRepository(String defaultRepositoryIdentifier, Set<Repository> newSet) {

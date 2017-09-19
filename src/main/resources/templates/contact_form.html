@@ -102,11 +102,12 @@
                 <div class="col-md-2"></div>
             </div>
             <div class="row">
-                <div class="col-md-8"></div>
-                <div class="col-md-2">
-                    <button type="submit" class="form-control" id="submit" name="submit" th:text="#{ddrs.btn.send}"></button>
+                <div class="col-md-4 col-md-offset-2">
+                    <a class="btn btn-warning btn-block back" th:href="@{/selectRepository(id=${repositoryId})}" th:text="#{ddrs.btn.back}">Back</a>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <button class="btn btn-default btn-block form-control" id="submit" name="submit" th:text="#{ddrs.btn.send}">Send</button>
+                </div>
             </div>
         </div>
     </div>

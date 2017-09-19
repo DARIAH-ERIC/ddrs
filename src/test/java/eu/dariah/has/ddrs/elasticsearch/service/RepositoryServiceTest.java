@@ -1,6 +1,7 @@
 package eu.dariah.has.ddrs.elasticsearch.service;
 
 import eu.dariah.has.ddrs.elasticsearch.model.Repository;
+import eu.dariah.has.ddrs.model.SearchObject;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -29,7 +30,7 @@ public class RepositoryServiceTest {
         repositoryService.createIndex();
     }
 
-    @Test
+//    @Test
     public void emptyTest() {}
 
 //    @Test
@@ -73,32 +74,48 @@ public class RepositoryServiceTest {
 //    }
 //
 //    @Test
-//    public void testFindMultiple() {
-//        LOGGER.info("testFindMultiple");
+    public void testFindMultiple() {
+        LOGGER.info("testFindMultiple");
 //        Repository repository = new Repository("4", "Repository in France - 4");
 //        repositoryService.save(repository, true);
 //
 //        repository = new Repository("5", "Repository in France - 5");
 //        repositoryService.save(repository, true);
-//
-//        List<Repository> repositories = repositoryService.findByName("Repository");
-//        assertFalse(repositories.isEmpty());
-//        assertEquals(10, repositories.size());
-//    }
+
+        List<Repository> repositories = repositoryService.findByName("Repository");
+        assertFalse(repositories.isEmpty());
+        assertEquals(0, repositories.size());
+    }
 //
 //    @Test
-//    public void testFindAll() {
-//        LOGGER.info("testFindAll");
+    public void testFindAll() {
+        LOGGER.info("testFindAll");
 //        Repository repository = new Repository("6", "Repository in France - 6");
 //        repositoryService.save(repository, true);
 //
 //        repository = new Repository("7", "Waw another one!!");
 //        repositoryService.save(repository, true);
-//
-//        List<Repository> repositories = repositoryService.findAll();
-//        assertNotNull(repositories);
-//        assertEquals(2, repositories.size());
-//    }
+
+        List<Repository> repositories = repositoryService.findAll();
+        assertNotNull(repositories);
+        assertEquals(2, repositories.size());
+    }
+
+    @Test
+    public void testSearchWithRestrictions() {
+        LOGGER.info("testSearchWithRestrictions");
+        SearchObject searchObject = new SearchObject();
+        Map<String, String> searchParameters = new HashMap<>();
+//        searchParameters.put("countries", "NLD");
+//        searchParameters.put("subjects", "");
+        searchObject.setSearchParameters(searchParameters);
+        List<Repository> repositories = repositoryService.searchWithRestrictions(searchObject, new ArrayList<>());
+        for(Repository repository : repositories) {
+            System.out.println(repository.getRepositoryName() + "          -          http://www.re3data.org/repository/r3d" + repository.getIdentifier().getRe3data());
+        }
+        assertNotNull(repositories);
+        assertEquals(5, repositories.size());
+    }
 //
 //    @After
 //    public void afterDeleteAll() {
