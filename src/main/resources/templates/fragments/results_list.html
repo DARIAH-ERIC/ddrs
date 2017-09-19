@@ -5,6 +5,7 @@
 </head>
 <body>
 <th:block th:fragment="resultsList">
+    <h3 th:if="${repositories.size() == 0}">There are no results for this search.</h3>
     <h3 th:if="${repositories.size() == 1}">There is <span>1</span> result. Make a selection to continue.</h3>
     <h3 th:if="${repositories.size() > 1}">There are <span th:text="${repositories.size()}">x</span> results. Make a selection to continue.</h3>
     <div th:each="repository : ${repositories}">
