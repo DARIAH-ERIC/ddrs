@@ -18,7 +18,7 @@
     <h2 class="dariah-color-text text-center" th:text="#{ddrs.label.repository.submit.information}"></h2>
     <div class="container-fluid">
         <div class="form-group">
-            <div class="row">
+            <div class="row row-spacer">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
                     <label class="control-label" for="name" th:text="#{ddrs.label.user.name}"></label>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="row">
+            <div class="row row-spacer">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
                     <label class="control-label" for="institution" th:text="#{ddrs.label.user.institution}"></label>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="row">
+            <div class="row row-spacer">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
                     <label class="control-label" for="email" th:text="#{ddrs.label.user.email}"></label>
@@ -51,17 +51,34 @@
 
             <div class="spacer"></div>
 
-            <div class="row">
+            <div class="row row-spacer">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
                     <label class="control-label" for="dataType" th:text="#{ddrs.label.user.data.type}"></label>
                 </div>
                 <div class="col-md-6">
-                    <input class="form-control" id="dataType" type="text" name="dataType" size="64" />
+                    <select class="form-control" id="dataType" name="dataType">
+                        <option value="---">---</option>
+                        <option value="Archived data">Archived data</option>
+                        <option value="Audiovisual data">Audiovisual data</option>
+                        <option value="Configuration data">Configuration data</option>
+                        <option value="Databases">Databases</option>
+                        <option value="Images">Images</option>
+                        <option value="Networkbased data">Networkbased data</option>
+                        <option value="Plain text">Plain text</option>
+                        <option value="Raw data">Raw data</option>
+                        <option value="Scientific and statistical data formats">Scientific and statistical data formats</option>
+                        <option value="Software applications">Software applications</option>
+                        <option value="Source code">Source code</option>
+                        <option value="Standard office documents">Standard office documents</option>
+                        <option value="Structured graphics">Structured graphics</option>
+                        <option value="Structured text">Structured text</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="row">
+            <div class="row row-spacer">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
                     <label class="control-label" for="format" th:text="#{ddrs.label.user.format}"></label>
@@ -71,17 +88,44 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="row">
+            <div class="row row-spacer">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
                     <label class="control-label" for="metadataFormat" th:text="#{ddrs.label.user.metadata.format}"></label>
                 </div>
                 <div class="col-md-6">
-                    <input class="form-control" id="metadataFormat" type="text" name="metadataFormat" size="64" />
+                    <select class="form-control" id="metadataFormat" name="metadataFormat">
+                        <option value="---">---</option>
+                        <option value="ABCD - Access to Biological Collection Data">ABCD - Access to Biological Collection Data</option>
+                        <option value="AVM - Astronomy Visualization Metadata">AVM - Astronomy Visualization Metadata</option>
+                        <option value="CF (Climate and Forecast) Metadata Conventions">CF (Climate and Forecast) Metadata Conventions</option>
+                        <option value="CIF - Crystallographic Information Framework">CIF - Crystallographic Information Framework</option>
+                        <option value="CIM - Common Information Model">CIM - Common Information Model</option>
+                        <option value="DCAT - Data Catalog Vocabulary">DCAT - Data Catalog Vocabulary</option>
+                        <option value="DDI - Data Documentation Initiative">DDI - Data Documentation Initiative</option>
+                        <option value="DIF - Directory Interchange Format">DIF - Directory Interchange Format</option>
+                        <option value="Darwin Core">Darwin Core</option>
+                        <option value="DataCite Metadata Schema">DataCite Metadata Schema</option>
+                        <option value="Dublin Core">Dublin Core</option>
+                        <option value="EML - Ecological Metadata Language">EML - Ecological Metadata Language</option>
+                        <option value="FGDC/CSDGM - Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata">FGDC/CSDGM - Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata</option>
+                        <option value="FITS - Flexible Image Transport System">FITS - Flexible Image Transport System</option>
+                        <option value="Genome Metadata">Genome Metadata</option>
+                        <option value="ISA-Tab">ISA-Tab</option>
+                        <option value="ISO 19115">ISO 19115</option>
+                        <option value="International Virtual Observatory Alliance Technical Specifications">International Virtual Observatory Alliance Technical Specifications</option>
+                        <option value="MIBBI - Minimum Information for Biological and Biomedical Investigations">MIBBI - Minimum Information for Biological and Biomedical Investigations</option>
+                        <option value="OAI-ORE - Open Archives Initiative Object Reuse and Exchange">OAI-ORE - Open Archives Initiative Object Reuse and Exchange</option>
+                        <option value="PROV">PROV</option>
+                        <option value="RDF Data Cube Vocabulary">RDF Data Cube Vocabulary</option>
+                        <option value="Repository-Developed Metadata Schemas">Repository-Developed Metadata Schemas</option>
+                        <option value="SDMX - Statistical Data and Metadata Exchange">SDMX - Statistical Data and Metadata Exchange</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="row">
+            <div class="row row-spacer">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
                     <label class="control-label" for="access" th:text="#{ddrs.label.user.open.restricted.access}"></label>
@@ -91,7 +135,7 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="row">
+            <div class="row row-spacer">
                 <div class="col-md-2"></div>
                 <div class="col-md-2 row-bold">
                     <label class="control-label" for="description" th:text="#{ddrs.label.user.description}"></label>
@@ -101,11 +145,11 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-2">
+            <div class="row row-spacer">
+                <div class="col-md-3 col-md-offset-4">
                     <a class="btn btn-warning btn-block back" th:href="@{/selectRepository(id=${repositoryId})}" th:text="#{ddrs.btn.back}">Back</a>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <button class="btn btn-default btn-block form-control" id="submit" name="submit" th:text="#{ddrs.btn.send}">Send</button>
                 </div>
             </div>

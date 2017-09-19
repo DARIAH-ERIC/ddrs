@@ -25,6 +25,9 @@
 .bottom-spacer {
     margin-top: 30px;
 }
+.row-spacer {
+    margin-top: 7px;
+}
 
 .no-background-addon {
     background-color: inherit;
