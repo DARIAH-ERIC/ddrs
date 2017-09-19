@@ -35,9 +35,6 @@ public class AjaxControllerTest {
 
     private MockMvc mockMvc;
 
-    @Mock
-    private Re3dataQueryList re3dataQueryList;
-
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -48,11 +45,11 @@ public class AjaxControllerTest {
     }
 
     @Test
-    public void test_create_user_success() throws Exception {
+    public void refreshResultTest() throws Exception {
         SearchObject searchObject = new SearchObject();
         Map<String, String> searchParameters = new HashMap<>(2);
-        searchParameters.put("countries", "FRA");
-        searchParameters.put("repositoryLanguages", "deu");
+        searchParameters.put("institutions.country.raw", "FRA");
+        searchParameters.put("repositoryLanguages.text.raw", "deu");
         searchObject.setSearchParameters(searchParameters);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -62,11 +59,11 @@ public class AjaxControllerTest {
         mockMvc.perform(
                 post("/refreshResults")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestJson))
+                        .content(requestJson)
+                        .sessionAttr("searchObject", searchObject))
                 .andExpect(status().isOk())
-                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(content().string(containsString("repositories")));
-        verifyNoMoreInteractions(re3dataQueryList);
+                .andExpect(header().string("Content-Type", "text/html;charset=UTF-8"))
+                .andExpect(content().string(containsString("There are")));
     }
 
 }

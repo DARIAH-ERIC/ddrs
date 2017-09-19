@@ -106,13 +106,9 @@ public class RepositoryServiceTest {
         LOGGER.info("testSearchWithRestrictions");
         SearchObject searchObject = new SearchObject();
         Map<String, String> searchParameters = new HashMap<>();
-//        searchParameters.put("countries", "NLD");
-//        searchParameters.put("subjects", "");
+        searchParameters.put("institutions.country.raw", "FRA");
         searchObject.setSearchParameters(searchParameters);
         List<Repository> repositories = repositoryService.searchWithRestrictions(searchObject, new ArrayList<>());
-        for(Repository repository : repositories) {
-            System.out.println(repository.getRepositoryName() + "          -          http://www.re3data.org/repository/r3d" + repository.getIdentifier().getRe3data());
-        }
         assertNotNull(repositories);
         assertEquals(5, repositories.size());
     }
