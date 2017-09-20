@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
 </head>
@@ -9,7 +9,7 @@
     <h3 th:if="${repositories.size() == 1}">There is <span>1</span> result. Make a selection to continue.</h3>
     <h3 th:if="${repositories.size() > 1}">There are <span th:text="${repositories.size()}">x</span> results. Make a selection to continue.</h3>
     <div th:each="repository : ${repositories}">
-        <div class="container-fluid">
+        <div class="container-fluid dariah-round-form dariah-form-border">
             <div class="row">
                 <div class="col-md-12">
                     <a class="repository_id_name_url big-label" href="#" th:href="@{selectRepository(id=${repository.identifier.re3data})}" th:text="${repository.repositoryName}">RepositoryName</a>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="spacer divider-horizontal"></div>
+        <div class="spacer"></div>
     </div>
 </th:block>
 </body>
