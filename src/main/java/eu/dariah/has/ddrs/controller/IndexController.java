@@ -42,16 +42,6 @@ public class IndexController {
     }
 
     /**
-     * Clears the session so that users go back to the index page with a new http session
-     * @return Redirection to the index page
-     */
-    @GetMapping(value = "/clear")
-    public RedirectView clear(SessionStatus sessionStatus) {
-        sessionStatus.setComplete();
-        return new RedirectView("/");
-    }
-
-    /**
      * Shows the login page in order to log the user in or to show an error when the login did not work
      * @param error A Boolean to display an error if the login failed, it will be returned by the Spring login mechanism
      * @return A String that points to the Thymeleaf HTML page within templates/ as configured in MvcConfiguration

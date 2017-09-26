@@ -56,7 +56,7 @@
             <div class="bottom-spacer"></div>
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
-                    <a class="control-label white-text" href="#" th:href="@{/clear}" th:text="#{ddrs.label.clear}">Clear</a>
+                    <a class="control-label white-text clear" href="#" th:href="@{/clear}" th:text="#{ddrs.label.clear}">Clear</a>
                 </div>
             </div>
         </form>
@@ -74,7 +74,8 @@
     $(document).ready(function () {
         bindIndexPage(/*[[@{/refreshResults}]]*/ '',
                 /*[[@{/selectRepository}]]*/ '',
-                /*[[${searchObject}]]*/ '');
+                /*[[${searchObject}]]*/ '',
+                /*[[@{/clear}]]*/ '');
     });
 </script>
 </html>

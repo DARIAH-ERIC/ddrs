@@ -1,6 +1,6 @@
 var xhr = null;
 
-function bindIndexPage(searchUrl, selectRepositoryUrl, searchObject) {
+function bindIndexPage(searchUrl, selectRepositoryUrl, searchObject, clearUrl) {
     checkOldSelectedRepositories(searchObject);
 
     if($(".question-select option:selected").length) {
@@ -18,6 +18,10 @@ function bindIndexPage(searchUrl, selectRepositoryUrl, searchObject) {
     });
     $('[data-toggle="tooltip"]').tooltip({
         placement : 'top'
+    });
+    $(".clear").click(function(e) {
+        e.preventDefault();
+        clearSession(clearUrl);
     });
 }
 
@@ -83,6 +87,29 @@ function ajaxSearch(searchUrl, selectRepositoryUrl) {
             }
         });
     }
+}
+
+function clearSession(clearUrl, homeUrl) {
+    if(xhr !== null) {
+        xhr.abort();
+        xhr = null;
+    }
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        jqXHR.setRequestHeader('X-CSRF-Token', $("input[name='_csrf']").val());
+    });
+    xhr = $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: clearUrl,
+        timeout: 10000,
+        success: function (data) {
+            location.reload();
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+            location.reload();
+        }
+    });
 }
 
 function changeButtons(selectElement) {

@@ -5,7 +5,9 @@ import eu.dariah.has.ddrs.model.SearchObject;
 import eu.dariah.has.ddrs.service.Re3dataRepositoryAPIService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,5 +47,14 @@ public class AjaxController {
         LOGGER.debug((System.currentTimeMillis() - start) + "ms");
         modelAndView.addObject("repositories", repositories);
         return modelAndView;
+    }
+
+    /**
+     * Clears the session so that users go back to the index page with a new http session
+     */
+    @PostMapping(value = "/clear")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void clear(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
     }
 }
