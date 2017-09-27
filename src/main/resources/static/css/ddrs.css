@@ -23,6 +23,22 @@
     color: #FFFFFF;
 }
 
+.small-text-80 {
+    font-size: 80%;
+}
+
+.btn-no-link {
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    padding: 4px;
+    cursor: default;
+    color: #333333;
+    background-color: #ffffff;
+}
+
 .spacer {
     margin-top: 20px;
 }

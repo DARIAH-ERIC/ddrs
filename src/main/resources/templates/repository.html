@@ -17,54 +17,105 @@
         <h2 class="dariah-color-text text-center" th:text="#{page.repository.details}"></h2>
         <div class="container-fluid">
             <div class="form-group">
-                <div class="row row-bold">
-                    <div class="col-md-4 col-md-offset-2" th:text="#{ddrs.label.repository.name}"></div>
-                </div>
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-2" th:text="${repository.getRepositoryName()}"></div>
-                </div>
-                <div class="spacer"></div>
-                <th:block th:if="${contact}">
-                    <div class="row row-bold">
-                        <div class="col-md-4 col-md-offset-2" th:text="#{ddrs.label.repository.contact}"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-md-offset-2" th:text="${contact}"></div>
-                    </div>
-                    <div class="spacer"></div>
-                </th:block>
-
-                <div class="row row-bold">
-                    <div class="col-md-8 col-md-offset-2" th:text="#{ddrs.label.repository.description}"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2" th:text="${repository.getDescription()}"></div>
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.name}"></div>
+                    <div class="col-md-5 col-md-offset-1" th:text="${repository.getRepositoryName()}"></div>
                 </div>
                 <div class="spacer"></div>
 
-                <th:block th:each="institution : ${repository.getInstitutions()}">
-                    <div class="institution">
-                        <div class="row row-bold">
-                            <div class="col-md-4 col-md-offset-2" th:text="#{ddrs.label.repository.institution.name}"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-2" th:text="${institution.getName()}"></div>
-                        </div>
-                        <th:block th:if="${institution.getContacts().size() > 0}">
-                            <div class="row row-bold">
-                                <div class="col-md-4 col-md-offset-2" th:text="#{ddrs.label.repository.contact}"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-md-offset-2">
-                                    <th:block th:each="contact : ${institution.getContacts()}">
-                                        <span th:text="${contact.getText()}"></span>
-                                    </th:block>
-                                </div>
-                            </div>
+                <div class="row" th:if="${repository.getAdditionalNames().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.additional.name}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="additionalName : ${repository.getAdditionalNames()}">
+                            <span th:text="${additionalName.getText() + ' (' + additionalName.getLanguage() + ')'}"></span>
+                            <br th:if="! ${additionalNameStat.last}" />
                         </th:block>
-                        <div class="spacer"></div>
                     </div>
-                </th:block>
+                </div>
+                <div class="spacer" th:if="${repository.getAdditionalNames().size() > 0}"></div>
+
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.url}"></div>
+                    <div class="col-md-5 col-md-offset-1" th:text="${repository.getRepositoryUrl()}"></div>
+                </div>
+                <div class="spacer"></div>
+
+                <div class="row" th:if="${repository.getSubjects().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.subjects}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="subject : ${repository.getSubjects()}">
+                            <span class="small-text-80 btn-no-link" th:text="${subject.getText()}"></span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${repository.getSubjects().size() > 0}"></div>
+
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.description}"></div>
+                    <div class="col-md-5 col-md-offset-1" th:text="${repository.getDescription()}"></div>
+                </div>
+                <div class="spacer"></div>
+
+                <div class="row" th:if="${repository.getRepositoryContacts().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.contact}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="contact : ${repository.getRepositoryContacts()}">
+                            <span th:text="${contact.getText()}"></span>
+                            <br th:if="! ${contactStat.last}" />
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${repository.getRepositoryContacts().size() > 0}"></div>
+
+                <div class="row" th:if="${contact}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.contact} + ' (extra)'"></div>
+                    <div class="col-md-5 col-md-offset-1" th:text="${contact}"></div>
+                </div>
+                <div class="spacer" th:if="${contact}"></div>
+
+                <div class="row" th:if="${repository.getContentTypes().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.contentTypes}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="contentType : ${repository.getContentTypes()}">
+                            <span class="small-text-80 btn-no-link" th:text="${contentType.getText()}"></span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${repository.getContentTypes().size() > 0}"></div>
+
+                <div class="row" th:if="${repository.getKeywords().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.keywords}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="keyword : ${repository.getKeywords()}">
+                            <span class="small-text-80 btn-no-link" th:text="${keyword.getText()}"></span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${repository.getKeywords().size() > 0}"></div>
+
+                <!--<th:block th:each="institution : ${repository.getInstitutions()}">-->
+                    <!--<div class="institution">-->
+                        <!--<div class="row row-bold">-->
+                            <!--<div class="col-md-4 col-md-offset-2" th:text="#{ddrs.label.repository.institution.name}"></div>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-4 col-md-offset-2" th:text="${institution.getName()}"></div>-->
+                        <!--</div>-->
+                        <!--<th:block th:if="${institution.getContacts().size() > 0}">-->
+                            <!--<div class="row row-bold">-->
+                                <!--<div class="col-md-4 col-md-offset-2" th:text="#{ddrs.label.repository.contact}"></div>-->
+                            <!--</div>-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-4 col-md-offset-2">-->
+                                    <!--<th:block th:each="contact : ${institution.getContacts()}">-->
+                                        <!--<span th:text="${contact.getText()}"></span>-->
+                                    <!--</th:block>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</th:block>-->
+                        <!--<div class="spacer"></div>-->
+                    <!--</div>-->
+                <!--</th:block>-->
 
                <div class="row">
                     <div class="col-md-4 col-md-offset-2">
