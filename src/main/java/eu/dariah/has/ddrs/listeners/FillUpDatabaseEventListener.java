@@ -60,7 +60,9 @@ public class FillUpDatabaseEventListener {
         countries.setCode("NONE");
         countries.setTranslation(new Translation("Countries"));
         resultTypeHierarchicalDAO.create(countries);
-//        defaultRepositoryDAO.create(new DefaultRepository("r3d100010468", countries));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100010468", countries));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100011394", countries));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100010066", countries));
 
         ResultTypeHierarchical austria = createResultTypeHierarchical("AUT", 1, "Austria", countries);
         ResultTypeHierarchical belgium = createResultTypeHierarchical("BEL", 2, "Belgium", countries);
