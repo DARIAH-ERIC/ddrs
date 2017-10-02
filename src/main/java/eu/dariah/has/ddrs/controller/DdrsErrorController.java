@@ -45,7 +45,7 @@ public class DdrsErrorController implements ErrorController {
         for(String key : body.keySet()) {
             LOGGER.warn(key + " -> " + body.get(key));
         }
-        return new ModelAndView("/errors/error", getErrorAttributes(request, false));
+        return new ModelAndView("errors/error", getErrorAttributes(request, false));
     }
 
     /**
