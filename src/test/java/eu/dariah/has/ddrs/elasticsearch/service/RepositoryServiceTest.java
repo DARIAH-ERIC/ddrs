@@ -4,15 +4,19 @@ import eu.dariah.has.ddrs.elasticsearch.model.Repository;
 import eu.dariah.has.ddrs.model.SearchObject;
 import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
+
 
 /**
  * Created by yoann on 18.07.17.
@@ -21,8 +25,22 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class RepositoryServiceTest {
     private static final Logger LOGGER = Logger.getLogger(RepositoryServiceTest.class);
-//    @Autowired
-//    private RepositoryService repositoryService;
+    @Autowired
+    private RepositoryService repositoryService;
+
+    @Autowired
+    private CacheManager cacheManager;
+    private Cache cache;
+
+    @Before
+    public void setUp() {
+        cache = this.cacheManager.getCache("repositorySearches");
+    }
+
+    @After
+    public void tearDown() {
+        cache.evict("repositorySearches");
+    }
 
 //    @Test
     public void testCreateMapping() {
@@ -112,6 +130,28 @@ public class RepositoryServiceTest {
 //        assertNotNull(repositories);
 //        assertEquals(5, repositories.size());
     }
+
+    @Test
+    public void testCacheable() {
+        cache.clear();
+        SearchObject searchObject = new SearchObject();
+        Map<String, String> searchParameters = new HashMap<>();
+        searchParameters.put("institutions.country.raw", "FRA");
+        searchObject.setSearchParameters(searchParameters);
+
+        long start = System.currentTimeMillis();
+        repositoryService.searchWithRestrictions(searchObject, new ArrayList<>());
+        long end = System.currentTimeMillis();
+        long withoutCache = end - start;
+        LOGGER.info("Re3Data without Caching: " + withoutCache + "ms");
+
+        start = System.currentTimeMillis();
+        repositoryService.searchWithRestrictions(searchObject, new ArrayList<>());
+        end = System.currentTimeMillis();
+        long withCache = end - start;
+        LOGGER.info("Re3Data With Caching: " + withCache + "ms");
+    }
+
 //
 //    @After
 //    public void afterDeleteAll() {

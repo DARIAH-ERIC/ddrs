@@ -168,7 +168,7 @@ public class RepositoryServiceImpl implements RepositoryService {
     }
 
     @Override
-    @Cacheable("repositoryDetails")
+    @Cacheable("repositorySearches")
     public Repository searchByRe3Identifier(String identifier) {
         BoolQueryBuilder boolQueryBuilder = boolQuery().must(termQuery("identifier.re3data", identifier));
         try {
@@ -176,6 +176,25 @@ public class RepositoryServiceImpl implements RepositoryService {
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             if(hits.size() > 0)
                 return hits.get(0).source;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    @Cacheable("repositoryIdentifiers")
+    public List<Repository> retrieveById(List<String> r3dIdentifiers) {
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        for(String r3dIdentifier : r3dIdentifiers) {
+            boolQueryBuilder
+                    .should(termQuery("identifier.re3data", r3dIdentifier.replace("r3d", "")));
+        }
+        boolQueryBuilder.minimumNumberShouldMatch(1);
+        try {
+            SearchResult searchResult = search(boolQueryBuilder);
+            List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
+            return hits.stream().map(h -> h.source).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -214,7 +233,7 @@ public class RepositoryServiceImpl implements RepositoryService {
                     .should(boolQueryBuilder);
         for(String r3dIdentifier : r3dIdentifiers) {
             mainBoolQueryBuilder
-                    .should(termQuery("identifier.re3data", r3dIdentifier.replace("r3d", "")).boost(1000f));
+                    .mustNot(termQuery("identifier.re3data", r3dIdentifier.replace("r3d", "")).boost(1000f));
         }
         mainBoolQueryBuilder.minimumNumberShouldMatch(1);
 

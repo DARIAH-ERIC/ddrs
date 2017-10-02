@@ -32,7 +32,7 @@ public class RepositoryController {
         Repository repository = repositoryService.searchByRe3Identifier(identifier);
         ContactRepository contactRepository = contactRepositoryDAO.findByRepositoryId("r3d" + identifier);
         if(contactRepository != null)
-            model.addAttribute("contact", contactRepository.getContact());
+            model.addAttribute("ddrscontact", contactRepository.getContact());
         model.addAttribute("repository", repository);
         return "repository";
     }

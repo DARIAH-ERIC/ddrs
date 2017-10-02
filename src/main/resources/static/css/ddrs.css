@@ -76,10 +76,11 @@
     /*background-color: #9d9d9d;*/
 }
 
-.logo {
-    padding: 8px;
+.tooltip-inner {
+    max-width: 500px;
 }
-.logo:hover {
+
+.home:hover {
     background-color: #dddddd !important;
 }
 

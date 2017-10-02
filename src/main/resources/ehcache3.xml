@@ -21,4 +21,13 @@
             <ehcache:heap unit="entries">600</ehcache:heap>
         </ehcache:resources>
     </ehcache:cache>
+    <ehcache:cache alias="repositoryIdentifiers">
+        <ehcache:expiry>
+            <ehcache:ttl unit="minutes">100</ehcache:ttl>
+            <!--<ehcache:ttl unit="hours">12</ehcache:ttl>-->
+        </ehcache:expiry>
+        <ehcache:resources>
+            <ehcache:heap unit="entries">40</ehcache:heap>
+        </ehcache:resources>
+    </ehcache:cache>
 </ehcache:config>

@@ -81,18 +81,20 @@ public class Re3dataRepositoryAPIService {
         re3dataList.setRepository(newSet);
     }
 
-    public List<String> getDefaultRepositories(SearchObject searchObject) {
+    public List<String> getDefaultRepositories(boolean retrieveParent, SearchObject searchObject) {
         List<String> defaultRepositoryIdentifiers = new ArrayList<>();
         for(String key : searchObject.getInternSearchParameters().keySet()) {
             for(String code : searchObject.getInternSearchParameters().get(key)) {
                 LOGGER.debug("Search for code: " + code);
                 ResultTypeHierarchical resultTypeHierarchical = resultTypeHierarchicalDAO.findByCode(code);
                 if(resultTypeHierarchical != null) {
-                    LOGGER.debug("Found the code and search for his default repositories");
-                    for(DefaultRepository defaultRepository : resultTypeHierarchical.getDefaultRepositories()) {
-                        defaultRepositoryIdentifiers.add(defaultRepository.getRe3dataIdentifier());
+                    if(!retrieveParent) {
+                        LOGGER.debug("Found the code and search for his default repositories");
+                        for (DefaultRepository defaultRepository : resultTypeHierarchical.getDefaultRepositories()) {
+                            defaultRepositoryIdentifiers.add(defaultRepository.getRe3dataIdentifier());
+                        }
                     }
-                    if(resultTypeHierarchical.getParent() != null) {
+                    if(retrieveParent && resultTypeHierarchical.getParent() != null) {
                         LOGGER.debug("Search for his parent's default repositories");
                         for (DefaultRepository defaultRepository : resultTypeHierarchical.getParent().getDefaultRepositories()) {
                             defaultRepositoryIdentifiers.add(defaultRepository.getRe3dataIdentifier());

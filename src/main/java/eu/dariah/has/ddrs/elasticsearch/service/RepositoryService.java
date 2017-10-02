@@ -19,6 +19,7 @@ public interface RepositoryService {
     Repository findOne(String id);
     List<Repository> findAll();
     Repository searchByRe3Identifier(String identifier);
+    List<Repository> retrieveById(List<String> r3dIdentifiers);
     List<Repository> searchWithRestrictions(SearchObject searchObject, List<String> r3dIdentifiers);
     List<Repository> findByName(String name);
 }

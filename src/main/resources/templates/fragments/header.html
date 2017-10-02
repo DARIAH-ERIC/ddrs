@@ -11,7 +11,8 @@
         <script src="../../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
         <script src="../../static/js/cookieconsent-3.0.3-min.js" th:src="@{/css/cookieconsent-3.0.3-min.js}" type="text/javascript"></script>
         <script src="../../static/js/ddrs.js" th:src="@{/js/ddrs.js}" type="text/javascript"></script>
-    <th:block th:if="${@environment.acceptsProfiles('production')}">
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <th:block th:if="${@environment.acceptsProfiles('production')}">
         <script type="text/javascript">
             var _paq = _paq || [];
             _paq.push(['trackPageView']);
@@ -59,9 +60,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand logo" href="#" th:href="@{/}">
-                        <img src="../../static/images/has_dariah_colors.png" th:src="@{/images/has_dariah_colors.png}"/>
-                    </a>
+                    <a class="navbar-brand home" href="#" th:href="@{/}">Home</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navigationbar">
                     <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">

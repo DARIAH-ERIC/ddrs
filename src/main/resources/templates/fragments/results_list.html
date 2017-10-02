@@ -5,34 +5,50 @@
 </head>
 <body>
 <th:block th:fragment="resultsList">
-    <h3 th:if="${repositories.size() == 0}">There are no results for this search.</h3>
-    <h3 th:if="${repositories.size() == 1}">There is <span>1</span> result. Make a selection to continue.</h3>
-    <h3 th:if="${repositories.size() > 1}">There are <span th:text="${repositories.size()}">x</span> results. Make a selection to continue.</h3>
-    <div th:each="repository : ${repositories}">
-        <div class="container-fluid dariah-round-form dariah-form-border">
-            <div class="row">
-                <div class="col-md-12">
-                    <a class="repository_id_name_url big-label" href="#" th:href="@{selectRepository(id=${repository.identifier.re3data})}" th:text="${repository.repositoryName}">RepositoryName</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="repository_description" th:text="${repository.description}">RepositoryDescription</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="repository_contact"></p> <!-- todo -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <a class="repository_url" href="#" th:href="${repository.repositoryUrl}" target="_blank" th:text="${repository.repositoryUrl}">RepositoryUrl</a>
-                </div>
+    <h3 th:if="${results == 0}">There are no results for this search.</h3>
+    <h3 th:if="${results == 1}">There is <span>1</span> result. Make a selection to continue.</h3>
+    <h3 th:if="${results > 1}">There are <span th:text="${results}">x</span> results. Make a selection to continue.</h3>
+    <h4 th:if="${repositories.get('search') != null and repositories.get('search').size() > 0}">National disciplinary</h4>
+    <div th:each="repositorySearch : ${repositories.get('search')}">
+        <div th:replace="fragments/results_list :: printResults(repository = ${repositorySearch})"></div>
+    </div>
+    <h4 th:if="${repositories.get('national') != null and repositories.get('national').size() > 0}">National General</h4>
+    <div th:each="repositoryNational : ${repositories.get('national')}">
+        <div th:replace="fragments/results_list :: printResults(repository = ${repositoryNational})"></div>
+    </div>
+    <h4 th:if="${repositories.get('europe') != null and repositories.get('europe').size() > 0}">European General</h4>
+    <div th:each="repositoryEurope : ${repositories.get('europe')}">
+        <div th:replace="fragments/results_list :: printResults(repository = ${repositoryEurope})"></div>
+    </div>
+</th:block>
+<th:block th:fragment="printResults">
+    <div class="container-fluid dariah-round-form dariah-form-border">
+        <div class="row">
+            <div class="col-md-12">
+                <a class="repository_id_name_url big-label" href="#" th:href="@{selectRepository(id=${repository.identifier.re3data})}" th:text="${repository.repositoryName}">RepositoryName</a>
             </div>
         </div>
-        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="repository_description" th:text="${repository.description}">RepositoryDescription</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <th:block th:each="institution : ${repository.getInstitutions()}">
+                    <span class="small-text-80 btn-no-link" th:text="#{${'ddrs.country.' + #strings.toLowerCase(institution.getCountry())}}"></span>
+                </th:block>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <th:block th:each="subject : ${repository.getSubjects()}">
+                    <span class="small-text-80 btn-no-link" th:text="${subject.getText()}"></span>
+                </th:block>
+            </div>
+        </div>
     </div>
+    <div class="spacer"></div>
 </th:block>
 </body>
 </html>

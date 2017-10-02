@@ -36,7 +36,7 @@
 
                 <div class="row">
                     <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.url}"></div>
-                    <div class="col-md-5 col-md-offset-1" th:text="${repository.getRepositoryUrl()}"></div>
+                    <div class="col-md-5 col-md-offset-1"><a href="#" target="_blank" th:href="${repository.getRepositoryUrl()}" th:text="${repository.getRepositoryUrl()}"></a></div>
                 </div>
                 <div class="spacer"></div>
 
@@ -44,7 +44,7 @@
                     <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.subjects}"></div>
                     <div class="col-md-5 col-md-offset-1">
                         <th:block th:each="subject : ${repository.getSubjects()}">
-                            <span class="small-text-80 btn-no-link" th:text="${subject.getText()}"></span>
+                            <span class="small-text-80 btn-no-link" th:text="${#strings.substringAfter(subject.getText(), ' ')}"></span>
                         </th:block>
                     </div>
                 </div>
@@ -56,22 +56,36 @@
                 </div>
                 <div class="spacer"></div>
 
-                <div class="row" th:if="${repository.getRepositoryContacts().size() > 0}">
+                <div class="row" th:if="${repository.getRepositoryContacts().size() > 0 or ddrscontact}">
                     <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.contact}"></div>
                     <div class="col-md-5 col-md-offset-1">
                         <th:block th:each="contact : ${repository.getRepositoryContacts()}">
-                            <span th:text="${contact.getText()}"></span>
+                            <th:block th:if="${#strings.startsWith(contact.getText(), 'http')}">
+                                <a href="#" target="_blank" th:href="${contact.getText()}" th:text="${contact.getText()}"></a>
+                            </th:block>
+                            <th:block th:if="${#strings.contains(contact.getText(), '@')}">
+                                <a href="#" target="_blank" th:href="${'mailto:' + contact.getText()}" th:text="${contact.getText()}"></a>
+                            </th:block>
+                            <th:block th:unless="${#strings.startsWith(contact.getText(), 'http') or #strings.contains(contact.getText(), '@')}">
+                                <span th:text="${contact.getText()}"></span>
+                            </th:block>
                             <br th:if="! ${contactStat.last}" />
+                        </th:block>
+                        <th:block th:if="${ddrscontact}">
+                            <br />
+                            <th:block th:if="${#strings.startsWith(ddrscontact, 'http')}">
+                                <a href="#" target="_blank" th:href="${ddrscontact}" th:text="${ddrscontact}"></a>
+                            </th:block>
+                            <th:block th:if="${#strings.contains(ddrscontact, '@')}">
+                                <a href="#" target="_blank" th:href="${'mailto:' + ddrscontact}" th:text="${ddrscontact}"></a>
+                            </th:block>
+                            <th:block th:unless="${#strings.startsWith(ddrscontact, 'http') or #strings.contains(ddrscontact, '@')}">
+                                <span th:text="${ddrscontact}"></span>
+                            </th:block>
                         </th:block>
                     </div>
                 </div>
-                <div class="spacer" th:if="${repository.getRepositoryContacts().size() > 0}"></div>
-
-                <div class="row" th:if="${contact}">
-                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.contact} + ' (extra)'"></div>
-                    <div class="col-md-5 col-md-offset-1" th:text="${contact}"></div>
-                </div>
-                <div class="spacer" th:if="${contact}"></div>
+                <div class="spacer" th:if="${repository.getRepositoryContacts().size() > 0 or ddrscontact}"></div>
 
                 <div class="row" th:if="${repository.getContentTypes().size() > 0}">
                     <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.contentTypes}"></div>

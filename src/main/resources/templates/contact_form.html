@@ -15,10 +15,12 @@
 </nav>
 <div id="page-wrapper">
     <h2 class="dariah-color-text text-center" th:text="${repository.repositoryName}"></h2>
-    <h2 class="dariah-color-text text-center" th:text="#{ddrs.label.repository.submit.information}"></h2>
     <div class="container-fluid">
         <form class="form-horizontal" method="post" action="#" th:action="@{/sendResults}" id="contact_form">
             <div class="form-group">
+                <div class="row row-spacer">
+                    <h4 class="col-md-8 col-md-offset-2 text-center" th:text="#{ddrs.label.repository.submit.information}"></h4>
+                </div>
                 <div class="row row-spacer">
                     <div class="col-md-2"></div>
                     <div class="col-md-2">
@@ -78,7 +80,7 @@
                                 <option value="other">Other</option>
                             </select>
                             <span class="input-group-addon no-background-addon">
-                                <i class="glyphicon glyphicon-question-sign background-addon" data-toggle="tooltip" title="Blablabla"></i>
+                                <i class="glyphicon glyphicon-question-sign background-addon" data-html="true" data-toggle="tooltip" th:title="#{ddrs.label.user.data.type.tooltip}"></i>
                             </span>
                         </div>
                     </div>
@@ -93,7 +95,7 @@
                         <div class="input-group input-group-unstyled">
                             <input class="form-control" id="fileFormat" type="text" name="fileFormat" size="64" th:placeholder="#{ddrs.label.user.formats.placeholder}" />
                             <span class="input-group-addon no-background-addon">
-                                <i class="glyphicon glyphicon-question-sign background-addon" data-toggle="tooltip" title="Blablabla"></i>
+                                <i class="glyphicon glyphicon-question-sign background-addon" data-html="true" data-toggle="tooltip" th:title="#{ddrs.label.user.formats.tooltip}"></i>
                             </span>
                         </div>
                     </div>
@@ -135,7 +137,7 @@
                                 <option value="other">Other</option>
                             </select>
                             <span class="input-group-addon no-background-addon">
-                                <i class="glyphicon glyphicon-question-sign background-addon" data-toggle="tooltip" title="Blablabla"></i>
+                                <i class="glyphicon glyphicon-question-sign background-addon" data-html="true" data-toggle="tooltip" th:title="#{ddrs.label.user.metadata.format.tooltip}"></i>
                             </span>
                         </div>
                     </div>
@@ -144,7 +146,7 @@
                 <div class="row row-spacer">
                     <div class="col-md-2"></div>
                     <div class="col-md-2">
-                        <label class="control-label" for="dataAccess" th:text="#{ddrs.label.user.open.restricted.access}"></label>
+                        <label class="control-label" for="dataAccess" th:text="#{ddrs.label.user.data.access}"></label>
                     </div>
                     <div class="col-md-6">
                         <div class="input-group input-group-unstyled">
@@ -156,7 +158,7 @@
                                 <option value="restricted">Restricted</option>
                             </select>
                             <span class="input-group-addon no-background-addon">
-                                <i class="glyphicon glyphicon-question-sign background-addon" data-toggle="tooltip" title="Blablabla"></i>
+                                <i class="glyphicon glyphicon-question-sign background-addon" data-html="true" data-toggle="tooltip" th:title="#{ddrs.label.user.data.access.tooltip}"></i>
                             </span>
                         </div>
                     </div>
@@ -169,6 +171,13 @@
                     </div>
                     <div class="col-md-6">
                         <textarea class="form-control" id="description" name="description" rows="4" th:placeholder="#{ddrs.label.user.description.placeholder}" required="required"></textarea>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row row-spacer">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-6">
+                        <div class="g-recaptcha" data-sitekey="6LewKC4UAAAAAFyFKrBmapTsObI74oUUMGBWPdsE"></div>
                     </div>
                     <div class="col-md-2"></div>
                 </div>
