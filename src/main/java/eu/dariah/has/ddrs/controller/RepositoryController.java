@@ -7,9 +7,7 @@ import eu.dariah.has.ddrs.persistence.model.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by yoann on 12.06.17.
@@ -25,7 +23,7 @@ public class RepositoryController {
         this.repositoryService = repositoryService;
     }
 
-    @RequestMapping(value = "/selectRepository", method = RequestMethod.GET)
+    @GetMapping(value = "/selectRepository")
     public String viewDetails(@RequestParam(value = "id") String identifier, Model model) {
         if(identifier.startsWith("r3d"))
             identifier = identifier.replace("r3d", "");
@@ -37,13 +35,18 @@ public class RepositoryController {
         return "repository";
     }
 
-    @RequestMapping(value = "/contactForm", method = RequestMethod.GET)
+    @GetMapping(value = "/contactForm")
     public String viewContactForm(@RequestParam(value = "id") String identifier, Model model) {
         if(identifier.startsWith("r3d"))
             identifier = identifier.replace("r3d", "");
         Repository repository = repositoryService.searchByRe3Identifier(identifier);
         model.addAttribute("repository", repository);
         return "contact_form";
+    }
+
+    @PostMapping(value = "/sendResults")
+    public String sendResults(Model model) {
+        return "results_sent";
     }
 
 }

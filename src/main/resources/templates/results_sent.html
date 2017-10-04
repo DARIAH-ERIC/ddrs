@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: ddrshead">
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Static header</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="page-wrapper">
+    <h2 class="dariah-color-text text-center">Landing page...</h2>
+    <p class="text-center">Here is a landing page received after sending results to the repository...</p>
+    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
+</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+    });
+</script>
+</html>
