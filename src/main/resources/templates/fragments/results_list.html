@@ -33,13 +33,13 @@
                 <p class="repository_description" th:text="${repository.description}">RepositoryDescription</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <th:block th:each="institution : ${repository.getInstitutions()}">
-                    <span class="small-text-80 btn-no-link" th:text="#{${'ddrs.country.' + #strings.toLowerCase(institution.getCountry())}}"></span>
-                </th:block>
-            </div>
-        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-md-12">-->
+                <!--<th:block th:each="institution : ${repository.getInstitutions()}">-->
+                    <!--<span class="small-text-80 btn-no-link" th:text="#{${'ddrs.country.' + #strings.toLowerCase(institution.getCountry())}}"></span>-->
+                <!--</th:block>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="row">
             <div class="col-md-12">
                 <th:block th:each="subject : ${repository.getSubjects()}">
