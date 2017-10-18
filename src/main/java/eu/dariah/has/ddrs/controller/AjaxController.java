@@ -3,7 +3,7 @@ package eu.dariah.has.ddrs.controller;
 import eu.dariah.has.ddrs.elasticsearch.model.Repository;
 import eu.dariah.has.ddrs.elasticsearch.service.RepositoryService;
 import eu.dariah.has.ddrs.model.SearchObject;
-import eu.dariah.has.ddrs.service.Re3dataRepositoryAPIService;
+import eu.dariah.has.ddrs.service.Re3dataRepositoryService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,12 +25,12 @@ import java.util.Map;
 public class AjaxController {
     private static final Logger LOGGER = Logger.getLogger(AjaxController.class);
 
-    private final Re3dataRepositoryAPIService re3dataRepositoryAPIService;
+    private final Re3dataRepositoryService re3dataRepositoryService;
     private final RepositoryService repositoryService;
 
     @Autowired
-    public AjaxController(Re3dataRepositoryAPIService re3dataRepositoryAPIService, RepositoryService repositoryService) {
-        this.re3dataRepositoryAPIService = re3dataRepositoryAPIService;
+    public AjaxController(Re3dataRepositoryService re3dataRepositoryService, RepositoryService repositoryService) {
+        this.re3dataRepositoryService = re3dataRepositoryService;
         this.repositoryService = repositoryService;
     }
 
@@ -43,7 +43,7 @@ public class AjaxController {
         ModelAndView modelAndView = new ModelAndView("fragments/results_list :: resultsList");
         try {
             int size = 0;
-            List<String> identifiers = re3dataRepositoryAPIService.getDefaultRepositories(true, searchObject);
+            List<String> identifiers = re3dataRepositoryService.getDefaultRepositories(true, searchObject);
             List<String> toNotSearch = identifiers;
             if(! identifiers.isEmpty()) {
                 List<Repository> europe = repositoryService.retrieveById(identifiers);
@@ -51,7 +51,7 @@ public class AjaxController {
                 size += europe.size();
             }
 
-            identifiers = re3dataRepositoryAPIService.getDefaultRepositories(false, searchObject);
+            identifiers = re3dataRepositoryService.getDefaultRepositories(false, searchObject);
             toNotSearch.addAll(identifiers);
             if(! identifiers.isEmpty()) {
                 List<Repository> national = repositoryService.retrieveById(identifiers);
