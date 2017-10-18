@@ -103,6 +103,10 @@ body {
     line-height: 1.1;
 }
 
+.max-height-logo {
+    max-height: 36px;
+}
+
 @media(min-width:768px) {
     body {
         margin-top: 50px;
