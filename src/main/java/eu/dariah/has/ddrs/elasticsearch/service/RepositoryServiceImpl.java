@@ -58,7 +58,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             jestClient.execute(new CreateIndex.Builder("frontend").build());
             createMapping(mappingJson);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while creating an index.", e);
         }
     }
 
@@ -75,7 +75,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             DocumentResult documentResult = jestClient.execute(index);
             return documentResult.getId();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while saving the repository.", e);
         }
         return null;
     }
@@ -92,7 +92,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             DocumentResult result = jestClient.execute(delete);
             return result.isSucceeded();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while deleting a repository.", e);
         }
         return false;
     }
@@ -109,7 +109,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             DocumentResult result = jestClient.execute(get);
             return result.getSourceAsObject(Repository.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while retrieving a repository from its identifier.", e);
         }
         return null;
     }
@@ -132,7 +132,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while retrieving all the repositories.", e);
         }
         return null;
     }
@@ -144,7 +144,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while retrieving a repository by its name.", e);
         }
         return null;
     }
@@ -177,7 +177,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             if(hits.size() > 0)
                 return hits.get(0).source;
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while retrieving the repository from its re3data identifier.", e);
         }
         return null;
     }
@@ -196,7 +196,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while retrieving the repositories from a list of identifiers.", e);
         }
         return null;
     }
@@ -242,7 +242,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("There was an error while retrieving the repositories via a complex search.", e);
         }
         return null;
     }
