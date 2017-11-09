@@ -148,94 +148,33 @@ public class FillUpDatabaseEventListener {
         humanities.setCode("NONE");
         humanities.setTranslation(new Translation("Humanities"));
         resultTypeHierarchicalDAO.create(humanities);
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100010468", humanities));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100011394", humanities));
+        defaultRepositoryDAO.create(new DefaultRepository("r3d100010066", humanities));
 
         //Level 1
         ResultTypeHierarchical ancientCultures = createResultTypeHierarchical("101 Ancient Cultures", 1, "Ancient Cultures", humanities);
 
-        //Level 2
-        ResultTypeHierarchical prehistory = createResultTypeHierarchical("10101 Prehistory", 1, "Prehistory", ancientCultures);
-        ResultTypeHierarchical ancientHistory = createResultTypeHierarchical("10103 Ancient History", 2, "Ancient History", ancientCultures);
-        ResultTypeHierarchical classicalArchaeology = createResultTypeHierarchical("10104 Classical Archaeology", 3, "Classical Archaeology", ancientCultures);
-        ResultTypeHierarchical egyptology = createResultTypeHierarchical("10105 Egyptology and Ancient Near Eastern Studies", 4, "Egyptology and Ancient Near Eastern Studies", ancientCultures);
-
-        ancientCultures.addChildren(new LinkedHashSet<>(Arrays.asList(prehistory, ancientHistory, classicalArchaeology, egyptology)));
-        resultTypeHierarchicalDAO.update(ancientCultures);
-
         //Level 1
         ResultTypeHierarchical history = createResultTypeHierarchical("102 History", 2, "History", humanities);
-
-        //Level 2
-        ResultTypeHierarchical medievalHistory = createResultTypeHierarchical("10201 Medieval History", 1, "Medieval History", history);
-        ResultTypeHierarchical earlyModernHistory = createResultTypeHierarchical("10202 Early Modern History", 2, "Early Modern History", history);
-        ResultTypeHierarchical modernAndCurrentHistory = createResultTypeHierarchical("10203 Modern and Current History", 3, "Modern and Current History", history);
-        ResultTypeHierarchical historyOfScience = createResultTypeHierarchical("10204 History of Science", 4, "History of Science", history);
-
-        history.addChildren(new LinkedHashSet<>(Arrays.asList(medievalHistory, earlyModernHistory, modernAndCurrentHistory, historyOfScience)));
-        resultTypeHierarchicalDAO.update(history);
 
         //Level 1
         ResultTypeHierarchical fineArts = createResultTypeHierarchical("103 Fine Arts, Music, Theatre and Media Studies", 3, "Fine Arts, Music, Theatre and Media Studies", humanities);
 
-        //Level 2
-        ResultTypeHierarchical artHistory = createResultTypeHierarchical("10301 Art History",1, "Art History", fineArts);
-        ResultTypeHierarchical musicology = createResultTypeHierarchical("10302 Musicology", 2, "Musicology", fineArts);
-        ResultTypeHierarchical theatre = createResultTypeHierarchical("10303 Theatre and Media Studies", 3, "Theatre and Media Studies", fineArts);
-
-        fineArts.addChildren(new LinkedHashSet<>(Arrays.asList(artHistory, musicology, theatre)));
-        resultTypeHierarchicalDAO.update(fineArts);
-
         //Level 1
         ResultTypeHierarchical linguistics = createResultTypeHierarchical("104 Linguistics",4,"Linguistics", humanities);
-
-        //Level 2
-        ResultTypeHierarchical generalAndAppliedLinguistics = createResultTypeHierarchical("10401 General and Applied Linguistics", 1, "General and Applied Linguistics", linguistics);
-        ResultTypeHierarchical individualLinguistics = createResultTypeHierarchical("10402 Individual Linguistics", 2, "Individual Linguistics", linguistics);
-        ResultTypeHierarchical typology = createResultTypeHierarchical("10403 Typology, Non-European Languages, Historical Linguistics", 3, "Typology, Non-European Languages, Historical Linguistics", linguistics);
-
-        linguistics.addChildren(new LinkedHashSet<>(Arrays.asList(generalAndAppliedLinguistics, individualLinguistics, typology)));
-        resultTypeHierarchicalDAO.update(linguistics);
 
         //Level 1
         ResultTypeHierarchical literaryStudies = createResultTypeHierarchical("105 Literary Studies", 5, "Literary Studies", humanities);
 
-        //Level 2
-        ResultTypeHierarchical europeanAndAmericanLiterature = createResultTypeHierarchical("10503 European and American Literature", 1, "European and American Literature", literaryStudies);
-        ResultTypeHierarchical generalAndComparativeLiterature = createResultTypeHierarchical("10504 General and Comparative Literature and Cultural Studies", 2, "General and Comparative Literature and Cultural Studies", literaryStudies);
-
-        literaryStudies.addChildren(new LinkedHashSet<>(Arrays.asList(europeanAndAmericanLiterature, generalAndComparativeLiterature)));
-        resultTypeHierarchicalDAO.update(literaryStudies);
-
         //Level 1
         ResultTypeHierarchical nonEuropean = createResultTypeHierarchical("106 Non-European Languages and Cultures, Social and Cultural Anthropology, Jewish Studies and Religious Studies", 6, "Non-European Languages and Cultures, Social and Cultural Anthropology, Jewish Studies and Religious Studies", humanities);
-
-        //Level 2
-        ResultTypeHierarchical socialAndCulturalAnthropology = createResultTypeHierarchical("10601 Social and Cultural Anthropology and Ethnology/Folklore", 1, "Social and Cultural Anthropology and Ethnology/Folklore", nonEuropean);
-        ResultTypeHierarchical asianStudies = createResultTypeHierarchical("10602 Asian Studies", 2, "Asian Studies", nonEuropean);
-        ResultTypeHierarchical africanAmericanAndOceaniaStudies = createResultTypeHierarchical("10603 African, American and Oceania Studies", 3, "African, American and Oceania Studies", nonEuropean);
-        ResultTypeHierarchical islamicStudies = createResultTypeHierarchical("10604 Islamic Studies, Arabian Studies, Semitic Studies", 4, "Islamic Studies, Arabian Studies, Semitic Studies", nonEuropean);
-        ResultTypeHierarchical religiousStudiesAndJewishStudies = createResultTypeHierarchical("10605 Religious Studies and Jewish Studies", 5, "Religious Studies and Jewish Studies", nonEuropean);
-
-        nonEuropean.addChildren(new LinkedHashSet<>(Arrays.asList(socialAndCulturalAnthropology, asianStudies, africanAmericanAndOceaniaStudies, islamicStudies, religiousStudiesAndJewishStudies)));
-        resultTypeHierarchicalDAO.update(nonEuropean);
 
         //Level 1
         ResultTypeHierarchical theology = createResultTypeHierarchical("107 Theology", 7, "Theology", humanities);
 
-        //Level 2
-        ResultTypeHierarchical protestantTheology = createResultTypeHierarchical("10701 Protestant Theology", 1, "Protestant Theology", theology);
-        ResultTypeHierarchical romanCatholicTheology = createResultTypeHierarchical("10702 Roman Catholic Theology", 2, "Roman Catholic Theology", theology);
-
-        theology.addChildren(new LinkedHashSet<>(Arrays.asList(protestantTheology, romanCatholicTheology)));
-        resultTypeHierarchicalDAO.update(theology);
-
         //Level 1
         ResultTypeHierarchical philosophy = createResultTypeHierarchical("108 Philosophy", 8, "Philosophy", humanities);
-
-        //Level 2
-        ResultTypeHierarchical historyOfPhilosophy = createResultTypeHierarchical("10801 History of Philosophy", 1, "History of Philosophy", philosophy);
-
-        philosophy.addChild(historyOfPhilosophy);
-        resultTypeHierarchicalDAO.update(philosophy);
 
         humanities.addChildren(new LinkedHashSet<>(Arrays.asList(ancientCultures, history, fineArts, linguistics, literaryStudies, nonEuropean, theology, philosophy)));
         resultTypeHierarchicalDAO.update(humanities);
