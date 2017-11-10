@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.SocketTimeoutException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -204,6 +205,12 @@ public class RepositoryServiceImpl implements RepositoryService {
     @Override
     @Cacheable("repositorySearches")
     public List<Repository> searchWithRestrictions(SearchObject searchObject, List<String> r3dIdentifiers) {
+        return searchWithRestrictions(searchObject, r3dIdentifiers, 1);
+    }
+
+    @Override
+    @Cacheable("repositorySearches")
+    public List<Repository> searchWithRestrictions(SearchObject searchObject, List<String> r3dIdentifiers, int tries) {
         final String SUBJECTS_TEXT_RAW = "subjects.text.raw";
         final String PID_SYSTEMS_TEXT_RAW = "pidSystems.text";
         final String DATA_UPLOADS_TYPE_RAW = "dataUploads.type.raw";
@@ -241,6 +248,13 @@ public class RepositoryServiceImpl implements RepositoryService {
             SearchResult searchResult = search(mainBoolQueryBuilder);
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
+        } catch (SocketTimeoutException ste) {
+            if(tries < 10) {
+                LOGGER.error("Socket Timeout Exception... We launch it again...");
+                return searchWithRestrictions(searchObject, r3dIdentifiers, tries + 1);
+            }
+            LOGGER.error("Socket Timeout Exception... Too often, we stop...");
+            return null;
         } catch (IOException e) {
             LOGGER.error("There was an error while retrieving the repositories via a complex search.", e);
         }
