@@ -42,16 +42,16 @@ public class FillUpDatabaseEventListener {
     }
 
     private void includeQuestions() {
-        Question question = new Question("institutions.country.raw", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(34L), new Translation("In which country are you based as a researcher?"), new Translation("To obtain country-specific research data repositories, please select a country. You can also select European Union or leave the field blank."));
+        Question question = new Question("institutions.country.raw", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(11L), new Translation("In which country are you based as a researcher?"), new Translation("To obtain country-specific research data repositories, please select a country. You can also select European Union or leave the field blank."));
         questionDAO.create(question);
 
         question = new Question("subjects.text.raw", false, true, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("What is your disciplinary field?"), new Translation("To obtain more specific results, please select a sub-discipline most applicable to your research data. By leaving this field blank you receive a more general result list refined with DDRS selected repositories."));
         questionDAO.create(question);
 
-        question = new Question("repositoryLanguages.text.raw", true, false, 3, 0, resultTypeHierarchicalDAO.findOne(69L), new Translation("Which languages should the repository have?"), new Translation("Tooltip for language questions..."));
+        question = new Question("repositoryLanguages.text.raw", true, false, 3, 0, resultTypeHierarchicalDAO.findOne(47L), new Translation("Which languages should the repository have?"), new Translation("Tooltip for language questions..."));
         questionDAO.create(question);
 
-        question = new Question("keywords.text.raw", true, false, 2, 0, resultTypeHierarchicalDAO.findOne(75L), new Translation("Which keywords should the repository have?"), new Translation("Tooltip for keyword questions..."));
+        question = new Question("keywords.text.raw", true, false, 2, 0, resultTypeHierarchicalDAO.findOne(53L), new Translation("Which keywords should the repository have?"), new Translation("Tooltip for keyword questions..."));
         questionDAO.create(question);
     }
 
@@ -176,7 +176,10 @@ public class FillUpDatabaseEventListener {
         //Level 1
         ResultTypeHierarchical philosophy = createResultTypeHierarchical("108 Philosophy", 8, "Philosophy", humanities);
 
-        humanities.addChildren(new LinkedHashSet<>(Arrays.asList(ancientCultures, history, fineArts, linguistics, literaryStudies, nonEuropean, theology, philosophy)));
+        //Level 1
+        ResultTypeHierarchical other = createResultTypeHierarchical("OTHER", 8, "Other", humanities);
+
+        humanities.addChildren(new LinkedHashSet<>(Arrays.asList(ancientCultures, history, fineArts, linguistics, literaryStudies, nonEuropean, theology, philosophy, other)));
         resultTypeHierarchicalDAO.update(humanities);
     }
 
