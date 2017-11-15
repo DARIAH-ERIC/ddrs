@@ -174,19 +174,20 @@
                     </div>
                     <div class="col-md-2"></div>
                 </div>
-                <!--<div class="row row-spacer">-->
-                    <!--<div class="col-md-4"></div>-->
-                    <!--<div class="col-md-6">-->
-                        <!--<div class="g-recaptcha" data-sitekey="6LewKC4UAAAAAFyFKrBmapTsObI74oUUMGBWPdsE"></div>-->
-                    <!--</div>-->
-                    <!--<div class="col-md-2"></div>-->
-                <!--</div>-->
+                <div class="row row-spacer">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-3" id="recaptcha_ddrs"></div>
+                    <div class="col-md-5">
+                        <h2 class="dariah-color-text text-center" th:if="${error}" th:text="${error}">Error...</h2>
+                    </div>
+                </div>
                 <div class="row row-spacer">
                     <div class="col-md-3 col-md-offset-4 col-xs-5 col-xs-offset-1">
                         <a class="btn btn-warning btn-block back" th:href="@{/selectRepository(id=${repository.identifier.re3data})}" th:text="#{ddrs.btn.back.repository}">Back</a>
                     </div>
                     <div class="col-md-3 col-xs-5">
-                        <button class="btn btn-default btn-block form-control" id="submit" name="submit" th:text="#{ddrs.btn.send}">Send</button>
+                        <input type="hidden" name="id" th:value="${repository.identifier.re3data}" />
+                        <button class="btn btn-default btn-block form-control" id="submit" disabled="disabled" name="submit" th:text="#{ddrs.btn.send}">Send</button>
                     </div>
                 </div>
             </div>
@@ -201,5 +202,21 @@
             placement : 'top'
         });
     });
+    var verifyCallback = function(response) {
+        if(response !== "") {
+            $("#submit").prop("disabled", false);
+        }
+    };
+    var cancelCallBack = function() {
+        $("#submit").prop("disabled", true);
+    };
+    var onloadCallback = function() {
+        grecaptcha.render('recaptcha_ddrs', {
+            'sitekey' : /*[[${recaptchaSite}]]*/ '',
+            'callback' : verifyCallback,
+            'expired-callback' : cancelCallBack
+        });
+    };
 </script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async="async" defer="defer"></script>
 </html>
