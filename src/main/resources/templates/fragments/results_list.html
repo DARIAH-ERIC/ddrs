@@ -5,21 +5,21 @@
 </head>
 <body>
 <th:block th:fragment="resultsList">
-    <h3 th:if="${results == 0}">There are no results for this search.</h3>
-    <h3 th:if="${results == 1}">There is <span>1</span> result. Make a selection to continue.</h3>
-    <h3 th:if="${results > 1}">There are <span th:text="${results}">x</span> results. Make a selection to continue.</h3>
+    <h3 th:if="${results == 0}" th:text="#{ddrs.label.results.no.results}">0 result.</h3>
+    <h3 th:if="${results == 1}" th:text="#{ddrs.label.results.one.result}">1 result.</h3>
+    <h3 th:if="${results > 1}" th:text="#{ddrs.label.results.x.results(${results})}">Some results.</h3>
 
     <div class="spacer">&nbsp;</div>
 
-    <h4 th:if="${repositories.get('search') != null and repositories.get('search').size() > 0}">National disciplinary repositories:</h4>
+    <h4 th:if="${repositories.get('search') != null and repositories.get('search').size() > 0}" th:text="#{ddrs.label.national.thematic.repositories}">National thematic repositories:</h4>
     <div th:each="repositorySearch : ${repositories.get('search')}">
         <div th:replace="fragments/results_list :: printResults(repository = ${repositorySearch})"></div>
     </div>
-    <h4 th:if="${repositories.get('national') != null and repositories.get('national').size() > 0}">National general repositories:</h4>
+    <h4 th:if="${repositories.get('national') != null and repositories.get('national').size() > 0}" th:text="#{ddrs.label.national.general.repositories}">National general repositories:</h4>
     <div th:each="repositoryNational : ${repositories.get('national')}">
         <div th:replace="fragments/results_list :: printResults(repository = ${repositoryNational})"></div>
     </div>
-    <h4 th:if="${repositories.get('europe') != null and repositories.get('europe').size() > 0}">European general repositories:</h4>
+    <h4 th:if="${repositories.get('europe') != null and repositories.get('europe').size() > 0}" th:text="#{ddrs.label.european.general.repositories}">European general repositories:</h4>
     <div th:each="repositoryEurope : ${repositories.get('europe')}">
         <div th:replace="fragments/results_list :: printResults(repository = ${repositoryEurope})"></div>
     </div>
