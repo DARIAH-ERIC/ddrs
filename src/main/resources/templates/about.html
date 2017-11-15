@@ -16,12 +16,14 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-            <h2 class="dariah-color-text">About the Data Deposit Recommendation Service</h2>
-            <p class="middle-label">The DDRS is an online service for humanities researchers that identifies suitable research data repositories, using Re3data.org (Registry of Research Data Repositories: <a href="http://www.re3data.org/" target="_blank">www.re3data.org</a>). The DDRS recommends suitable repositories based on the EU country and (sub-)discipline of the researcher. It further applies filters to the re3data registry, such as the possibility to upload data and the provision of persistent identifiers to make the data citable and findable.</p>
+            <h2 class="dariah-color-text" th:text="#{ddrs.label.about.title}">Title</h2>
+            <p class="middle-label" th:text="#{ddrs.label.about.part1}">Part1</p>
             <div class="spacer"></div>
-            <p class="middle-label">The user can leave the DDRS with a concise list of research data repositories (for example to use in their data management plan) or they can proceed to initiate the data deposit process, either by contacting/ uploading to the repository directly, or by using the DDRS contact form to forward the request with a data description to the repository.</p>
+            <p class="middle-label" th:text="#{ddrs.label.about.part2}">Part2</p>
             <div class="spacer"></div>
-            <p class="middle-label">The DDRS is a result of the DARIAH-EU <a href="http://has.dariah.eu/" target="_blank">Humanities at Scale</a> project, with one of its aims to promote Open Science by providing services to humanities researchers. An important part of Open Science is the sharing and reuse of research data. By providing the DDRS as a user-friendly service to identify suitable data repositories, we aim to facilitate the process of sharing data for researchers.</p>
+            <p class="middle-label" th:text="#{ddrs.label.about.part3}">Part3</p>
+            <div class="spacer"></div>
+            <p class="middle-label" th:text="#{ddrs.label.about.part4}">Part4</p>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
