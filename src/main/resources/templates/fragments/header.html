@@ -65,6 +65,11 @@
                     <a class="navbar-brand home" href="#" th:href="@{/}">Home</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navigationbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a class="about-link home" href="#" th:href="@{/about}" th:text="#{ddrs.label.about}">About</a>
+                        </li>
+                    </ul>
                     <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
                         <li>
                             <a href="#" th:href="@{/admin/questions}" th:text="#{ddrs.menu.administration}">Administration</a>
@@ -96,9 +101,6 @@
                                 <!--</li>-->
                             <!--</ul>-->
                         <!--</li>-->
-                        <li>
-                            <a class="navbar-brand home" href="#" th:href="@{/about}" th:text="#{ddrs.label.about}">About</a>
-                        </li>
                     </ul>
                 </div>
             </div>

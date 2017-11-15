@@ -17,13 +17,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
             <h2 class="dariah-color-text" th:text="#{ddrs.label.about.title}">Title</h2>
-            <p class="middle-label" th:text="#{ddrs.label.about.part1}">Part1</p>
+            <p class="middle-label" th:utext="#{ddrs.label.about.part1}">Part1</p>
             <div class="spacer"></div>
             <p class="middle-label" th:text="#{ddrs.label.about.part2}">Part2</p>
             <div class="spacer"></div>
             <p class="middle-label" th:text="#{ddrs.label.about.part3}">Part3</p>
             <div class="spacer"></div>
-            <p class="middle-label" th:text="#{ddrs.label.about.part4}">Part4</p>
+            <p class="middle-label" th:utext="#{ddrs.label.about.part4}">Part4</p>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>

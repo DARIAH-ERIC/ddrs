@@ -11,15 +11,15 @@
 
     <div class="spacer">&nbsp;</div>
 
-    <h4 th:if="${repositories.get('search') != null and repositories.get('search').size() > 0}" th:text="#{ddrs.label.national.thematic.repositories}">National thematic repositories:</h4>
+    <h3 th:if="${repositories.get('search') != null and repositories.get('search').size() > 0}" th:text="#{ddrs.label.national.thematic.repositories}">National thematic repositories:</h3>
     <div th:each="repositorySearch : ${repositories.get('search')}">
         <div th:replace="fragments/results_list :: printResults(repository = ${repositorySearch})"></div>
     </div>
-    <h4 th:if="${repositories.get('national') != null and repositories.get('national').size() > 0}" th:text="#{ddrs.label.national.general.repositories}">National general repositories:</h4>
+    <h3 th:if="${repositories.get('national') != null and repositories.get('national').size() > 0}" th:text="#{ddrs.label.national.general.repositories}">National general repositories:</h3>
     <div th:each="repositoryNational : ${repositories.get('national')}">
         <div th:replace="fragments/results_list :: printResults(repository = ${repositoryNational})"></div>
     </div>
-    <h4 th:if="${repositories.get('europe') != null and repositories.get('europe').size() > 0}" th:text="#{ddrs.label.european.general.repositories}">European general repositories:</h4>
+    <h3 th:if="${repositories.get('europe') != null and repositories.get('europe').size() > 0}" th:text="#{ddrs.label.european.general.repositories}">European general repositories:</h3>
     <div th:each="repositoryEurope : ${repositories.get('europe')}">
         <div th:replace="fragments/results_list :: printResults(repository = ${repositoryEurope})"></div>
     </div>
