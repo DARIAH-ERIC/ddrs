@@ -148,9 +148,9 @@ public class FillUpDatabaseEventListener {
         humanities.setCode("NONE");
         humanities.setTranslation(new Translation("Humanities"));
         resultTypeHierarchicalDAO.create(humanities);
-        defaultRepositoryDAO.create(new DefaultRepository("r3d100010468", humanities));
-        defaultRepositoryDAO.create(new DefaultRepository("r3d100011394", humanities));
-        defaultRepositoryDAO.create(new DefaultRepository("r3d100010066", humanities));
+//        defaultRepositoryDAO.create(new DefaultRepository("r3d100010468", humanities));
+//        defaultRepositoryDAO.create(new DefaultRepository("r3d100011394", humanities));
+//        defaultRepositoryDAO.create(new DefaultRepository("r3d100010066", humanities));
 
         //Level 1
         ResultTypeHierarchical ancientCultures = createResultTypeHierarchical("101 Ancient Cultures", 1, "Ancient Cultures", humanities);
