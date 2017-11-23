@@ -2,6 +2,7 @@ package eu.dariah.has.ddrs.controller;
 
 import eu.dariah.has.ddrs.elasticsearch.model.Repository;
 import eu.dariah.has.ddrs.elasticsearch.service.RepositoryService;
+import eu.dariah.has.ddrs.helper.DdrsHelper;
 import eu.dariah.has.ddrs.persistence.dao.IContactRepositoryDAO;
 import eu.dariah.has.ddrs.persistence.model.ContactRepository;
 import eu.dariah.has.ddrs.service.RecaptchaService;
@@ -44,7 +45,7 @@ public class RepositoryController {
         ContactRepository contactRepository = contactRepositoryDAO.findByRepositoryId("r3d" + identifier);
         if(contactRepository != null)
             model.addAttribute("ddrscontact", contactRepository.getContact());
-        model.addAttribute("repository", repository);
+        model.addAttribute("repository", DdrsHelper.addCountriesToRepository(repository));
         return "repository";
     }
 
@@ -53,7 +54,7 @@ public class RepositoryController {
         if(identifier.startsWith("r3d"))
             identifier = identifier.replace("r3d", "");
         Repository repository = repositoryService.searchByRe3Identifier(identifier);
-        model.addAttribute("repository", repository);
+        model.addAttribute("repository", DdrsHelper.addCountriesToRepository(repository));
         model.addAttribute("recaptchaSite", recaptchaSite);
         return "contact_form";
     }
@@ -68,7 +69,7 @@ public class RepositoryController {
             if(identifier.startsWith("r3d"))
                 identifier = identifier.replace("r3d", "");
             Repository repository = repositoryService.searchByRe3Identifier(identifier);
-            model.addAttribute("repository", repository);
+            model.addAttribute("repository", DdrsHelper.addCountriesToRepository(repository));
             model.addAttribute("recaptchaSite", recaptchaSite);
             model.addAttribute("error", captchaVerifyMessage);
             return "contact_form";

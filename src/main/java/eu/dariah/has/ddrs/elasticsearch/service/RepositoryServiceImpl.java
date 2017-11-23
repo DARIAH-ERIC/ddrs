@@ -186,6 +186,12 @@ public class RepositoryServiceImpl implements RepositoryService {
     @Override
     @Cacheable("repositoryIdentifiers")
     public List<Repository> retrieveById(List<String> r3dIdentifiers) {
+        return retrieveById(r3dIdentifiers, 1);
+    }
+
+    @Override
+    @Cacheable("repositoryIdentifiers")
+    public List<Repository> retrieveById(List<String> r3dIdentifiers, int tries) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         for(String r3dIdentifier : r3dIdentifiers) {
             boolQueryBuilder
@@ -196,6 +202,13 @@ public class RepositoryServiceImpl implements RepositoryService {
             SearchResult searchResult = search(boolQueryBuilder);
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
+        } catch (SocketTimeoutException ste) {
+            if(tries < 10) {
+                LOGGER.error("Socket Timeout Exception... We launch it again...");
+                return retrieveById(r3dIdentifiers, tries + 1);
+            }
+            LOGGER.error("Socket Timeout Exception... Too often, we stop...");
+            return null;
         } catch (IOException e) {
             LOGGER.error("There was an error while retrieving the repositories from a list of identifiers.", e);
         }

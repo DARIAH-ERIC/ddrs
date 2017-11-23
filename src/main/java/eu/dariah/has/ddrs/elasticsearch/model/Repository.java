@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import eu.dariah.has.ddrs.json.JsonViews;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by yoann on 18.07.17.
@@ -93,7 +94,8 @@ public class Repository {
     private String updated;
     @JsonView(JsonViews.Public.class)
     private String versioning;
-
+    @JsonView(JsonViews.Public.class)
+    private Set<String> countries;
 
     public Repository() {
     }
@@ -434,6 +436,14 @@ public class Repository {
         this.versioning = versioning;
     }
 
+    public Set<String> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Set<String> countries) {
+        this.countries = countries;
+    }
+
     @Override
     public String toString() {
         return "Repository{" +
@@ -467,6 +477,7 @@ public class Repository {
                 ", repositoryContacts=" + repositoryContacts +
                 ", repositoryIdentifiers=" + repositoryIdentifiers +
                 ", repositoryLanguages=" + repositoryLanguages +
+                ", repositoryName='" + repositoryName + '\'' +
                 ", repositoryNameLanguage='" + repositoryNameLanguage + '\'' +
                 ", repositoryUrl='" + repositoryUrl + '\'' +
                 ", size='" + size + '\'' +
@@ -478,6 +489,7 @@ public class Repository {
                 ", types=" + types +
                 ", updated='" + updated + '\'' +
                 ", versioning='" + versioning + '\'' +
+                ", countries=" + countries +
                 '}';
     }
 }

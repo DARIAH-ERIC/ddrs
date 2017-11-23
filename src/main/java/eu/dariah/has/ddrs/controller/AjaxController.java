@@ -1,7 +1,9 @@
 package eu.dariah.has.ddrs.controller;
 
+import eu.dariah.has.ddrs.elasticsearch.model.Institution;
 import eu.dariah.has.ddrs.elasticsearch.model.Repository;
 import eu.dariah.has.ddrs.elasticsearch.service.RepositoryService;
+import eu.dariah.has.ddrs.helper.DdrsHelper;
 import eu.dariah.has.ddrs.model.SearchObject;
 import eu.dariah.has.ddrs.service.Re3dataRepositoryService;
 import org.apache.log4j.Logger;
@@ -12,10 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by yoannmoranville on 12/05/17.
@@ -68,8 +67,8 @@ public class AjaxController {
             LOGGER.error("There was an error in the RestTemplate", e);
             modelAndView.addObject("error", "error");
         }
-        LOGGER.debug((System.currentTimeMillis() - start) + "ms");
-        modelAndView.addObject("repositories", repositories);
+        LOGGER.debug("Full search done in " + (System.currentTimeMillis() - start) + "ms");
+        modelAndView.addObject("repositories", DdrsHelper.addCountriesToRepositories(repositories));
         return modelAndView;
     }
 
