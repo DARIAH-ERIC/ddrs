@@ -13,7 +13,7 @@
         </ul>
     </div>
 </nav>
-<div id="page-wrapper">
+<div id="page-wrapper" th:if="${repository.isWithEmailAddress()}">
     <h2 class="dariah-color-text text-center" th:text="${repository.repositoryName}"></h2>
     <div class="container-fluid">
         <form class="form-horizontal" method="post" action="#" th:action="@{/sendResults}" id="contact_form">
@@ -194,6 +194,16 @@
         </form>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
+</div>
+<div id="page-wrapper" th:unless="${repository.isWithEmailAddress()}">
+    <h2 class="dariah-color-text text-center" th:text="${repository.repositoryName}"></h2>
+    <div class="container-fluid">
+        <div class="form-group">
+            <div class="row row-spacer">
+                <h4 class="col-md-8 col-md-offset-2 text-center" th:text="#{ddrs.label.repository.cannot.submit}"></h4>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <script type="text/javascript" th:inline="javascript">

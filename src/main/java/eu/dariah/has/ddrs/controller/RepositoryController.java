@@ -43,9 +43,13 @@ public class RepositoryController {
             identifier = identifier.replace("r3d", "");
         Repository repository = repositoryService.searchByRe3Identifier(identifier);
         ContactRepository contactRepository = contactRepositoryDAO.findByRepositoryId("r3d" + identifier);
-        if(contactRepository != null)
+        DdrsHelper.enhanceRepository(repository);
+        if(contactRepository != null) {
             model.addAttribute("ddrscontact", contactRepository.getContact());
-        model.addAttribute("repository", DdrsHelper.addCountriesToRepository(repository));
+            if (contactRepository.getContact().contains("@"))
+                repository.setWithEmailAddress(true);
+        }
+        model.addAttribute("repository", repository);
         return "repository";
     }
 
@@ -54,7 +58,14 @@ public class RepositoryController {
         if(identifier.startsWith("r3d"))
             identifier = identifier.replace("r3d", "");
         Repository repository = repositoryService.searchByRe3Identifier(identifier);
-        model.addAttribute("repository", DdrsHelper.addCountriesToRepository(repository));
+        ContactRepository contactRepository = contactRepositoryDAO.findByRepositoryId("r3d" + identifier);
+        DdrsHelper.enhanceRepository(repository);
+        if(contactRepository != null) {
+            model.addAttribute("ddrscontact", contactRepository.getContact());
+            if (contactRepository.getContact().contains("@"))
+                repository.setWithEmailAddress(true);
+        }
+        model.addAttribute("repository", repository);
         model.addAttribute("recaptchaSite", recaptchaSite);
         return "contact_form";
     }
@@ -69,7 +80,7 @@ public class RepositoryController {
             if(identifier.startsWith("r3d"))
                 identifier = identifier.replace("r3d", "");
             Repository repository = repositoryService.searchByRe3Identifier(identifier);
-            model.addAttribute("repository", DdrsHelper.addCountriesToRepository(repository));
+            model.addAttribute("repository", DdrsHelper.enhanceRepository(repository));
             model.addAttribute("recaptchaSite", recaptchaSite);
             model.addAttribute("error", captchaVerifyMessage);
             return "contact_form";

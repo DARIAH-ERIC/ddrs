@@ -68,7 +68,7 @@ public class AjaxController {
             modelAndView.addObject("error", "error");
         }
         LOGGER.debug("Full search done in " + (System.currentTimeMillis() - start) + "ms");
-        modelAndView.addObject("repositories", DdrsHelper.addCountriesToRepositories(repositories));
+        modelAndView.addObject("repositories", DdrsHelper.enhanceRepositories(repositories));
         return modelAndView;
     }
 

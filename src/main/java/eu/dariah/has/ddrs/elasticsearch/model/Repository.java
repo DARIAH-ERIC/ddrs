@@ -94,8 +94,11 @@ public class Repository {
     private String updated;
     @JsonView(JsonViews.Public.class)
     private String versioning;
+
     @JsonView(JsonViews.Public.class)
     private Set<String> countries;
+    @JsonView(JsonViews.Public.class)
+    private boolean withEmailAddress;
 
     public Repository() {
     }
@@ -444,6 +447,14 @@ public class Repository {
         this.countries = countries;
     }
 
+    public boolean isWithEmailAddress() {
+        return withEmailAddress;
+    }
+
+    public void setWithEmailAddress(boolean withEmailAddress) {
+        this.withEmailAddress = withEmailAddress;
+    }
+
     @Override
     public String toString() {
         return "Repository{" +
@@ -490,6 +501,7 @@ public class Repository {
                 ", updated='" + updated + '\'' +
                 ", versioning='" + versioning + '\'' +
                 ", countries=" + countries +
+                ", withEmailAddress=" + withEmailAddress +
                 '}';
     }
 }

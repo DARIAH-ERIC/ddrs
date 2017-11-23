@@ -7,6 +7,12 @@ public class Re3dataText {
     @JsonView(JsonViews.Public.class)
     private String text;
 
+    public Re3dataText() {}
+
+    public Re3dataText(String text) {
+        this.text = text;
+    }
+
     public String getText() {
         return text;
     }
