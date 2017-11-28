@@ -31,7 +31,7 @@ You can of course overwrite any of the default properties, such as database conn
 
 ### Extra configuration file
 Make a copy of the configuration template ``install-files/ddrs.conf`` and add it to the install folder.\
-This is in order to let the init.d script use extra property files for your server.\
+This is in order to let the init.d script use extra property files for your server.
 
 ### Create executable
 In the build folder:\
