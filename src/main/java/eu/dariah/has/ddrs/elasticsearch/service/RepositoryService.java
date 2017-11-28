@@ -10,6 +10,7 @@ import java.util.List;
  * Created by yoann on 19.07.17.
  */
 public interface RepositoryService {
+    int MAX_TRIES = 10;
     void createIndex();
     void createMapping(String mappingJson) throws IOException;
     String save(Repository repository, boolean refresh);

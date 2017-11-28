@@ -2,8 +2,6 @@ package eu.dariah.has.ddrs.elasticsearch.service;
 
 import eu.dariah.has.ddrs.elasticsearch.model.Repository;
 import eu.dariah.has.ddrs.model.SearchObject;
-import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
-import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.*;
 import io.searchbox.indices.CreateIndex;
@@ -203,7 +201,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
         } catch (SocketTimeoutException ste) {
-            if(tries < 10) {
+            if(tries < MAX_TRIES) {
                 LOGGER.error("Socket Timeout Exception... We launch it again...");
                 return retrieveById(r3dIdentifiers, tries + 1);
             }
@@ -262,7 +260,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
         } catch (SocketTimeoutException ste) {
-            if(tries < 10) {
+            if(tries < MAX_TRIES) {
                 LOGGER.error("Socket Timeout Exception... We launch it again...");
                 return searchWithRestrictions(searchObject, r3dIdentifiers, tries + 1);
             }
