@@ -2,4 +2,4 @@
 
 * [Documentation index](docs/index.md)
 * [Installation](docs/installation.md)
-* [License](docs/license.md) (under EUPL v1.2)
+* [License](LICENSE.md) (under EUPL v1.2)
