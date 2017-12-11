@@ -1,11 +1,6 @@
----
-layout: page
-title: DDRS
-description: Use cases
----
 [Back to DDRS index](index.md)
 
-![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_klein.png "Humanities at Scale")
+![Humanities at Scale](contents/HaS_Logo_klein.png)
 
 ## Use cases
 The following section describe the most relevant use cases for the DDRS. By describing the use cases in a structured way, we try to cover all necessary aspects that should be considered with the design of the service.
@@ -17,7 +12,7 @@ The DDRS offers benefit for at least the following four basic researcher driven 
 * (C) Collect general information on research data repositories: the user wants to inform himself on the research data repository landscape. This information interest can be focussed on disciplines, access policies or can be country- or language-specific. The DDRS should offer for this use case a transparent, complete and detailed browsing option to perform different searches in a row. This could be implemented similarly to the re3data-interface but with lesser categories.
 * (D) Register a research data repository: the user - a repository operator - wants to register his service for the DDRS. This should be conveniently  possible directly via the DDRS or - if we pursue the intended plan - via re3data. This use case is aimed at extending the visibility of research data repositories and/or enhancing the database quality and quantity of re3data. The DDRS could be a leverage for repositories to improve their dissemination and interoperability.
  
-![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/use_cases.png "Use cases")
+![Use cases](contents/use_cases.png)
 
 #### Management driven use cases
 Furthermore, the DDRS system has six management use cases (refer also to figure 4):

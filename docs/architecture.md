@@ -1,11 +1,6 @@
----
-layout: page
-title: DDRS
-description: Architecture
----
 [Back to DDRS index](index.md)
 
-![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_klein.png "Humanities at Scale")
+![Humanities at Scale](contents/HaS_Logo_klein.png)
 
 ## Architecture of the Service
 This section describes the technical implementation of the DDRS within the HaS project. One has to differentiate between an ideal concept of the service and the current possible implementation within the project. The latter one has to consider the available resources, the time horizon and the institutional context, e.g. current developments within DARIAH.
@@ -18,7 +13,7 @@ The figure below provides an overview of the infrastructure that will be set up 
 
 As basic infrastructure for this stage of the DDRS a virtual machine and a domain are sufficient. The VM consists of all necessary applications and will initially be accessible over an IP. At a later stage a conventional URL will be used, likely http://www.ddrs.de.dariah.eu/, and with this blend into the already existing DARIAH infrastructure and services. Nevertheless it is yet to be decided how the specific appearance and branding of the service will look like. It is clear that it is embedded within the DARIAH context, in particular with regard to sustainability, but it seems also preferable to keep the DDRS as “open” as possible. This openness in a sense of an unobtrusive DARIAH branding seems reasonable as the service uses external service providers - such as re3data - and wants to address humanities researchers and the humanities interested audience in a broader way.
 
-![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/infrastructure.png "Infrastructure")
+![Infrastructure](contents/infrastructure.png)
 
 The above standing DDRS Infrastructure Model illustrates the basic infrastructure layer and  several components facilitating the use of the DDRS functionalities for the user. The following components are part of this infrastructure:
 * A web server hosting the below described components.

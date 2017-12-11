@@ -1,11 +1,6 @@
----
-layout: page
-title: DDRS
-description: Concept of the DDRS
----
 [Back to DDRS index](index.md)
 
-![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_klein.png "Humanities at Scale")
+![Humanities at Scale](contents/HaS_Logo_klein.png)
 
 ## Concept of the service
 The service connects researchers who search for a deposit service on the one hand and the repositories and data centres on the other hand which have a mandate to acquire content and it aims at establishing incentives for both sides to deposit and ingest research data in the humanities.
@@ -28,7 +23,7 @@ After answering a very few mandatory questions the user receives a ranked list o
 
 A good visualisation of such a faceted browsing could look like [re3data.org](http://www.re3data.org/) has implemented the browsing by subject. The underlying technical solution uses a database with repositories tagged with classifications of the covered content. The user browses through this metadata and gets very quickly results, leading him to the desired repositories.
 
-![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/concept.png "Concept")
+![Concept](contents/concept.png)
 
 ##### Individual case description to initiate the communication process between researcher and repository
 In the second tier the user may - if he wishes so - describe his or her specific case, i.e. the research data that shall be deposited. The research data concerned is described by the user along a few standardised categories, like format, data volume, licences and so on. Aim of this description is to allow the repository an overview of the specific ingest case and to prepare for the communication with the researcher. This information, along with personal contact information, flows into a form that can be forwarded to the prefered repository at the instigation of the user. The second tier is optional, in other words, the user should have useful information about a suitable repository for their Data Management Plan, after the first tier.

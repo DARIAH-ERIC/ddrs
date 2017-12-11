@@ -1,9 +1,4 @@
----
-layout: page
-title: DDRS defaults
-description: List of default options already set up when launching the service
----
-![alt text](https://github.com/DARIAH-ERIC/ddrs/blob/master/docs/contents/HaS_Logo_klein.png "Humanities at Scale")
+![Humanities at Scale](contents/HaS_Logo_klein.png)
 
 ## List of default options already set up when launching the service
 Those are included in the database as default, all the information can be modified within the administrator part of the DDRS.
