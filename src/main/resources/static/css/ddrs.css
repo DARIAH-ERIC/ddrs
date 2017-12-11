@@ -109,6 +109,11 @@ body {
     line-height: 1.1;
 }
 
+.max-height-top-logo {
+    max-height: 50px;
+    margin-top: -16px;
+}
+
 .max-height-logo {
     max-height: 56px;
 }
