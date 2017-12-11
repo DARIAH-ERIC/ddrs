@@ -61,7 +61,7 @@ The server should now listen on the port 8080 by default:
 *http://localhost:8080/ddrs/*
 
 ### Redirect from Apache HTTPD to our own DDRS Service
-Here is an example of a conf file for apache httpd using SSL and redirection from the port 443 (SSL) to our application running on port 8080.\
+Here is an example of a conf file for apache httpd using SSL and redirection from the port 443 (SSL) to our application running on port 8080.
 The port 80 is also redirected to 443 and therefore to 8443 when used.
 
 
