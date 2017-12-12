@@ -55,6 +55,9 @@
 .row-spacer {
     margin-top: 7px;
 }
+.big-spacer {
+    margin-top: 80px;
+}
 
 .no-background-addon {
     background-color: inherit;
