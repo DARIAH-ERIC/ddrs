@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: ddrshead">
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Static header</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+            <h2 class="dariah-color-text" th:text="#{ddrs.label.suggest.title}">Title</h2>
+            <p class="middle-label" th:utext="#{ddrs.label.suggest.part1}">Part1</p>
+            <div class="spacer">&nbsp;</div>
+            <div class="spacer">&nbsp;</div>
+            <div class="spacer">&nbsp;</div>
+            <div class="spacer">&nbsp;</div>
+            <div class="spacer">&nbsp;</div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
+</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+    });
+</script>
+</html>

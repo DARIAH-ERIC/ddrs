@@ -46,6 +46,11 @@ public class IndexController {
         return "about";
     }
 
+    @GetMapping(value = "/suggest")
+    public String suggest() {
+        return "suggest";
+    }
+
     /**
      * Shows the login page in order to log the user in or to show an error when the login did not work
      * @param error A Boolean to display an error if the login failed, it will be returned by the Spring login mechanism
