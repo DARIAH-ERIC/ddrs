@@ -2,9 +2,8 @@
 
 ## List of default options already set up when launching the service
 Those are included in the database as default, all the information can be modified within the administrator part of 
-the DDRS.\
-The admin part of the tool can be reached at ```/ddrs/admin/``` and log in with user ```admin``` and the passsword 
-provided at the installation time, see [installation manual](installation.md).
+the DDRS. The admin part of the tool can be reached at ```/ddrs/admin/``` and log in with user ```admin``` and the 
+password provided at the installation time, see [installation manual](installation.md).
 
 ### Questions (including the re3data.org elastic search field names)
 * Country: institutions.country.raw
