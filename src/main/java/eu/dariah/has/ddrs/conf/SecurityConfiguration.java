@@ -1,6 +1,7 @@
 package eu.dariah.has.ddrs.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +20,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final BCryptPasswordEncoder bcryptEncoder;
 
+    @Value("${ddrs.admin.encoded.password}")
+    private String encodedAdminPassword;
+
     @Autowired
     public SecurityConfiguration(BCryptPasswordEncoder bcryptEncoder) {
         this.bcryptEncoder = bcryptEncoder;
@@ -27,8 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(bcryptEncoder)
-                .withUser("admin").password("$2a$10$CIni7tbExy0HYyQbxWJwT.thd.BeWC1JIZ1/ejBQhMBlxX32FJwYu")
-                .authorities("ROLE_ADMIN");
+                .withUser("admin").password(encodedAdminPassword).authorities("ROLE_ADMIN");
     }
 
     @Override

@@ -13,8 +13,13 @@
 * Install folder: ```/opt/ddrs/```
 
 ### Clone repository
-In the build folder for DDRS run
+In the build folder for DDRS run\
 ```git clone https://github.com/DARIAH-ERIC/ddrs```
+
+### Create admin password for the tool
+You have to create the admin password for the DDRS, please launch the following command and enter a password when 
+asked:\
+```mvn clean compile exec:java```
 
 ### Database (names, users and passwords should be changed on servers)
 Create a database called *ddrs* which will work with UTF8:
@@ -49,7 +54,7 @@ In the build folder:
 
 Copy the executable (```.jar```) to the installation folder.
 
-Create a symbolic link (ln -s) from /opt/ddrs/ddrs.jar to /etc/init.d/ddrs to be able to launch the tool as a service (usable for centos 6.x servers).
+Create a symbolic link (```ln -s```) from /opt/ddrs/ddrs.jar to /etc/init.d/ddrs to be able to launch the tool as a service (usable for centos 6.x servers).
 
 ### Start the service
 ```service ddrs start```
