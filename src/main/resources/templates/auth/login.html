@@ -35,7 +35,15 @@
                     <button type="submit" class="btn btn-default" id="loginbutton">Login</button>
                 </div>
             </div>
-
+        </form>
+        <form action="/Shibboleth.sso/Login" method="GET" class="form-horizontal">
+            <input type="hidden" name="target" th:value="@{/admin/}" />
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-warning" id="shibbolethbutton">Login via Federated
+                        (Shibboleth)</button>
+                </div>
+            </div>
         </form>
         <div th:replace="fragments/footer :: footer">&copy; 2017 DDRS static templates</div>
     </div>

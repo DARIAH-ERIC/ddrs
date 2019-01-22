@@ -1,5 +1,6 @@
 package eu.dariah.has.ddrs.conf;
 
+import eu.dariah.has.ddrs.service.ShibbolethAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String encodedAdminPassword;
 
     @Autowired
+    private ShibbolethAuthenticationProvider shibbolethAuthenticationProvider;
+
+    @Autowired
     public SecurityConfiguration(BCryptPasswordEncoder bcryptEncoder) {
         this.bcryptEncoder = bcryptEncoder;
     }
@@ -32,6 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(bcryptEncoder)
                 .withUser("admin").password(encodedAdminPassword).authorities("ROLE_ADMIN");
+        auth.authenticationProvider(shibbolethAuthenticationProvider);
     }
 
     @Override
