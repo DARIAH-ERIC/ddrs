@@ -22,16 +22,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final BCryptPasswordEncoder bcryptEncoder;
+    private final ShibbolethAuthenticationProvider shibbolethAuthenticationProvider;
 
     @Value("${ddrs.admin.encoded.password}")
     private String encodedAdminPassword;
 
     @Autowired
-    private ShibbolethAuthenticationProvider shibbolethAuthenticationProvider;
-
-    @Autowired
-    public SecurityConfiguration(BCryptPasswordEncoder bcryptEncoder) {
+    public SecurityConfiguration(BCryptPasswordEncoder bcryptEncoder, ShibbolethAuthenticationProvider shibbolethAuthenticationProvider) {
         this.bcryptEncoder = bcryptEncoder;
+        this.shibbolethAuthenticationProvider = shibbolethAuthenticationProvider;
     }
 
     @Autowired

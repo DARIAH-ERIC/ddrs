@@ -19,15 +19,18 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        ShibbolethAuthenticationToken shibbolethAuthenticationToken = (ShibbolethAuthenticationToken) authentication;
-        String uid = shibbolethAuthenticationToken.getUid();
-//        if(uid == null){
-//            throw new Exception("Could not find user with ID: " + uid);
-//        }
-        Collection<GrantedAuthority> grantedAuths = Collections.singleton(new SimpleGrantedAuthority("ROLE_SHIBBOLETH"));
-        Authentication auth = new UsernamePasswordAuthenticationToken(uid, null, grantedAuths);
-        LOG.info(auth);
-        return auth;
+        if(authentication instanceof ShibbolethAuthenticationToken) {
+            ShibbolethAuthenticationToken shibbolethAuthenticationToken = (ShibbolethAuthenticationToken) authentication;
+            String uid = shibbolethAuthenticationToken.getUid();
+            //        if(uid == null){
+            //            throw new Exception("Could not find user with ID: " + uid);
+            //        }
+            Collection<GrantedAuthority> grantedAuths = Collections.singleton(new SimpleGrantedAuthority("ROLE_SHIBBOLETH"));
+            Authentication auth = new UsernamePasswordAuthenticationToken(uid, null, grantedAuths);
+            LOG.info(auth);
+            return auth;
+        }
+        return null;
     }
 
     @Override
