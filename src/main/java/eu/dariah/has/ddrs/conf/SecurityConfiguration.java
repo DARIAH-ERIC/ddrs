@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and().exceptionHandling().accessDeniedPage("/access-denied")
 
-                .and().requiresChannel().antMatchers("/**").requiresInsecure()
+//                .and().requiresChannel().antMatchers("/**").requiresInsecure() //Breaks the AJP connector!!!!!
 
                 .and().rememberMe();
     }
