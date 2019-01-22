@@ -22,7 +22,7 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
         String name = request.getAttribute("unique-id" ).toString();
 
         ShibbolethAuthenticationUniqueId shibbolethAuthenticationUniqueId = (ShibbolethAuthenticationUniqueId) authentication;
-        Long uid = shibbolethAuthenticationUniqueId.getUid();
+        String uid = shibbolethAuthenticationUniqueId.getUid();
 //        if(uid == null){
 //            throw new Exception("Could not find user with ID: " + uid);
 //        }
@@ -58,7 +58,7 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
 
             @Override
             public String getName() {
-                return uid.toString();
+                return uid;
             }
         };
     }
