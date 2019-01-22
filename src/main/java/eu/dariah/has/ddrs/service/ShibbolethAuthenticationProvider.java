@@ -1,5 +1,6 @@
 package eu.dariah.has.ddrs.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,11 +10,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Component
 public class ShibbolethAuthenticationProvider implements AuthenticationProvider {
+
+    private static final Logger LOG = Logger.getLogger(RecaptchaService.class);
+
     @Autowired
     private HttpServletRequest request;
 
@@ -26,7 +29,7 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
 //        if(uid == null){
 //            throw new Exception("Could not find user with ID: " + uid);
 //        }
-        return new Authentication() {
+        Authentication auth = new Authentication() {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
                 return null;
@@ -61,6 +64,8 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
                 return uid;
             }
         };
+        LOG.info(auth);
+        return auth;
     }
 
     @Override
