@@ -6,13 +6,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import eu.dariah.has.ddrs.service.ShibbolethAuthenticationUniqueId;
+import eu.dariah.has.ddrs.service.ShibbolethAuthenticationToken;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class ShibbolethAuthenticationFilter extends OncePerRequestFilter {
+    private static final Logger LOG = Logger.getLogger(ShibbolethAuthenticationFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -21,9 +23,10 @@ public class ShibbolethAuthenticationFilter extends OncePerRequestFilter {
 
         Object uid = request.getAttribute("unique-id");
         if(uid != null) {
+            LOG.info("UID from the filter is: " + uid);
             if (StringUtils.isNotEmpty(uid.toString())) {
                 // Create our Authentication and let Spring know about it
-                Authentication auth = new ShibbolethAuthenticationUniqueId(uid.toString());
+                Authentication auth = new ShibbolethAuthenticationToken(uid.toString());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }

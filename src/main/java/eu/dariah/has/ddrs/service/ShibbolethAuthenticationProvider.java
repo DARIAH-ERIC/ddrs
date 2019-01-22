@@ -19,8 +19,8 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        ShibbolethAuthenticationUniqueId shibbolethAuthenticationUniqueId = (ShibbolethAuthenticationUniqueId) authentication;
-        String uid = shibbolethAuthenticationUniqueId.getUid();
+        ShibbolethAuthenticationToken shibbolethAuthenticationToken = (ShibbolethAuthenticationToken) authentication;
+        String uid = shibbolethAuthenticationToken.getUid();
 //        if(uid == null){
 //            throw new Exception("Could not find user with ID: " + uid);
 //        }
@@ -32,6 +32,6 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        return authentication.equals(ShibbolethAuthenticationToken.class) || authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

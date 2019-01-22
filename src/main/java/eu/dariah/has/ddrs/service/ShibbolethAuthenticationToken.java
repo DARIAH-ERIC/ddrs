@@ -6,19 +6,19 @@ import java.util.Collection;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
-public class ShibbolethAuthenticationUniqueId extends AbstractAuthenticationToken {
+public class ShibbolethAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final long serialVersionUID = -1249976839306453197L;
 //    private User authenticatedUser;
     private String uid;
 
-    public ShibbolethAuthenticationUniqueId(String uid){
+    public ShibbolethAuthenticationToken(String uid){
         super(Arrays.asList());
         this.uid = uid;
     }
 
-//    public ShibbolethAuthenticationUniqueId(Collection<? extends GrantedAuthority> authorities, User authenticatedUser, Long uid) {
-    public ShibbolethAuthenticationUniqueId(Collection<? extends GrantedAuthority> authorities, String uid) {
+//    public ShibbolethAuthenticationToken(Collection<? extends GrantedAuthority> authorities, User authenticatedUser, Long uid) {
+    public ShibbolethAuthenticationToken(Collection<? extends GrantedAuthority> authorities, String uid) {
         super(authorities);
         this.uid = uid;
 //        this.authenticatedUser = authenticatedUser;
@@ -26,7 +26,7 @@ public class ShibbolethAuthenticationUniqueId extends AbstractAuthenticationToke
 
     @Override
     public Object getCredentials() {
-        return "";
+        return uid;
     }
 
     @Override
