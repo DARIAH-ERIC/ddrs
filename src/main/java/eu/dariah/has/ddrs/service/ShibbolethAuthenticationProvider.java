@@ -7,15 +7,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.Collections;
 
 @Component
 public class ShibbolethAuthenticationProvider implements AuthenticationProvider {
 
-    private static final Logger LOG = Logger.getLogger(RecaptchaService.class);
+    private static final Logger LOG = Logger.getLogger(ShibbolethAuthenticationProvider.class);
 
     @Autowired
     private HttpServletRequest request;
@@ -29,41 +31,8 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
 //        if(uid == null){
 //            throw new Exception("Could not find user with ID: " + uid);
 //        }
-        Authentication auth = new Authentication() {
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                return null;
-            }
-
-            @Override
-            public Object getCredentials() {
-                return null;
-            }
-
-            @Override
-            public Object getDetails() {
-                return null;
-            }
-
-            @Override
-            public Object getPrincipal() {
-                return uid;
-            }
-
-            @Override
-            public boolean isAuthenticated() {
-                return true;
-            }
-
-            @Override
-            public void setAuthenticated(boolean b) throws IllegalArgumentException {
-            }
-
-            @Override
-            public String getName() {
-                return uid;
-            }
-        };
+        Collection<GrantedAuthority> grantedAuths = Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        Authentication auth = new UsernamePasswordAuthenticationToken(uid, null, grantedAuths);
         LOG.info(auth);
         return auth;
     }
