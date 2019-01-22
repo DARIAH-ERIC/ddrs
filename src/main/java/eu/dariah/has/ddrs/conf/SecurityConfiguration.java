@@ -1,5 +1,6 @@
 package eu.dariah.has.ddrs.conf;
 
+import eu.dariah.has.ddrs.filter.ShibbolethAuthenticationFilter;
 import eu.dariah.has.ddrs.service.ShibbolethAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -56,7 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 //                .and().requiresChannel().antMatchers("/**").requiresInsecure() //Breaks the AJP connector!!!!!
 
-                .and().rememberMe();
+                .and().rememberMe()
+                .and().addFilterBefore(new ShibbolethAuthenticationFilter(), BasicAuthenticationFilter.class);
     }
 
     @Override

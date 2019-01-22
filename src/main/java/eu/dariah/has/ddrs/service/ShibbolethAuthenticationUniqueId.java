@@ -10,15 +10,15 @@ public class ShibbolethAuthenticationUniqueId extends AbstractAuthenticationToke
 
     private static final long serialVersionUID = -1249976839306453197L;
 //    private User authenticatedUser;
-    private Long uid;
+    private String uid;
 
-    public ShibbolethAuthenticationUniqueId(Long uid){
+    public ShibbolethAuthenticationUniqueId(String uid){
         super(Arrays.asList());
         this.uid = uid;
     }
 
 //    public ShibbolethAuthenticationUniqueId(Collection<? extends GrantedAuthority> authorities, User authenticatedUser, Long uid) {
-    public ShibbolethAuthenticationUniqueId(Collection<? extends GrantedAuthority> authorities, Long uid) {
+    public ShibbolethAuthenticationUniqueId(Collection<? extends GrantedAuthority> authorities, String uid) {
         super(authorities);
         this.uid = uid;
 //        this.authenticatedUser = authenticatedUser;
@@ -34,7 +34,7 @@ public class ShibbolethAuthenticationUniqueId extends AbstractAuthenticationToke
         return uid;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
