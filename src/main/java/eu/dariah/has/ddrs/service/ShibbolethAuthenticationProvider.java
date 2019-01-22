@@ -24,7 +24,7 @@ public class ShibbolethAuthenticationProvider implements AuthenticationProvider 
 //        if(uid == null){
 //            throw new Exception("Could not find user with ID: " + uid);
 //        }
-        Collection<GrantedAuthority> grantedAuths = Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        Collection<GrantedAuthority> grantedAuths = Collections.singleton(new SimpleGrantedAuthority("ROLE_SHIBBOLETH"));
         Authentication auth = new UsernamePasswordAuthenticationToken(uid, null, grantedAuths);
         LOG.info(auth);
         return auth;
