@@ -3,6 +3,7 @@ package eu.dariah.has.ddrs.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import eu.dariah.has.ddrs.DdrsTest;
 import eu.dariah.has.ddrs.model.SearchObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class AjaxControllerTest {
+public class AjaxControllerTest extends DdrsTest {
 
     private MockMvc mockMvc;
 

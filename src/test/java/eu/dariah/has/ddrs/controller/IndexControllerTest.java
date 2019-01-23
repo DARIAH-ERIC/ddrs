@@ -1,5 +1,6 @@
 package eu.dariah.has.ddrs.controller;
 
+import eu.dariah.has.ddrs.DdrsTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class IndexControllerTest {
+public class IndexControllerTest extends DdrsTest {
 
     private MockMvc mockMvc;
 
