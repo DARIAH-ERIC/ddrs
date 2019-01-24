@@ -23,7 +23,6 @@ public class ShibbolethAuthenticationFilter extends OncePerRequestFilter {
 
         Object uid = request.getAttribute("unique-id");
         if(uid != null) {
-            LOG.info("UID from the filter is: " + uid);
             if (StringUtils.isNotEmpty(uid.toString())) {
                 // Create our Authentication and let Spring know about it
                 Authentication auth = new ShibbolethAuthenticationToken(uid.toString());
