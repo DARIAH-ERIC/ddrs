@@ -92,8 +92,8 @@
                                   sec:authorize="hasRole('ROLE_ADMIN')">
                                 <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.logout}">Logout</button>
                             </form>
-                            <form method="post" action="/Shibboleth.sso/Logout" id="logout_form_shibboleth"
-                                  sec:authorize="hasRole('ROLE_SHIBBOLETH')">
+                            <form method="post" action="/Shibboleth.sso/Logout?return=/ddrs/"
+                                  id="logout_form_shibboleth" sec:authorize="hasRole('ROLE_SHIBBOLETH')">
                                 <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.logout}">Logout</button>
                             </form>
                         </li>
