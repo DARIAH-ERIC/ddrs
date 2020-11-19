@@ -1,0 +1,6 @@
+/target/*
+/docs/_site/*
+/.idea/*
+ddrs.iml
+
+.env

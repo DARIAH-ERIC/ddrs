@@ -1,0 +1,33 @@
+version: '2'
+services:
+  ddrs-spring:
+    container_name: ddrs-spring
+    build: .
+    working_dir: /opt/ddrs
+    environment:
+      ES_URL: ${ES_URL}
+      ES_USERNAME: ${ES_USERNAME}
+      ES_PASSWORD: ${ES_PASSWORD}
+      CAPTCHA_SECRET: ${CAPTCHA_SECRET}
+      CAPTCHA_SITE: ${CAPTCHA_SITE}
+      DDRS_PASSWORD: ${DDRS_PASSWORD}
+    ports:
+      - 8099:8080
+    depends_on:
+      - psql
+  psql:
+    container_name: psql
+    image: postgres:9.6
+    volumes:
+      - psql-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ddrs_username
+      POSTGRES_PASSWORD: ddrs_pwd
+      POSTGRES_DB: ddrs
+      POSTGRES_HOST: psql
+    ports:
+      - 5432:5432
+    restart: always
+
+volumes:
+  psql-data:
