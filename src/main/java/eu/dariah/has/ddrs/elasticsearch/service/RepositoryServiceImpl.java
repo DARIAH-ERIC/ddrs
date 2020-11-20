@@ -9,7 +9,8 @@ import io.searchbox.indices.DeleteIndex;
 import io.searchbox.indices.IndicesExists;
 import io.searchbox.indices.mapping.PutMapping;
 import io.searchbox.params.Parameters;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.common.io.ByteStreams;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -35,7 +36,7 @@ import static org.elasticsearch.index.query.QueryBuilders.termQuery;
  */
 @Service
 public class RepositoryServiceImpl implements RepositoryService {
-    private static final Logger LOGGER = Logger.getLogger(RepositoryServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(RepositoryServiceImpl.class);
     private final JestClient jestClient;
 
     @Autowired

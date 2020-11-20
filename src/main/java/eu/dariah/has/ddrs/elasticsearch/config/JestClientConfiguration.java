@@ -4,7 +4,8 @@ import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.config.HttpClientConfig;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,7 @@ import java.net.InetAddress;
  */
 @Configuration
 public class JestClientConfiguration {
-    private static final Logger LOGGER = Logger.getLogger(JestClientConfiguration.class);
+    private static final Logger LOGGER = LogManager.getLogger(JestClientConfiguration.class);
 
     @Value("${elasticsearch.serverUri}")
     private String elasticsearchUri;

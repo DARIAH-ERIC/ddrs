@@ -6,7 +6,8 @@ import eu.dariah.has.ddrs.elasticsearch.service.RepositoryService;
 import eu.dariah.has.ddrs.helper.DdrsHelper;
 import eu.dariah.has.ddrs.model.SearchObject;
 import eu.dariah.has.ddrs.service.Re3dataRepositoryService;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.*;
 @RestController
 @SessionAttributes("searchObject")
 public class AjaxController {
-    private static final Logger LOGGER = Logger.getLogger(AjaxController.class);
+    private static final Logger LOGGER = LogManager.getLogger(AjaxController.class);
 
     private final Re3dataRepositoryService re3dataRepositoryService;
     private final RepositoryService repositoryService;
