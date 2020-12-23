@@ -15,6 +15,8 @@ services:
       - 8099:8080
     depends_on:
       - psql
+      - elasticsearch
+
   psql:
     container_name: psql
     image: postgres:9.6
@@ -29,5 +31,22 @@ services:
       - 5432:5432
     restart: always
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
 volumes:
   psql-data:
+  es-data:
