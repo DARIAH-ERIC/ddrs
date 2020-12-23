@@ -1,6 +1,7 @@
 package eu.dariah.has.ddrs.service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,7 +16,7 @@ import java.util.Collections;
 @Component
 public class ShibbolethAuthenticationProvider implements AuthenticationProvider {
 
-    private static final Logger LOG = Logger.getLogger(ShibbolethAuthenticationProvider.class);
+    private static final Logger LOG = LogManager.getLogger(ShibbolethAuthenticationProvider.class);
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

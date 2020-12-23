@@ -1,7 +1,8 @@
 package eu.dariah.has.ddrs.service;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class RecaptchaService {
 
-    private static final Logger LOG = Logger.getLogger(RecaptchaService.class);
+    private static final Logger LOG = LogManager.getLogger(RecaptchaService.class);
 
     @Value("${recaptcha.secret}")
     private String recaptchaSecret;

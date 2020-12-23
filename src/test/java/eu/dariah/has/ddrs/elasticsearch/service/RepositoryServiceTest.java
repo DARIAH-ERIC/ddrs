@@ -3,7 +3,8 @@ package eu.dariah.has.ddrs.elasticsearch.service;
 import eu.dariah.has.ddrs.DdrsTest;
 import eu.dariah.has.ddrs.elasticsearch.model.Repository;
 import eu.dariah.has.ddrs.model.SearchObject;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RepositoryServiceTest extends DdrsTest {
-    private static final Logger LOGGER = Logger.getLogger(RepositoryServiceTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(RepositoryServiceTest.class);
     @Autowired
     private RepositoryService repositoryService;
 

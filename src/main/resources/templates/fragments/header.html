@@ -13,23 +13,6 @@
         <script src="../../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
         <script src="../../static/js/cookieconsent-3.0.3-min.js" th:src="@{/css/cookieconsent-3.0.3-min.js}" type="text/javascript"></script>
         <script src="../../static/js/ddrs.js" th:src="@{/js/ddrs.js}" type="text/javascript"></script>
-        <th:block th:if="${@environment.acceptsProfiles('production')}">
-        <script type="text/javascript">
-            var _paq = _paq || [];
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            (function() {
-                var u="//piwik.gwdg.de/";
-                _paq.push(['setTrackerUrl', u+'piwik.php']);
-                _paq.push(['setSiteId', '325']);
-                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-            })();
-        </script>
-        <noscript>
-            <img src="https://piwik.gwdg.de/piwik.php?idsite=325&amp;rec=1" style="border:0" alt="" />
-        </noscript>
-    </th:block>
         <script type="text/javascript" th:inline="javascript">
             window.addEventListener("load", function(){
                 window.cookieconsent.initialise({
@@ -92,8 +75,8 @@
                                   sec:authorize="hasRole('ROLE_ADMIN')">
                                 <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.logout}">Logout</button>
                             </form>
-                            <form method="post" action="/Shibboleth.sso/Logout" id="logout_form_shibboleth"
-                                  sec:authorize="hasRole('ROLE_SHIBBOLETH')">
+                            <form method="post" action="/Shibboleth.sso/Logout?return=/ddrs/"
+                                  id="logout_form_shibboleth" sec:authorize="hasRole('ROLE_SHIBBOLETH')">
                                 <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.logout}">Logout</button>
                             </form>
                         </li>
@@ -117,5 +100,22 @@
                 </div>
             </div>
         </nav>
+        <th:block th:if="${@environment.acceptsProfiles('production')}">
+            <script type="text/javascript">
+                var _paq = _paq || [];
+                _paq.push(['trackPageView']);
+                _paq.push(['enableLinkTracking']);
+                (function() {
+                    var u="//piwik.gwdg.de/";
+                    _paq.push(['setTrackerUrl', u+'piwik.php']);
+                    _paq.push(['setSiteId', '325']);
+                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+                })();
+            </script>
+            <noscript>
+                <img src="https://piwik.gwdg.de/piwik.php?idsite=325&amp;rec=1" style="border:0" alt="" />
+            </noscript>
+        </th:block>
     </body>
 </html>

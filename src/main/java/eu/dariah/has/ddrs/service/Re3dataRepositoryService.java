@@ -4,7 +4,8 @@ import eu.dariah.has.ddrs.model.SearchObject;
 import eu.dariah.has.ddrs.persistence.dao.IResultTypeHierarchicalDAO;
 import eu.dariah.has.ddrs.persistence.model.DefaultRepository;
 import eu.dariah.has.ddrs.persistence.model.ResultTypeHierarchical;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Service
 public class Re3dataRepositoryService {
-    private static final Logger LOGGER = Logger.getLogger(Re3dataRepositoryService.class);
+    private static final Logger LOGGER = LogManager.getLogger(Re3dataRepositoryService.class);
     private final IResultTypeHierarchicalDAO resultTypeHierarchicalDAO;
 
     public Re3dataRepositoryService(IResultTypeHierarchicalDAO resultTypeHierarchicalDAO) {

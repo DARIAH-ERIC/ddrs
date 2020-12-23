@@ -3,7 +3,8 @@ package eu.dariah.has.ddrs.controller;
 import eu.dariah.has.ddrs.persistence.dao.*;
 import eu.dariah.has.ddrs.persistence.model.*;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,7 @@ public class AdminController {
     private final IContactRepositoryDAO contactRepositoryDAO;
     private final IDefaultRepositoryDAO defaultRepositoryDAO;
 
-    private static final Logger LOGGER = Logger.getLogger(AdminController.class);
+    private static final Logger LOGGER = LogManager.getLogger(AdminController.class);
 
     @Autowired
     public AdminController(IQuestionDAO questionDAO, IResultTypeHierarchicalDAO resultTypeHierarchicalDAO, ITranslationDAO translationDAO, IContactRepositoryDAO contactRepositoryDAO, IDefaultRepositoryDAO defaultRepositoryDAO) {

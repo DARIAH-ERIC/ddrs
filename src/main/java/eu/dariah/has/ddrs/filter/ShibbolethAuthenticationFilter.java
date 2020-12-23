@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import eu.dariah.has.ddrs.service.ShibbolethAuthenticationToken;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class ShibbolethAuthenticationFilter extends OncePerRequestFilter {
-    private static final Logger LOG = Logger.getLogger(ShibbolethAuthenticationFilter.class);
+    private static final Logger LOG = LogManager.getLogger(ShibbolethAuthenticationFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
