@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServerSetup {
 
-    @Value("${ajp.port}")
+    @Value("${ddrs.ajp.port}")
     int ajpPort;
 
-    @Value("${ajp.enabled}")
+    @Value("${ddrs.ajp.enabled}")
     boolean ajpEnabled;
 
     @Bean

@@ -72,11 +72,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li sec:authorize="isAuthenticated()">
                             <form method="post" action="#" th:action="@{/auth/logout}" id="logout_form"
-                                  sec:authorize="hasRole('ROLE_ADMIN')">
-                                <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.logout}">Logout</button>
-                            </form>
-                            <form method="post" action="/Shibboleth.sso/Logout?return=/ddrs/"
-                                  id="logout_form_shibboleth" sec:authorize="hasRole('ROLE_SHIBBOLETH')">
+                                  sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_SERVICEPROVIDER')">
                                 <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.logout}">Logout</button>
                             </form>
                         </li>

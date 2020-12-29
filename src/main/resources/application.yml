@@ -1,0 +1,82 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /ddrs
+  profiles:
+    active: production
+
+spring:
+  datasource:
+    driver-class-name: "org.postgresql.Driver"
+    url: "jdbc:postgresql://psql:5432/ddrs"
+    username: ddrs_username
+    password: ddrs_pwd
+
+    hikari:
+      initialization-fail-timeout: 10000
+      connection-timeout: 60000
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  security:
+    oauth2:
+      client:
+        registration:
+          egi:
+            client-id: ${EGI_ID}
+            client-secret: ${EGI_SECRET}
+            authorization-grant-type: authorization_code
+            scope:
+              - openid
+              - profile
+              - email
+              - eduperson_scoped_affiliation
+              - eduperson_entitlement
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: EGI
+        provider:
+          egi:
+            token-uri: https://aai-dev.egi.eu/oidc/token
+            authorization-uri: https://aai-dev.egi.eu/oidc/authorize
+            user-info-uri: https://aai-dev.egi.eu/oidc/userinfo
+            jwk-set-uri: https://aai-dev.egi.eu/oidc/jwk
+            user-name-attribute: sub
+  cache:
+    jcache:
+      config: ehcache3.xml
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+
+ddrs:
+  # Elasticsearch (overwrite in external application.conf)
+  elasticsearch:
+    serverUri: ${ES_URL}
+    username: ${ES_USERNAME}
+    password: ${ES_PASSWORD}
+  # Recaptcha (overwrite in external application.conf)
+  recaptcha:
+    secret: ${CAPTCHA_SECRET}
+    site: ${CAPTCHA_SITE}
+  # Admin password for DDRS admin page
+  admin:
+    encoded:
+      password: ${DDRS_PASSWORD}
+
+  ajp:
+    port: 8009
+    enabled: true
