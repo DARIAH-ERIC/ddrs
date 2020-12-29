@@ -23,7 +23,7 @@ public class RecaptchaService {
 
     private static final Logger LOG = LogManager.getLogger(RecaptchaService.class);
 
-    @Value("${recaptcha.secret}")
+    @Value("${ddrs.recaptcha.secret}")
     private String recaptchaSecret;
 
     private static final String GOOGLE_RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
@@ -48,8 +48,8 @@ public class RecaptchaService {
                                 body, Map.class, body);
         LOG.debug("Response from recaptcha: " + recaptchaResponseEntity.toString());
         Map<String, Object> responseBody = recaptchaResponseEntity.getBody();
-        boolean recaptchaSucess = (Boolean)responseBody.get("success");
-        if (!recaptchaSucess) {
+        boolean recaptchaSuccess = (Boolean)responseBody.get("success");
+        if (!recaptchaSuccess) {
             List<String> errorCodes = (List)responseBody.get("error-codes");
             return errorCodes.stream().collect(Collectors.joining(", "));
         } else {

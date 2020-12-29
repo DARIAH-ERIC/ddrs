@@ -19,13 +19,13 @@ import java.net.InetAddress;
 public class JestClientConfiguration {
     private static final Logger LOGGER = LogManager.getLogger(JestClientConfiguration.class);
 
-    @Value("${elasticsearch.serverUri}")
+    @Value("${ddrs.elasticsearch.serverUri}")
     private String elasticsearchUri;
 
-    @Value("${elasticsearch.username}")
+    @Value("${ddrs.elasticsearch.username}")
     private String elasticsearchUsername;
 
-    @Value("${elasticsearch.password}")
+    @Value("${ddrs.elasticsearch.password}")
     private String elasticsearchPassword;
 
     @Bean

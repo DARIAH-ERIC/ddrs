@@ -27,7 +27,7 @@ public class RepositoryController {
     private final IContactRepositoryDAO contactRepositoryDAO;
     private final RecaptchaService captchaService;
 
-    @Value("${recaptcha.site}")
+    @Value("${ddrs.recaptcha.site}")
     private String recaptchaSite;
 
     @Autowired
