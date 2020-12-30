@@ -24,34 +24,64 @@ public class QuestionDAO extends AbstractJpaDAO<Question> implements IQuestionDA
     }
 
     @Override
-    public List<Question> findAllOrdered() {
+    public List<Question> findAllOrderedDDRS() {
+        return findAllOrdered("ddrs");
+    }
+
+    @Override
+    public List<Question> findAllOrderedPSP() {
+        return findAllOrdered("psp");
+    }
+
+    private List<Question> findAllOrdered(String ddrsOrPsp) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
         Root<Question> from = criteriaQuery.from(Question.class);
         CriteriaQuery<Question> select = criteriaQuery.select(from);
+        select.where(criteriaBuilder.equal(from.get(Question_.ddrsOrPsp), ddrsOrPsp));
         select.orderBy(criteriaBuilder.asc(from.get(Question_.questionOrder)));
         TypedQuery<Question> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();
     }
 
     @Override
-    public List<Question> findAllWrongOrdered() {
+    public List<Question> findAllWrongOrderedDDRS() {
+        return findAllWrongOrdered("ddrs");
+    }
+
+    @Override
+    public List<Question> findAllWrongOrderedPSP() {
+        return findAllWrongOrdered("psp");
+    }
+
+    private List<Question> findAllWrongOrdered(String ddrsOrPsp) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
         Root<Question> from = criteriaQuery.from(Question.class);
         CriteriaQuery<Question> select = criteriaQuery.select(from);
+        select.where(criteriaBuilder.equal(from.get(Question_.ddrsOrPsp), ddrsOrPsp));
         select.orderBy(criteriaBuilder.desc(from.get(Question_.questionOrder)));
         TypedQuery<Question> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();
     }
 
     @Override
-    public List<Question> findAllOrderedAndInUse() {
+    public List<Question> findAllOrderedAndInUseDDRS() {
+        return findAllOrderedAndInUse("ddrs");
+    }
+
+    @Override
+    public List<Question> findAllOrderedAndInUsePSP() {
+        return findAllOrderedAndInUse("psp");
+    }
+
+    private List<Question> findAllOrderedAndInUse(String ddrsOrPsp) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
         Root<Question> from = criteriaQuery.from(Question.class);
         CriteriaQuery<Question> select = criteriaQuery.select(from);
-        select.where(criteriaBuilder.equal(from.get(Question_.isInUse), true ));
+        select.where(criteriaBuilder.equal(from.get(Question_.isInUse), true),
+                criteriaBuilder.equal(from.get(Question_.ddrsOrPsp), ddrsOrPsp));
         select.orderBy(criteriaBuilder.asc(from.get(Question_.questionOrder)));
         TypedQuery<Question> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();

@@ -35,11 +35,24 @@ public class IndexController {
     }
 
     @GetMapping(value = {"/", "/index"})
-    public String index(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
-        model.addAttribute("searchObject", searchObject);
-        List<Question> allUsedQuestions = questionDAO.findAllOrderedAndInUse();
-        model.addAttribute("questions", allUsedQuestions);
+    public String index(Model model) {
         return "index";
+    }
+
+    @GetMapping(value = {"/ddrs"})
+    public String indexDDRS(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
+        model.addAttribute("searchObject", searchObject);
+        List<Question> allUsedQuestions = questionDAO.findAllOrderedAndInUseDDRS();
+        model.addAttribute("questions", allUsedQuestions);
+        return "indexDDRS";
+    }
+
+    @GetMapping(value = {"/psp"})
+    public String indexPSP(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
+        model.addAttribute("searchObject", searchObject);
+        List<Question> allUsedQuestions = questionDAO.findAllOrderedAndInUsePSP();
+        model.addAttribute("questions", allUsedQuestions);
+        return "indexPSP";
     }
 
     @GetMapping(value = "/about")

@@ -37,22 +37,85 @@ public class FillUpDatabaseEventListener {
         includeCountries();
         includeRepositoryLanguages();
         includeKeywords();
-        includeQuestions();
+        includeQuestionsDdrs();
+        includeTypesPublications();
+        includeLanguagesPublications();
+        includeQuestionsPsp();
         includeContacts();
     }
 
-    private void includeQuestions() {
-        Question question = new Question("institutions.country.raw", true, true, 1, 1, resultTypeHierarchicalDAO.findOne(11L), new Translation("In which country are you based as a researcher?"), new Translation("Please select the country where you work as a researcher or where you would like to deposit your research data. You can also select European Union."));
+    private void includeQuestionsDdrs() {
+        Question question = new Question("institutions.country.raw", true, true, 1, 1,
+                resultTypeHierarchicalDAO.findOne(11L), new Translation("In which country are you based as a " +
+                "researcher?"), new Translation("Please select the country where you work as a researcher or where " +
+                "you would like to deposit your research data. You can also select European Union."), "ddrs");
         questionDAO.create(question);
 
-        question = new Question("subjects.text.raw", false, true, 4, 0, resultTypeHierarchicalDAO.findOne(1L), new Translation("What is your disciplinary field?"), new Translation("To search for more specific results, please select the discipline most applicable to your research data."));
+        question = new Question("subjects.text.raw", false, true, 4, 0, resultTypeHierarchicalDAO.findOne(1L),
+                new Translation("What is your disciplinary field?"), new Translation("To search for more specific " +
+                "results, please select the discipline most applicable to your research data."), "ddrs");
         questionDAO.create(question);
 
-        question = new Question("repositoryLanguages.text.raw", true, false, 3, 0, resultTypeHierarchicalDAO.findOne(47L), new Translation("Which languages should the repository have?"), new Translation("Tooltip for language questions..."));
+        question = new Question("repositoryLanguages.text.raw", true, false, 3, 0,
+                resultTypeHierarchicalDAO.findOne(47L),
+                new Translation("Which languages should the repository have?"), new Translation("Tooltip for language" +
+                " questions..."), "ddrs");
         questionDAO.create(question);
 
-        question = new Question("keywords.text.raw", true, false, 2, 0, resultTypeHierarchicalDAO.findOne(53L), new Translation("Which keywords should the repository have?"), new Translation("Tooltip for keyword questions..."));
+        question = new Question("keywords.text.raw", true, false, 2, 0, resultTypeHierarchicalDAO.findOne(53L),
+                new Translation("Which keywords should the repository have?"), new Translation("Tooltip for keyword " +
+                "questions..."), "ddrs");
         questionDAO.create(question);
+    }
+
+    private void includeQuestionsPsp() {
+        Question question = new Question("publication.types", true, true, 1, 1,
+                resultTypeHierarchicalDAO.findOne(59L), new Translation("What type of output would you like to " +
+                "publish?"), new Translation("Tooltip for types of publication"), "psp");
+        questionDAO.create(question);
+
+        question = new Question("publication.language", true, true, 2, 1,
+                resultTypeHierarchicalDAO.findOne(64L), new Translation("In which language would would you like to " +
+                "publish?"), new Translation("Tooltip for language of publication"), "psp");
+        questionDAO.create(question);
+    }
+
+    private void includeTypesPublications() {
+        ResultTypeHierarchical typesPublications = new ResultTypeHierarchical();
+        typesPublications.setCode("NONE");
+        typesPublications.setTranslation(new Translation("Types of Publications"));
+        resultTypeHierarchicalDAO.create(typesPublications);
+
+        ResultTypeHierarchical journalArticle = createResultTypeHierarchical("journalarticle", 1, "Journal Article",
+                typesPublications);
+        ResultTypeHierarchical journal = createResultTypeHierarchical("journal", 2, "Journal", typesPublications);
+        ResultTypeHierarchical monograph = createResultTypeHierarchical("monograph", 3, "Monograph", typesPublications);
+        ResultTypeHierarchical conferenceProceedings = createResultTypeHierarchical("conferenceproceedings", 4,
+                "Conference Proceedings", typesPublications);
+
+        typesPublications.addChildren(new LinkedHashSet<>(Arrays.asList(journalArticle, journal, monograph, conferenceProceedings)));
+        resultTypeHierarchicalDAO.update(typesPublications);
+    }
+
+    private void includeLanguagesPublications() {
+        ResultTypeHierarchical languagePublications = new ResultTypeHierarchical();
+        languagePublications.setCode("NONE");
+        languagePublications.setTranslation(new Translation("Languages of Publications"));
+        resultTypeHierarchicalDAO.create(languagePublications);
+
+        ResultTypeHierarchical french = createResultTypeHierarchical("psp_fra", 1, "French", languagePublications);
+        Translation translation = french.getTranslation();
+        translation.setFr("Français");
+        translation.setDe("Französisch");
+        translationDAO.update(translation);
+        ResultTypeHierarchical german = createResultTypeHierarchical("psp_deu", 2, "German", languagePublications);
+        ResultTypeHierarchical english = createResultTypeHierarchical("psp_eng", 3, "English", languagePublications);
+        ResultTypeHierarchical finnish = createResultTypeHierarchical("psp_fin", 4, "Finnish", languagePublications);
+        ResultTypeHierarchical croatian = createResultTypeHierarchical("psp_hrv", 5, "Croatian", languagePublications);
+        ResultTypeHierarchical italian = createResultTypeHierarchical("psp_ita", 6, "Italian", languagePublications);
+
+        languagePublications.addChildren(new LinkedHashSet<>(Arrays.asList(french, german, english, finnish, croatian, italian)));
+        resultTypeHierarchicalDAO.update(languagePublications);
     }
 
     private void includeCountries() {

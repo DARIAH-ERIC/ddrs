@@ -14,8 +14,11 @@ public interface IQuestionDAO {
     public Question update(Question question);
     public void delete(Question question);
     public void deleteById(long questionId);
-    public List<Question> findAllOrdered();
-    public List<Question> findAllWrongOrdered();
-    public List<Question> findAllOrderedAndInUse();
+    public List<Question> findAllOrderedDDRS();
+    public List<Question> findAllOrderedPSP();
+    public List<Question> findAllWrongOrderedDDRS();
+    public List<Question> findAllWrongOrderedPSP();
+    public List<Question> findAllOrderedAndInUseDDRS();
+    public List<Question> findAllOrderedAndInUsePSP();
     public int findHighestQuestionOrder();
 }

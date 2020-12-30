@@ -2,6 +2,10 @@
     color: rgb(8, 112, 172);
 }
 
+.operas-color-text {
+    color: rgb(97, 29, 85);
+}
+
 .dariah-round-form {
     padding: 10px 10px 30px 10px;
     border-radius: 10px;
@@ -13,6 +17,10 @@
 
 .dariah-color-background {
     background-color: rgb(8, 112, 172);
+}
+
+.operas-color-background {
+    background-color: rgb(97, 29, 85);
 }
 
 .big-label {
