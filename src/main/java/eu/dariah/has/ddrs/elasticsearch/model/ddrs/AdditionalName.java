@@ -1,4 +1,4 @@
-package eu.dariah.has.ddrs.elasticsearch.model;
+package eu.dariah.has.ddrs.elasticsearch.model.ddrs;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import eu.dariah.has.ddrs.json.JsonViews;

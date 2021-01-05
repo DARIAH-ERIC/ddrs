@@ -43,9 +43,6 @@ public class Question implements Serializable {
     @Column(nullable = false)
     private Boolean isInUse;
 
-    @Column(nullable = false)
-    private int priority;
-
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "result_type_hierarchical_id")
     private ResultTypeHierarchical resultTypeHierarchical;
@@ -60,14 +57,13 @@ public class Question implements Serializable {
 
     public Question() {}
 
-    public Question(String name, Boolean isEditable, Boolean isInUse, int questionOrder, int priority,
+    public Question(String name, Boolean isEditable, Boolean isInUse, int questionOrder,
                     ResultTypeHierarchical resultTypeHierarchical, Translation translation, Translation tooltip,
                     String ddrsOrPsp) {
         this.name = name;
         this.isEditable = isEditable;
         this.isInUse = isInUse;
         this.questionOrder = questionOrder;
-        this.priority = priority;
         this.resultTypeHierarchical = resultTypeHierarchical;
         this.translation = translation;
         this.tooltip = tooltip;
@@ -136,14 +132,6 @@ public class Question implements Serializable {
 
     public void setInUse(Boolean inUse) {
         isInUse = inUse;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 
     public Boolean getEditable() {

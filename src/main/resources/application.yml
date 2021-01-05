@@ -66,6 +66,7 @@ ddrs:
   # Elasticsearch (overwrite in external application.conf)
   elasticsearch:
     serverUri: ${ES_URL}
+    serverUriPsp: http://elasticsearch:9200/
     username: ${ES_USERNAME}
     password: ${ES_PASSWORD}
   # Recaptcha (overwrite in external application.conf)

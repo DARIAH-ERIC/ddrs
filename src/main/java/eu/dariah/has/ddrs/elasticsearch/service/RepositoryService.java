@@ -1,6 +1,6 @@
 package eu.dariah.has.ddrs.elasticsearch.service;
 
-import eu.dariah.has.ddrs.elasticsearch.model.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.ddrs.Repository;
 import eu.dariah.has.ddrs.model.SearchObject;
 
 import java.io.IOException;

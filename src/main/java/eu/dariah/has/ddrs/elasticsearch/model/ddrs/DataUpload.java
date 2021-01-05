@@ -1,21 +1,22 @@
-package eu.dariah.has.ddrs.elasticsearch.model;
+package eu.dariah.has.ddrs.elasticsearch.model.ddrs;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.elasticsearch.model.ElasticSearchDDRSText;
 import eu.dariah.has.ddrs.json.JsonViews;
 
 import java.util.List;
 
-public class DataAccess {
+public class DataUpload {
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> restrictions;
+    private List<ElasticSearchDDRSText> restrictions;
     @JsonView(JsonViews.Public.class)
     private String type;
 
-    public List<Re3dataText> getRestrictions() {
+    public List<ElasticSearchDDRSText> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(List<Re3dataText> restrictions) {
+    public void setRestrictions(List<ElasticSearchDDRSText> restrictions) {
         this.restrictions = restrictions;
     }
 

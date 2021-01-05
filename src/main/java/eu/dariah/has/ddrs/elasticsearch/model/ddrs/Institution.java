@@ -1,6 +1,7 @@
-package eu.dariah.has.ddrs.elasticsearch.model;
+package eu.dariah.has.ddrs.elasticsearch.model.ddrs;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.elasticsearch.model.ElasticSearchDDRSText;
 import eu.dariah.has.ddrs.json.JsonViews;
 
 import java.util.List;
@@ -9,11 +10,11 @@ public class Institution {
     @JsonView(JsonViews.Public.class)
     private List<AdditionalName> additionalNames;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> contacts;
+    private List<ElasticSearchDDRSText> contacts;
     @JsonView(JsonViews.Public.class)
     private String country;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> identifiers;
+    private List<ElasticSearchDDRSText> identifiers;
     @JsonView(JsonViews.Public.class)
     private String name;
     @JsonView(JsonViews.Public.class)
@@ -23,7 +24,7 @@ public class Institution {
     @JsonView(JsonViews.Public.class)
     private String responsabilityStartDate;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> responsabilityTypes;
+    private List<ElasticSearchDDRSText> responsabilityTypes;
     @JsonView(JsonViews.Public.class)
     private String type;
     @JsonView(JsonViews.Public.class)
@@ -37,11 +38,11 @@ public class Institution {
         this.additionalNames = additionalNames;
     }
 
-    public List<Re3dataText> getContacts() {
+    public List<ElasticSearchDDRSText> getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<Re3dataText> contacts) {
+    public void setContacts(List<ElasticSearchDDRSText> contacts) {
         this.contacts = contacts;
     }
 
@@ -53,11 +54,11 @@ public class Institution {
         this.country = country;
     }
 
-    public List<Re3dataText> getIdentifiers() {
+    public List<ElasticSearchDDRSText> getIdentifiers() {
         return identifiers;
     }
 
-    public void setIdentifiers(List<Re3dataText> identifiers) {
+    public void setIdentifiers(List<ElasticSearchDDRSText> identifiers) {
         this.identifiers = identifiers;
     }
 
@@ -93,11 +94,11 @@ public class Institution {
         this.responsabilityStartDate = responsabilityStartDate;
     }
 
-    public List<Re3dataText> getResponsabilityTypes() {
+    public List<ElasticSearchDDRSText> getResponsabilityTypes() {
         return responsabilityTypes;
     }
 
-    public void setResponsabilityTypes(List<Re3dataText> responsabilityTypes) {
+    public void setResponsabilityTypes(List<ElasticSearchDDRSText> responsabilityTypes) {
         this.responsabilityTypes = responsabilityTypes;
     }
 

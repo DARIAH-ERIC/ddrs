@@ -1,5 +1,7 @@
 package eu.dariah.has.ddrs.controller;
 
+import eu.dariah.has.ddrs.elasticsearch.service.IndexChecker;
+import eu.dariah.has.ddrs.elasticsearch.service.PublicationService;
 import eu.dariah.has.ddrs.model.SearchObject;
 import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
 import eu.dariah.has.ddrs.persistence.model.Question;
@@ -21,12 +23,14 @@ import java.util.List;
 @SessionAttributes("searchObject")
 public class IndexController {
     private final IQuestionDAO questionDAO;
+    private IndexChecker indexChecker;
 
     private static final Logger LOGGER = LogManager.getLogger(IndexController.class);
 
     @Autowired
-    public IndexController(IQuestionDAO questionDAO) {
+    public IndexController(IQuestionDAO questionDAO, IndexChecker indexChecker) {
         this.questionDAO = questionDAO;
+        this.indexChecker = indexChecker;
     }
 
     @ModelAttribute("searchObject")
@@ -53,6 +57,12 @@ public class IndexController {
         List<Question> allUsedQuestions = questionDAO.findAllOrderedAndInUsePSP();
         model.addAttribute("questions", allUsedQuestions);
         return "indexPSP";
+    }
+
+    @GetMapping(value = {"/create-psp"})
+    public String createPSP(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
+        indexChecker.checkIndex();
+        return "redirect:psp";
     }
 
     @GetMapping(value = "/about")

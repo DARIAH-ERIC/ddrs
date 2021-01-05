@@ -3,18 +3,14 @@ package eu.dariah.has.ddrs.elasticsearch.model;
 import com.fasterxml.jackson.annotation.JsonView;
 import eu.dariah.has.ddrs.json.JsonViews;
 
-public class Re3dataSchemeText {
-    @JsonView(JsonViews.Public.class)
-    private String scheme;
+public class ElasticSearchDDRSText {
     @JsonView(JsonViews.Public.class)
     private String text;
 
-    public String getScheme() {
-        return scheme;
-    }
+    public ElasticSearchDDRSText() {}
 
-    public void setScheme(String scheme) {
-        this.scheme = scheme;
+    public ElasticSearchDDRSText(String text) {
+        this.text = text;
     }
 
     public String getText() {

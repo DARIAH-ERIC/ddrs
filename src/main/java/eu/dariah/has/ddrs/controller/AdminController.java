@@ -197,7 +197,7 @@ public class AdminController {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical("NONE", 0, null);
         resultTypeHierarchical.setTranslation(new Translation(StringUtils.capitalize(name)));
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
-        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1, 0,
+        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1,
                 resultTypeHierarchical, new Translation(englishTranslation), new Translation(tooltipEnglish), ddrsOrPsp);
         questionDAO.create(question);
 

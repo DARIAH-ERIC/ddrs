@@ -1,7 +1,8 @@
 package eu.dariah.has.ddrs.controller;
 
-import eu.dariah.has.ddrs.elasticsearch.model.Institution;
-import eu.dariah.has.ddrs.elasticsearch.model.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.ddrs.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.psp.Publication;
+import eu.dariah.has.ddrs.elasticsearch.service.PublicationService;
 import eu.dariah.has.ddrs.elasticsearch.service.RepositoryService;
 import eu.dariah.has.ddrs.helper.DdrsHelper;
 import eu.dariah.has.ddrs.model.SearchObject;
@@ -27,11 +28,14 @@ public class AjaxController {
 
     private final Re3dataRepositoryService re3dataRepositoryService;
     private final RepositoryService repositoryService;
+    private final PublicationService publicationService;
 
     @Autowired
-    public AjaxController(Re3dataRepositoryService re3dataRepositoryService, RepositoryService repositoryService) {
+    public AjaxController(Re3dataRepositoryService re3dataRepositoryService, RepositoryService repositoryService,
+                          PublicationService publicationService) {
         this.re3dataRepositoryService = re3dataRepositoryService;
         this.repositoryService = repositoryService;
+        this.publicationService = publicationService;
     }
 
     @RequestMapping(value = "/refreshResults")
@@ -40,7 +44,6 @@ public class AjaxController {
         long start = System.currentTimeMillis();
         ModelAndView modelAndView = new ModelAndView("fragments/results_list :: resultsList");
         if(searchObject.getInternSearchParameters().get("ddrsOrPsp").get(0).equals("ddrs")) {
-            LOGGER.info("We are searching in Re3data ES server for DDRS data");
             Map<String, List<Repository>> repositories = new HashMap<>();
             try {
                 int size = 0;
@@ -71,7 +74,11 @@ public class AjaxController {
             }
             modelAndView.addObject("repositories", DdrsHelper.enhanceRepositories(repositories));
         } else {
-            LOGGER.info("We should be searching in our internal ES server for PSP data");
+            LOGGER.debug("We should be searching in our internal ES server for PSP data");
+            List<Publication> publicationsFound = publicationService.searchWithRestrictions(searchObject);
+            LOGGER.info("Found " + publicationsFound.size() + " publications!");
+            modelAndView.addObject("publications", publicationsFound);
+            modelAndView.addObject("results", publicationsFound.size());
         }
         LOGGER.debug("Full search done in " + (System.currentTimeMillis() - start) + "ms");
         return modelAndView;

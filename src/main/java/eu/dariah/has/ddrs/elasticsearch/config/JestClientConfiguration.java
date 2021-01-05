@@ -22,6 +22,9 @@ public class JestClientConfiguration {
     @Value("${ddrs.elasticsearch.serverUri}")
     private String elasticsearchUri;
 
+    @Value("${ddrs.elasticsearch.serverUriPsp}")
+    private String elasticsearchUriPsp;
+
     @Value("${ddrs.elasticsearch.username}")
     private String elasticsearchUsername;
 
@@ -39,6 +42,19 @@ public class JestClientConfiguration {
 
         if(StringUtils.isNotBlank(elasticsearchUsername) && StringUtils.isNotBlank(elasticsearchPassword))
             httpClientConfigBuilder.defaultCredentials(elasticsearchUsername, elasticsearchPassword);
+
+        factory.setHttpClientConfig(httpClientConfigBuilder.build());
+        return factory.getObject();
+    }
+
+    @Bean("jestClientPSP")
+    public JestClient jestClientPSP() {
+        JestClientFactory factory = new JestClientFactory();
+        LOGGER.info("Elastic Search Server Uri: " + elasticsearchUriPsp);
+        HttpClientConfig.Builder httpClientConfigBuilder = new HttpClientConfig.Builder(elasticsearchUriPsp)
+                .multiThreaded(true)
+                .defaultMaxTotalConnectionPerRoute(2) //Per default this implementation will create no more than 2 concurrent connections per given route
+                .maxTotalConnection(20); // and no more 20 connections in total
 
         factory.setHttpClientConfig(httpClientConfigBuilder.build());
         return factory.getObject();

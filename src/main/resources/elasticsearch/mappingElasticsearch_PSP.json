@@ -1,0 +1,121 @@
+{
+  "publication" : {
+    "_all" : {
+      "auto_boost" : true
+    },
+    "properties" : {
+      "name" : {
+        "type" : "string",
+        "store" : true,
+        "fields" : {
+          "raw" : {
+            "type" : "string",
+            "index" : "not_analyzed"
+          }
+        }
+      },
+      "description" : {
+        "type" : "string",
+        "store" : true
+      },
+      "serviceProvider" : {
+        "type" : "string",
+        "store" : true,
+        "fields" : {
+          "raw" : {
+            "type" : "string",
+            "index" : "not_analyzed"
+          }
+        }
+      },
+      "languages" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "types" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "disciplines" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "scheme" : {
+            "type" : "string",
+            "store" : true
+          },
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "accessPolicies" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "text" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "licenses" : {
+        "type" : "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "store" : true,
+            "fields" : {
+              "raw" : {
+                "type" : "string",
+                "index" : "not_analyzed"
+              }
+            }
+          },
+          "url" : {
+            "type" : "string",
+            "store" : true
+          }
+        }
+      }
+    }
+  }
+}
