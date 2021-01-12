@@ -1,6 +1,6 @@
 package eu.dariah.has.ddrs.controller;
 
-import eu.dariah.has.ddrs.elasticsearch.model.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.ddrs.Repository;
 import eu.dariah.has.ddrs.elasticsearch.service.RepositoryService;
 import eu.dariah.has.ddrs.helper.DdrsHelper;
 import eu.dariah.has.ddrs.persistence.dao.IContactRepositoryDAO;
@@ -9,14 +9,11 @@ import eu.dariah.has.ddrs.service.RecaptchaService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by yoann on 12.06.17.

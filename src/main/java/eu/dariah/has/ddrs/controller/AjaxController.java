@@ -1,7 +1,8 @@
 package eu.dariah.has.ddrs.controller;
 
-import eu.dariah.has.ddrs.elasticsearch.model.Institution;
-import eu.dariah.has.ddrs.elasticsearch.model.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.ddrs.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.psp.Publication;
+import eu.dariah.has.ddrs.elasticsearch.service.PublicationService;
 import eu.dariah.has.ddrs.elasticsearch.service.RepositoryService;
 import eu.dariah.has.ddrs.helper.DdrsHelper;
 import eu.dariah.has.ddrs.model.SearchObject;
@@ -27,49 +28,59 @@ public class AjaxController {
 
     private final Re3dataRepositoryService re3dataRepositoryService;
     private final RepositoryService repositoryService;
+    private final PublicationService publicationService;
 
     @Autowired
-    public AjaxController(Re3dataRepositoryService re3dataRepositoryService, RepositoryService repositoryService) {
+    public AjaxController(Re3dataRepositoryService re3dataRepositoryService, RepositoryService repositoryService,
+                          PublicationService publicationService) {
         this.re3dataRepositoryService = re3dataRepositoryService;
         this.repositoryService = repositoryService;
+        this.publicationService = publicationService;
     }
 
     @RequestMapping(value = "/refreshResults")
     public ModelAndView getSearchResultViaAjax(@RequestBody SearchObject searchObject, @ModelAttribute("searchObject") SearchObject searchObject1) {
         searchObject1.setInternSearchParameters(searchObject.getInternSearchParameters());
-
         long start = System.currentTimeMillis();
-        Map<String, List<Repository>> repositories = new HashMap<>();
         ModelAndView modelAndView = new ModelAndView("fragments/results_list :: resultsList");
-        try {
-            int size = 0;
-            List<String> identifiers = re3dataRepositoryService.getDefaultRepositories(true, searchObject);
-            List<String> toNotSearch = identifiers;
-            if(! identifiers.isEmpty()) {
-                List<Repository> europe = repositoryService.retrieveById(identifiers);
-                repositories.put("europe", europe);
-                size += europe.size();
+        if(searchObject.getInternSearchParameters().get("ddrsOrPsp").get(0).equals("ddrs")) {
+            Map<String, List<Repository>> repositories = new HashMap<>();
+            try {
+                int size = 0;
+                List<String> identifiers = re3dataRepositoryService.getDefaultRepositories(true, searchObject);
+                List<String> toNotSearch = identifiers;
+                if (!identifiers.isEmpty()) {
+                    List<Repository> europe = repositoryService.retrieveById(identifiers);
+                    repositories.put("europe", europe);
+                    size += europe.size();
+                }
+
+                identifiers = re3dataRepositoryService.getDefaultRepositories(false, searchObject);
+                toNotSearch.addAll(identifiers);
+                if (!identifiers.isEmpty()) {
+                    List<Repository> national = repositoryService.retrieveById(identifiers);
+                    repositories.put("national", national);
+                    size += national.size();
+                }
+
+                List<Repository> search = repositoryService.searchWithRestrictions(searchObject, toNotSearch);
+                repositories.put("search", search);
+                size += search.size();
+
+                modelAndView.addObject("results", size);
+            } catch (RestClientException e) {
+                LOGGER.error("There was an error in the RestTemplate", e);
+                modelAndView.addObject("error", "error");
             }
-
-            identifiers = re3dataRepositoryService.getDefaultRepositories(false, searchObject);
-            toNotSearch.addAll(identifiers);
-            if(! identifiers.isEmpty()) {
-                List<Repository> national = repositoryService.retrieveById(identifiers);
-                repositories.put("national", national);
-                size += national.size();
-            }
-
-            List<Repository> search = repositoryService.searchWithRestrictions(searchObject, toNotSearch);
-            repositories.put("search", search);
-            size += search.size();
-
-            modelAndView.addObject("results", size);
-        } catch (RestClientException e) {
-            LOGGER.error("There was an error in the RestTemplate", e);
-            modelAndView.addObject("error", "error");
+            modelAndView.addObject("repositories", DdrsHelper.enhanceRepositories(repositories));
+        } else {
+            LOGGER.debug("We should be searching in our internal ES server for PSP data");
+            List<Publication> publicationsFound = publicationService.searchWithRestrictions(searchObject);
+            LOGGER.info("Found " + publicationsFound.size() + " publications!");
+            modelAndView.addObject("publications", publicationsFound);
+            modelAndView.addObject("results", publicationsFound.size());
         }
         LOGGER.debug("Full search done in " + (System.currentTimeMillis() - start) + "ms");
-        modelAndView.addObject("repositories", DdrsHelper.enhanceRepositories(repositories));
         return modelAndView;
     }
 

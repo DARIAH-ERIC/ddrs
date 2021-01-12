@@ -1,5 +1,7 @@
 package eu.dariah.has.ddrs.controller;
 
+import eu.dariah.has.ddrs.elasticsearch.service.IndexChecker;
+import eu.dariah.has.ddrs.elasticsearch.service.PublicationService;
 import eu.dariah.has.ddrs.model.SearchObject;
 import eu.dariah.has.ddrs.persistence.dao.IQuestionDAO;
 import eu.dariah.has.ddrs.persistence.model.Question;
@@ -21,12 +23,14 @@ import java.util.List;
 @SessionAttributes("searchObject")
 public class IndexController {
     private final IQuestionDAO questionDAO;
+    private IndexChecker indexChecker;
 
     private static final Logger LOGGER = LogManager.getLogger(IndexController.class);
 
     @Autowired
-    public IndexController(IQuestionDAO questionDAO) {
+    public IndexController(IQuestionDAO questionDAO, IndexChecker indexChecker) {
         this.questionDAO = questionDAO;
+        this.indexChecker = indexChecker;
     }
 
     @ModelAttribute("searchObject")
@@ -35,11 +39,30 @@ public class IndexController {
     }
 
     @GetMapping(value = {"/", "/index"})
-    public String index(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
-        model.addAttribute("searchObject", searchObject);
-        List<Question> allUsedQuestions = questionDAO.findAllOrderedAndInUse();
-        model.addAttribute("questions", allUsedQuestions);
+    public String index(Model model) {
         return "index";
+    }
+
+    @GetMapping(value = {"/ddrs"})
+    public String indexDDRS(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
+        model.addAttribute("searchObject", searchObject);
+        List<Question> allUsedQuestions = questionDAO.findAllOrderedAndInUseDDRS();
+        model.addAttribute("questions", allUsedQuestions);
+        return "indexDDRS";
+    }
+
+    @GetMapping(value = {"/psp"})
+    public String indexPSP(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
+        model.addAttribute("searchObject", searchObject);
+        List<Question> allUsedQuestions = questionDAO.findAllOrderedAndInUsePSP();
+        model.addAttribute("questions", allUsedQuestions);
+        return "indexPSP";
+    }
+
+    @GetMapping(value = {"/create-psp"})
+    public String createPSP(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
+        indexChecker.checkIndex();
+        return "redirect:psp";
     }
 
     @GetMapping(value = "/about")

@@ -96,6 +96,51 @@
                 </div>
             </div>
         </nav>
+        <nav class="navbar navbar-default navbar-fixed-top" th:fragment="header_psp">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigationbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand home" href="#" th:href="@{/}">Home</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navigationbar">
+                    <ul class="nav navbar-nav">
+                        <li></li>
+                    </ul>
+                    <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+                        <li>
+                            <a href="#" th:href="@{/admin/questions}" th:text="#{ddrs.menu.administration}">Administration</a>
+                        </li>
+                        <li>
+                            <a href="#" th:href="@{/admin/translations}" th:text="#{ddrs.menu.translations}">Translations</a>
+                        </li>
+                        <li>
+                            <a href="#" th:href="@{/admin/contactRepositories}" th:text="#{ddrs.menu.contact.repositories}">Contacts of repositories</a>
+                        </li>
+                        <li>
+                            <a href="#" th:href="@{/admin/defaultRepositories}" th:text="#{ddrs.menu.default.repositories}">Default repositories</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li sec:authorize="isAuthenticated()">
+                            <form method="post" action="#" th:action="@{/auth/logout}" id="logout_form"
+                                  sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_SERVICEPROVIDER')">
+                                <button type="submit" class="btn btn-drop" th:text="#{ddrs.label.logout}">Logout</button>
+                            </form>
+                        </li>
+                        <li>
+                            <a class="navbar-brand home" href="https://www.operas-eu.org/" target="_blank">
+                                <img class="max-height-top-logo" th:src="@{/images/OPERAS_logo_psp.png}" src="#" title="OPERAS" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <th:block th:if="${@environment.acceptsProfiles('production')}">
             <script type="text/javascript">
                 var _paq = _paq || [];

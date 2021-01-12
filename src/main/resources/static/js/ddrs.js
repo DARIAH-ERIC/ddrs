@@ -1,20 +1,20 @@
 var xhr = null;
 
-function bindIndexPage(searchUrl, selectRepositoryUrl, searchObject, clearUrl) {
+function bindIndexPage(searchUrl, ddrsOrPsp, searchObject, clearUrl) {
     checkOldSelectedRepositories(searchObject);
 
     if($(".question-select option:selected").length) {
-        ajaxSearch(searchUrl, selectRepositoryUrl);
+        ajaxSearch(searchUrl, ddrsOrPsp);
     }
 
     $("#search_form").find("[id^='select_']").each(function() {
         $(this).on("change", function(e) {
-            ajaxSearch(searchUrl, selectRepositoryUrl);
+            ajaxSearch(searchUrl, ddrsOrPsp);
         });
     });
     $("#search_form").submit(function(event) {
         event.preventDefault();
-        ajaxSearch(searchUrl, selectRepositoryUrl);
+        ajaxSearch(searchUrl, ddrsOrPsp);
     });
     $('[data-toggle="tooltip"]').tooltip({
         placement : 'top'
@@ -47,7 +47,7 @@ function isObjectEmpty(obj) {
     return true;
 }
 
-function ajaxSearch(searchUrl, selectRepositoryUrl) {
+function ajaxSearch(searchUrl, ddrsOrPsp) {
     if(xhr !== null) {
         xhr.abort();
         xhr = null;
@@ -60,6 +60,7 @@ function ajaxSearch(searchUrl, selectRepositoryUrl) {
     });
 
     if(! isObjectEmpty(list)) {
+        list['ddrsOrPsp'] = ddrsOrPsp;
         data["searchParameters"] = list;
 
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {

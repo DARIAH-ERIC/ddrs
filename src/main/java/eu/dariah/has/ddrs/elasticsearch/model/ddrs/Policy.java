@@ -1,21 +1,13 @@
-package eu.dariah.has.ddrs.elasticsearch.model;
+package eu.dariah.has.ddrs.elasticsearch.model.ddrs;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import eu.dariah.has.ddrs.json.JsonViews;
 
-public class Syndication {
+public class Policy {
     @JsonView(JsonViews.Public.class)
-    private String type;
+    private String name;
     @JsonView(JsonViews.Public.class)
     private String url;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getUrl() {
         return url;
@@ -23,5 +15,14 @@ public class Syndication {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

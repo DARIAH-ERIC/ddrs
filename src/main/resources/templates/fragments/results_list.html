@@ -5,25 +5,37 @@
 </head>
 <body>
 <th:block th:fragment="resultsList">
-    <h3 th:if="${results == 0}" th:text="#{ddrs.label.results.no.results}">0 result.</h3>
-    <h3 th:if="${results == 1}" th:text="#{ddrs.label.results.one.result}">1 result.</h3>
-    <h3 th:if="${results > 1}" th:text="#{ddrs.label.results.x.results(${results})}">Some results.</h3>
+    <div th:if="${repositories != null}">
+        <h3 th:if="${results == 0}" th:text="#{ddrs.label.results.no.results}">0 result.</h3>
+        <h3 th:if="${results == 1}" th:text="#{ddrs.label.results.one.result}">1 result.</h3>
+        <h3 th:if="${results > 1}" th:text="#{ddrs.label.results.x.results(${results})}">Some results.</h3>
 
-    <div class="spacer"></div>
-    <h3 th:text="#{ddrs.label.results.after.results}">After results' explanation</h3>
-    <div class="spacer">&nbsp;</div>
+        <div class="spacer"></div>
+        <h3 th:text="#{ddrs.label.results.after.results}">After results' explanation</h3>
+        <div class="spacer">&nbsp;</div>
 
-    <h3 th:if="${repositories.get('search') != null and repositories.get('search').size() > 0}" th:text="#{ddrs.label.national.thematic.repositories}">National thematic repositories:</h3>
-    <div th:each="repositorySearch : ${repositories.get('search')}">
-        <div th:replace="fragments/results_list :: printResults(repository = ${repositorySearch})"></div>
+        <h3 th:if="${repositories.get('search') != null and repositories.get('search').size() > 0}" th:text="#{ddrs.label.national.thematic.repositories}">National thematic repositories:</h3>
+        <div th:each="repositorySearch : ${repositories.get('search')}">
+            <div th:replace="fragments/results_list :: printResults(repository = ${repositorySearch})"></div>
+        </div>
+        <h3 th:if="${repositories.get('national') != null and repositories.get('national').size() > 0}" th:text="#{ddrs.label.national.general.repositories}">National general repositories:</h3>
+        <div th:each="repositoryNational : ${repositories.get('national')}">
+            <div th:replace="fragments/results_list :: printResults(repository = ${repositoryNational})"></div>
+        </div>
+        <h3 th:if="${repositories.get('europe') != null and repositories.get('europe').size() > 0}" th:text="#{ddrs.label.european.general.repositories}">European general repositories:</h3>
+        <div th:each="repositoryEurope : ${repositories.get('europe')}">
+            <div th:replace="fragments/results_list :: printResults(repository = ${repositoryEurope})"></div>
+        </div>
     </div>
-    <h3 th:if="${repositories.get('national') != null and repositories.get('national').size() > 0}" th:text="#{ddrs.label.national.general.repositories}">National general repositories:</h3>
-    <div th:each="repositoryNational : ${repositories.get('national')}">
-        <div th:replace="fragments/results_list :: printResults(repository = ${repositoryNational})"></div>
-    </div>
-    <h3 th:if="${repositories.get('europe') != null and repositories.get('europe').size() > 0}" th:text="#{ddrs.label.european.general.repositories}">European general repositories:</h3>
-    <div th:each="repositoryEurope : ${repositories.get('europe')}">
-        <div th:replace="fragments/results_list :: printResults(repository = ${repositoryEurope})"></div>
+    <div th:if="${publications != null}">
+        <h3 th:if="${results == 0}" th:text="#{ddrs.label.results.no.results}">0 result.</h3>
+        <h3 th:if="${results == 1}" th:text="#{ddrs.label.results.one.result}">1 result.</h3>
+        <h3 th:if="${results > 1}" th:text="#{ddrs.label.results.x.results(${results})}">Some results.</h3>
+        <div class="spacer"></div>
+
+        <div th:each="psp : ${publications}">
+            <div th:replace="fragments/results_list :: printResults_psp(psp = ${psp})"></div>
+        </div>
     </div>
 </th:block>
 <th:block th:fragment="printResults">
@@ -49,6 +61,42 @@
             <div class="col-md-12">
                 <th:block th:each="subject : ${repository.getSubjects()}">
                     <span class="small-text-80 btn-no-link" th:text="${#strings.substringAfter(subject.getText(), ' ')}"></span>
+                </th:block>
+            </div>
+        </div>
+    </div>
+    <div class="spacer"></div>
+</th:block>
+<th:block th:fragment="printResults_psp">
+    <div class="container-fluid dariah-round-form dariah-form-border">
+        <div class="row">
+            <div class="col-md-12">
+                <a class="publication_id_name_url big-label" href="#" th:text="${psp.name}">PublicationName</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="publication_description" th:text="${psp.description}">PublicationDescription</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <th:block th:each="type : ${psp.getTypes()}">
+                    <span class="small-text-80 btn-no-link" th:text="${type.getText()}"></span>
+                </th:block>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <th:block th:each="language : ${psp.getLanguages()}">
+                    <span class="small-text-80 btn-no-link" th:text="${language.getText()}"></span>
+                </th:block>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <th:block th:each="discipline : ${psp.getDisciplines()}">
+                    <span class="small-text-80 btn-no-link" th:text="${discipline.getText()}"></span>
                 </th:block>
             </div>
         </div>

@@ -32,16 +32,16 @@ public class Question implements Serializable {
     private String name;
 
     @Column(nullable = false)
+    private String ddrsOrPsp;
+
+    @Column(nullable = false)
     private Boolean isEditable;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private int questionOrder;
 
     @Column(nullable = false)
     private Boolean isInUse;
-
-    @Column(nullable = false)
-    private int priority;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "result_type_hierarchical_id")
@@ -57,15 +57,17 @@ public class Question implements Serializable {
 
     public Question() {}
 
-    public Question(String name, Boolean isEditable, Boolean isInUse, int questionOrder, int priority, ResultTypeHierarchical resultTypeHierarchical, Translation translation, Translation tooltip) {
+    public Question(String name, Boolean isEditable, Boolean isInUse, int questionOrder,
+                    ResultTypeHierarchical resultTypeHierarchical, Translation translation, Translation tooltip,
+                    String ddrsOrPsp) {
         this.name = name;
         this.isEditable = isEditable;
         this.isInUse = isInUse;
         this.questionOrder = questionOrder;
-        this.priority = priority;
         this.resultTypeHierarchical = resultTypeHierarchical;
         this.translation = translation;
         this.tooltip = tooltip;
+        this.ddrsOrPsp = ddrsOrPsp;
     }
 
     public Long getId() {
@@ -82,6 +84,14 @@ public class Question implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDdrsOrPsp() {
+        return ddrsOrPsp;
+    }
+
+    public void setDdrsOrPsp(String ddrsOrPsp) {
+        this.ddrsOrPsp = ddrsOrPsp;
     }
 
     public ResultTypeHierarchical getResultTypeHierarchical() {
@@ -122,14 +132,6 @@ public class Question implements Serializable {
 
     public void setInUse(Boolean inUse) {
         isInUse = inUse;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 
     public Boolean getEditable() {

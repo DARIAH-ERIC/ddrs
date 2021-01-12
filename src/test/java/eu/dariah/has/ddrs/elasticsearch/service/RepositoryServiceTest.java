@@ -1,7 +1,7 @@
 package eu.dariah.has.ddrs.elasticsearch.service;
 
 import eu.dariah.has.ddrs.DdrsTest;
-import eu.dariah.has.ddrs.elasticsearch.model.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.ddrs.Repository;
 import eu.dariah.has.ddrs.model.SearchObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

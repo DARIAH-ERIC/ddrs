@@ -1,6 +1,9 @@
-package eu.dariah.has.ddrs.elasticsearch.model;
+package eu.dariah.has.ddrs.elasticsearch.model.ddrs;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import eu.dariah.has.ddrs.elasticsearch.model.ElasticSearchDDRSText;
+import eu.dariah.has.ddrs.elasticsearch.model.ElasticSearchDDRSSchemeText;
+import eu.dariah.has.ddrs.elasticsearch.model.ElasticSearchDDRSName;
 import eu.dariah.has.ddrs.json.JsonViews;
 
 import java.util.List;
@@ -13,7 +16,7 @@ public class Repository {
     @JsonView(JsonViews.Public.class)
     private List<AdditionalName> additionalNames;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> aidSystems;
+    private List<ElasticSearchDDRSText> aidSystems;
     @JsonView(JsonViews.Public.class)
     private List<Re3dataType> apis;
     @JsonView(JsonViews.Public.class)
@@ -21,15 +24,15 @@ public class Repository {
     @JsonView(JsonViews.Public.class)
     private String citationGuidelineUrl;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataSchemeText> contentTypes;
+    private List<ElasticSearchDDRSSchemeText> contentTypes;
     @JsonView(JsonViews.Public.class)
     private String created;
     @JsonView(JsonViews.Public.class)
     private List<DataAccess> dataAccesses;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataName> dataLicenses;
+    private List<ElasticSearchDDRSName> dataLicenses;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataName> dataUploadLicenses;
+    private List<ElasticSearchDDRSName> dataUploadLicenses;
     @JsonView(JsonViews.Public.class)
     private List<DataUpload> dataUploads;
     @JsonView(JsonViews.Public.class)
@@ -49,27 +52,27 @@ public class Repository {
     @JsonView(JsonViews.Public.class)
     private List<Institution> institutions;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> keywords;
+    private List<ElasticSearchDDRSText> keywords;
     @JsonView(JsonViews.Public.class)
     private List<MetadataStandard> metadataStandards;
     @JsonView(JsonViews.Public.class)
     private String missionStatementUrl;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> pidSystems;
+    private List<ElasticSearchDDRSText> pidSystems;
     @JsonView(JsonViews.Public.class)
     private List<Policy> policies;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> providerTypes;
+    private List<ElasticSearchDDRSText> providerTypes;
     @JsonView(JsonViews.Public.class)
     private String qualityManagement;
     @JsonView(JsonViews.Public.class)
     private String remarks;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> repositoryContacts;
+    private List<ElasticSearchDDRSText> repositoryContacts;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> repositoryIdentifiers;
+    private List<ElasticSearchDDRSText> repositoryIdentifiers;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataText> repositoryLanguages;
+    private List<ElasticSearchDDRSText> repositoryLanguages;
     @JsonView(JsonViews.Public.class)
     private String repositoryName;
     @JsonView(JsonViews.Public.class)
@@ -81,11 +84,11 @@ public class Repository {
     @JsonView(JsonViews.Public.class)
     private String sizeUpdated;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataName> software;
+    private List<ElasticSearchDDRSName> software;
     @JsonView(JsonViews.Public.class)
     private String startDate;
     @JsonView(JsonViews.Public.class)
-    private List<Re3dataSchemeText> subjects;
+    private List<ElasticSearchDDRSSchemeText> subjects;
     @JsonView(JsonViews.Public.class)
     private List<Syndication> syndications;
     @JsonView(JsonViews.Public.class)
@@ -111,11 +114,11 @@ public class Repository {
         this.additionalNames = additionalNames;
     }
 
-    public List<Re3dataText> getAidSystems() {
+    public List<ElasticSearchDDRSText> getAidSystems() {
         return aidSystems;
     }
 
-    public void setAidSystems(List<Re3dataText> aidSystems) {
+    public void setAidSystems(List<ElasticSearchDDRSText> aidSystems) {
         this.aidSystems = aidSystems;
     }
 
@@ -143,11 +146,11 @@ public class Repository {
         this.citationGuidelineUrl = citationGuidelineUrl;
     }
 
-    public List<Re3dataSchemeText> getContentTypes() {
+    public List<ElasticSearchDDRSSchemeText> getContentTypes() {
         return contentTypes;
     }
 
-    public void setContentTypes(List<Re3dataSchemeText> contentTypes) {
+    public void setContentTypes(List<ElasticSearchDDRSSchemeText> contentTypes) {
         this.contentTypes = contentTypes;
     }
 
@@ -167,19 +170,19 @@ public class Repository {
         this.dataAccesses = dataAccesses;
     }
 
-    public List<Re3dataName> getDataLicenses() {
+    public List<ElasticSearchDDRSName> getDataLicenses() {
         return dataLicenses;
     }
 
-    public void setDataLicenses(List<Re3dataName> dataLicenses) {
+    public void setDataLicenses(List<ElasticSearchDDRSName> dataLicenses) {
         this.dataLicenses = dataLicenses;
     }
 
-    public List<Re3dataName> getDataUploadLicenses() {
+    public List<ElasticSearchDDRSName> getDataUploadLicenses() {
         return dataUploadLicenses;
     }
 
-    public void setDataUploadLicenses(List<Re3dataName> dataUploadLicenses) {
+    public void setDataUploadLicenses(List<ElasticSearchDDRSName> dataUploadLicenses) {
         this.dataUploadLicenses = dataUploadLicenses;
     }
 
@@ -255,11 +258,11 @@ public class Repository {
         this.institutions = institutions;
     }
 
-    public List<Re3dataText> getKeywords() {
+    public List<ElasticSearchDDRSText> getKeywords() {
         return keywords;
     }
 
-    public void setKeywords(List<Re3dataText> keywords) {
+    public void setKeywords(List<ElasticSearchDDRSText> keywords) {
         this.keywords = keywords;
     }
 
@@ -279,11 +282,11 @@ public class Repository {
         this.missionStatementUrl = missionStatementUrl;
     }
 
-    public List<Re3dataText> getPidSystems() {
+    public List<ElasticSearchDDRSText> getPidSystems() {
         return pidSystems;
     }
 
-    public void setPidSystems(List<Re3dataText> pidSystems) {
+    public void setPidSystems(List<ElasticSearchDDRSText> pidSystems) {
         this.pidSystems = pidSystems;
     }
 
@@ -295,11 +298,11 @@ public class Repository {
         this.policies = policies;
     }
 
-    public List<Re3dataText> getProviderTypes() {
+    public List<ElasticSearchDDRSText> getProviderTypes() {
         return providerTypes;
     }
 
-    public void setProviderTypes(List<Re3dataText> providerTypes) {
+    public void setProviderTypes(List<ElasticSearchDDRSText> providerTypes) {
         this.providerTypes = providerTypes;
     }
 
@@ -319,27 +322,27 @@ public class Repository {
         this.remarks = remarks;
     }
 
-    public List<Re3dataText> getRepositoryContacts() {
+    public List<ElasticSearchDDRSText> getRepositoryContacts() {
         return repositoryContacts;
     }
 
-    public void setRepositoryContacts(List<Re3dataText> repositoryContacts) {
+    public void setRepositoryContacts(List<ElasticSearchDDRSText> repositoryContacts) {
         this.repositoryContacts = repositoryContacts;
     }
 
-    public List<Re3dataText> getRepositoryIdentifiers() {
+    public List<ElasticSearchDDRSText> getRepositoryIdentifiers() {
         return repositoryIdentifiers;
     }
 
-    public void setRepositoryIdentifiers(List<Re3dataText> repositoryIdentifiers) {
+    public void setRepositoryIdentifiers(List<ElasticSearchDDRSText> repositoryIdentifiers) {
         this.repositoryIdentifiers = repositoryIdentifiers;
     }
 
-    public List<Re3dataText> getRepositoryLanguages() {
+    public List<ElasticSearchDDRSText> getRepositoryLanguages() {
         return repositoryLanguages;
     }
 
-    public void setRepositoryLanguages(List<Re3dataText> repositoryLanguages) {
+    public void setRepositoryLanguages(List<ElasticSearchDDRSText> repositoryLanguages) {
         this.repositoryLanguages = repositoryLanguages;
     }
 
@@ -383,11 +386,11 @@ public class Repository {
         this.sizeUpdated = sizeUpdated;
     }
 
-    public List<Re3dataName> getSoftware() {
+    public List<ElasticSearchDDRSName> getSoftware() {
         return software;
     }
 
-    public void setSoftware(List<Re3dataName> software) {
+    public void setSoftware(List<ElasticSearchDDRSName> software) {
         this.software = software;
     }
 
@@ -399,11 +402,11 @@ public class Repository {
         this.startDate = startDate;
     }
 
-    public List<Re3dataSchemeText> getSubjects() {
+    public List<ElasticSearchDDRSSchemeText> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(List<Re3dataSchemeText> subjects) {
+    public void setSubjects(List<ElasticSearchDDRSSchemeText> subjects) {
         this.subjects = subjects;
     }
 

@@ -1,9 +1,8 @@
 package eu.dariah.has.ddrs.helper;
 
-import eu.dariah.has.ddrs.elasticsearch.model.Institution;
-import eu.dariah.has.ddrs.elasticsearch.model.Re3dataText;
-import eu.dariah.has.ddrs.elasticsearch.model.Repository;
-import eu.dariah.has.ddrs.persistence.model.ContactRepository;
+import eu.dariah.has.ddrs.elasticsearch.model.ddrs.Institution;
+import eu.dariah.has.ddrs.elasticsearch.model.ElasticSearchDDRSText;
+import eu.dariah.has.ddrs.elasticsearch.model.ddrs.Repository;
 
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +35,7 @@ public abstract class DdrsHelper {
 
     private static void checkEmailAddressInRepository(Repository repository) {
         repository.setWithEmailAddress(false);
-        for(Re3dataText contact : repository.getRepositoryContacts()) {
+        for(ElasticSearchDDRSText contact : repository.getRepositoryContacts()) {
             if(contact.getText().contains("@")) {
                 repository.setWithEmailAddress(true);
             }

@@ -30,4 +30,22 @@
             <ehcache:heap unit="entries">40</ehcache:heap>
         </ehcache:resources>
     </ehcache:cache>
+
+
+    <ehcache:cache alias="publicationSearches">
+        <ehcache:expiry>
+            <ehcache:ttl unit="minutes">100</ehcache:ttl>
+        </ehcache:expiry>
+        <ehcache:resources>
+            <ehcache:heap unit="entries">600</ehcache:heap>
+        </ehcache:resources>
+    </ehcache:cache>
+    <ehcache:cache alias="publicationIdentifiers">
+        <ehcache:expiry>
+            <ehcache:ttl unit="minutes">100</ehcache:ttl>
+        </ehcache:expiry>
+        <ehcache:resources>
+            <ehcache:heap unit="entries">40</ehcache:heap>
+        </ehcache:resources>
+    </ehcache:cache>
 </ehcache:config>

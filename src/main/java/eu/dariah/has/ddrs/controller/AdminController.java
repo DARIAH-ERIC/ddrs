@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 /**
  * Created by yoann on 02.06.17.
  */
@@ -41,11 +43,13 @@ public class AdminController {
     @RequestMapping(value = {"/", "/questions"}, method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String admin(Model model) {
-        model.addAttribute("questions", questionDAO.findAllOrdered());
+        model.addAttribute("questionsDdrs", questionDAO.findAllOrderedDDRS());
+        model.addAttribute("questionsPsp", questionDAO.findAllOrderedPSP());
         return "admin/questions";
     }
 
     @RequestMapping(value = "/saveQuestion", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public RedirectView save(@RequestParam(name = "select_question", required = false) Long resultTypeHierarchicalId,
                              @RequestParam(name = "questionId") Long questionId,
                              @RequestParam(name = "action") String action,
@@ -112,7 +116,13 @@ public class AdminController {
                     int currentOrder = question.getQuestionOrder();
                     question.setQuestionOrder(-1);
                     questionDAO.update(question);
-                    for(Question restQuestion : questionDAO.findAllWrongOrdered()) {
+                    List<Question> questions;
+                    switch (question.getDdrsOrPsp()) {
+                        case "ddrs": questions = questionDAO.findAllWrongOrderedDDRS(); break;
+                        case "psp": questions = questionDAO.findAllWrongOrderedPSP(); break;
+                        default: throw new IllegalArgumentException("Question should be either DDRS or PSP type...");
+                    }
+                    for(Question restQuestion : questions) {
                         if(restQuestion.getQuestionOrder() < currentOrder && restQuestion.getQuestionOrder() != -1) {
                             restQuestion.setQuestionOrder(restQuestion.getQuestionOrder() + 1);
                             questionDAO.update(restQuestion);
@@ -131,7 +141,12 @@ public class AdminController {
                     currentOrder = question.getQuestionOrder();
                     question.setQuestionOrder(-1);
                     questionDAO.update(question);
-                    for(Question restQuestion : questionDAO.findAllOrdered()) {
+                    switch (question.getDdrsOrPsp()) {
+                        case "ddrs": questions = questionDAO.findAllOrderedDDRS(); break;
+                        case "psp": questions = questionDAO.findAllOrderedPSP(); break;
+                        default: throw new IllegalArgumentException("Question should be either DDRS or PSP type...");
+                    }
+                    for(Question restQuestion : questions) {
                         if(restQuestion.getQuestionOrder() > currentOrder) {
                             currentOrder++;
                             restQuestion.setQuestionOrder(restQuestion.getQuestionOrder() - 1);
@@ -174,19 +189,23 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public RedirectView save(@RequestParam(name = "name") String name,
+                             @RequestParam(name = "ddrs_or_psp") String ddrsOrPsp,
                              @RequestParam(name = "english_translation") String englishTranslation,
                              @RequestParam(name = "tooltip_english") String tooltipEnglish) {
         ResultTypeHierarchical resultTypeHierarchical = new ResultTypeHierarchical("NONE", 0, null);
         resultTypeHierarchical.setTranslation(new Translation(StringUtils.capitalize(name)));
         resultTypeHierarchicalDAO.create(resultTypeHierarchical);
-        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1, 0, resultTypeHierarchical, new Translation(englishTranslation), new Translation(tooltipEnglish));
+        Question question = new Question(name, true, false, questionDAO.findHighestQuestionOrder() + 1,
+                resultTypeHierarchical, new Translation(englishTranslation), new Translation(tooltipEnglish), ddrsOrPsp);
         questionDAO.create(question);
 
         return new RedirectView("/admin/questions", true);
     }
 
     @RequestMapping(value = "/translations", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String translations(Model model, @RequestParam(name = "tr", required = false) Long translationId) {
         model.addAttribute("questions", questionDAO.findAll());
         model.addAttribute("results", resultTypeHierarchicalDAO.findAll());
@@ -195,6 +214,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/saveTranslation", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public RedirectView saveTranslations(@RequestParam(name = "translationId") Long translationId,
                                          @RequestParam(name = "english") String english,
                                          @RequestParam(name = "german") String german,
@@ -212,6 +232,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/contactRepositories", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String viewContacts(Model model) {
         model.addAttribute("contactRepositories", contactRepositoryDAO.findAll());
 
@@ -219,6 +240,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/addContact", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public RedirectView addContact(@RequestParam(name = "repositoryId") String repositoryId,
                                    @RequestParam(name = "contact") String contact) {
         ContactRepository contactRepository = new ContactRepository();
@@ -230,6 +252,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/editContact", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public RedirectView editContact(@RequestParam(name = "contactRepositoryId") Long contactRepositoryId,
                                     @RequestParam(name = "contact") String contact) {
         ContactRepository contactRepository = contactRepositoryDAO.findOne(contactRepositoryId);
@@ -241,6 +264,7 @@ public class AdminController {
 
 
     @RequestMapping(value = "/defaultRepositories", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String viewDefaultRepositories(Model model) {
         model.addAttribute("results", resultTypeHierarchicalDAO.findAll());
 
@@ -248,6 +272,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/editDefaultRepositories", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public RedirectView editDefaultRepositories(@RequestParam(name = "resultId") Long resultId,
                                                 @RequestParam(name = "repositoryId") String repositoryId, RedirectAttributes redirectAttributes) {
         ResultTypeHierarchical resultTypeHierarchical = resultTypeHierarchicalDAO.findOne(resultId);
@@ -259,6 +284,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/deleteDefaultRepositories", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public RedirectView deleteDefaultRepositories(@RequestParam(name = "defaultRepositoryId") Long repositoryId) {
         defaultRepositoryDAO.deleteById(repositoryId);
         return new RedirectView("/admin/defaultRepositories", true);

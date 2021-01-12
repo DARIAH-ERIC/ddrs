@@ -18,7 +18,7 @@ spring:
       maximum-pool-size: 5
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: false
     open-in-view: false
     properties:
@@ -66,6 +66,7 @@ ddrs:
   # Elasticsearch (overwrite in external application.conf)
   elasticsearch:
     serverUri: ${ES_URL}
+    serverUriPsp: http://elasticsearch:9200/
     username: ${ES_USERNAME}
     password: ${ES_PASSWORD}
   # Recaptcha (overwrite in external application.conf)

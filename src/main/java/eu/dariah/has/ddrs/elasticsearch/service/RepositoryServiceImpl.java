@@ -1,6 +1,6 @@
 package eu.dariah.has.ddrs.elasticsearch.service;
 
-import eu.dariah.has.ddrs.elasticsearch.model.Repository;
+import eu.dariah.has.ddrs.elasticsearch.model.ddrs.Repository;
 import eu.dariah.has.ddrs.model.SearchObject;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.*;
@@ -227,12 +227,13 @@ public class RepositoryServiceImpl implements RepositoryService {
         final String PID_SYSTEMS_TEXT_RAW = "pidSystems.text";
         final String DATA_UPLOADS_TYPE_RAW = "dataUploads.type.raw";
         final String INSTITUTIONS_COUNTRY_RAW = "institutions.country.raw";
+        final String DDRS_OR_PSP = "ddrsOrPsp";
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders
                 .boolQuery();
 //        boolQueryBuilder.must(termQuery("dataUploads.restrictions.text.raw", "institutional membership"));
         for(String key : searchObject.getInternSearchParameters().keySet()) {
-            if(! key.equals(SUBJECTS_TEXT_RAW) && !key.equals(PID_SYSTEMS_TEXT_RAW) & !key.equals(DATA_UPLOADS_TYPE_RAW) &&!key.equals(INSTITUTIONS_COUNTRY_RAW)) {
+            if(! key.equals(SUBJECTS_TEXT_RAW) && !key.equals(PID_SYSTEMS_TEXT_RAW) & !key.equals(DATA_UPLOADS_TYPE_RAW) &&!key.equals(INSTITUTIONS_COUNTRY_RAW) && !key.equals(DDRS_OR_PSP)) {
                 boolQueryBuilder.must(
                         createQueryBuilder(searchObject, key, Collections.emptyList(), Collections.emptyList())
                 );
