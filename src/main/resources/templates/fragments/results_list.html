@@ -71,7 +71,9 @@
     <div class="container-fluid dariah-round-form dariah-form-border">
         <div class="row">
             <div class="col-md-12">
-                <a class="publication_id_name_url big-label" href="#" th:text="${psp.name}">PublicationName</a>
+                <a class="publication_id_name_url big-label" href="#"
+                   th:href="@{selectPsp(id=${psp.identifier})}" th:text="${psp.name}">PublicationName
+                </a>
             </div>
         </div>
         <div class="row">

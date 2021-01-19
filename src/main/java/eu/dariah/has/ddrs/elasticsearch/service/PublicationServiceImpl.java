@@ -1,5 +1,6 @@
 package eu.dariah.has.ddrs.elasticsearch.service;
 
+import com.google.common.base.Functions;
 import eu.dariah.has.ddrs.elasticsearch.model.psp.Publication;
 import eu.dariah.has.ddrs.model.SearchObject;
 import io.searchbox.client.JestClient;
@@ -24,10 +25,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
@@ -133,7 +132,7 @@ public class PublicationServiceImpl implements PublicationService {
         try {
             SearchResult searchResult = search(QueryBuilders.queryStringQuery("*:*"));
             List<SearchResult.Hit<Publication, Void>> hits = searchResult.getHits(Publication.class);
-            return hits.stream().map(h -> h.source).collect(Collectors.toList());
+            return hits.stream().map(h -> new Publication(h.id, h.source)).collect(Collectors.toList());
         } catch (IOException e) {
             LOGGER.error("There was an error while retrieving all the publications", e);
             return Collections.emptyList();
@@ -157,7 +156,7 @@ public class PublicationServiceImpl implements PublicationService {
         try {
             SearchResult searchResult = search(QueryBuilders.fuzzyQuery("name", name));
             List<SearchResult.Hit<Publication, Void>> hits = searchResult.getHits(Publication.class);
-            return hits.stream().map(h -> h.source).collect(Collectors.toList());
+            return hits.stream().map(h -> new Publication(h.id, h.source)).collect(Collectors.toList());
         } catch (IOException e) {
             LOGGER.error("There was an error while retrieving a publication by its name.", e);
         }
@@ -207,7 +206,7 @@ public class PublicationServiceImpl implements PublicationService {
         try {
             SearchResult searchResult = search(mainBoolQueryBuilder);
             List<SearchResult.Hit<Publication, Void>> hits = searchResult.getHits(Publication.class);
-            return hits.stream().map(h -> h.source).collect(Collectors.toList());
+            return hits.stream().map(h -> new Publication(h.id, h.source)).collect(Collectors.toList());
         } catch (SocketTimeoutException ste) {
             if(tries < MAX_TRIES) {
                 LOGGER.error("Socket Timeout Exception... We launch it again...");

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: ddrshead">
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/header :: header_psp">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Static header</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <h2 class="dariah-color-text text-center" th:text="#{page.psp.details}"></h2>
+        <div class="container-fluid">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.name}"></div>
+                    <div class="col-md-5 col-md-offset-1" th:text="${publication.getName()}"></div>
+                </div>
+                <div class="spacer"></div>
+
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.psp.service.provider}"></div>
+                    <div class="col-md-5 col-md-offset-1" th:text="${publication.getServiceProvider()}"></div>
+                </div>
+                <div class="spacer"></div>
+
+                <div class="row" th:if="${publication.getDisciplines() != null and publication.getDisciplines().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.psp.discipines}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="discipline : ${publication.getDisciplines()}">
+                            <span class="small-text-80 btn-no-link" th:text="${discipline.getText()}"></span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${publication.getDisciplines() != null and publication.getDisciplines().size() > 0}"></div>
+
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.repository.description}"></div>
+                    <div class="col-md-5 col-md-offset-1" th:text="${publication.getDescription()}"></div>
+                </div>
+                <div class="spacer"></div>
+
+                <div class="row" th:if="${publication.getTypes() != null and publication.getTypes().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.psp.types}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="type : ${publication.getTypes()}">
+                            <span class="small-text-80 btn-no-link" th:text="${type.getText()}"></span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${publication.getTypes() != null and publication.getTypes().size() > 0}"></div>
+
+                <div class="row" th:if="${publication.getLanguages() != null and publication.getLanguages().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.psp.languages}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="language : ${publication.getLanguages()}">
+                            <span class="small-text-80 btn-no-link" th:text="${language.getText()}"></span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${publication.getLanguages() != null and publication.getLanguages().size() > 0}"></div>
+
+                <div class="row" th:if="${publication.getAccessPolicies() != null and publication.getAccessPolicies().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.psp.access.policies}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="accessPolicy : ${publication.getAccessPolicies()}">
+                            <span class="small-text-80 btn-no-link" th:text="${accessPolicy.getText()}"></span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${publication.getAccessPolicies() != null and publication.getAccessPolicies().size() > 0}"></div>
+
+                <div class="row" th:if="${publication.getLicenses() != null and publication.getLicenses().size() > 0}">
+                    <div class="col-md-2 col-md-offset-2 row-bold" th:text="#{ddrs.label.psp.licenses}"></div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <th:block th:each="license : ${publication.getLicenses()}">
+                            <span class="small-text-80 btn-no-link" th:text="${license.getName()}"></span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="spacer" th:if="${publication.getLicenses() != null and publication.getLicenses().size() > 0}"></div>
+
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2 col-xs-5 col-xs-offset-1">
+                        <a class="btn btn-warning btn-block back" th:href="@{/psp}" th:text="#{ddrs.btn.back}">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="fragments/footer :: footer_psp">&copy; 2017 DDRS static templates</div>
+    </div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+    });
+</script>
+</html>
