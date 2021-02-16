@@ -224,7 +224,7 @@ public class RepositoryServiceImpl implements RepositoryService {
     @Cacheable("repositorySearches")
     public List<Repository> searchWithRestrictions(SearchObject searchObject, List<String> r3dIdentifiers, int tries) {
         final String SUBJECTS_TEXT_RAW = "subjects.text.raw";
-        final String PID_SYSTEMS_TEXT_RAW = "pidSystems.text";
+        final String PID_SYSTEMS_TEXT_RAW = "pidSystems.text.raw";
         final String DATA_UPLOADS_TYPE_RAW = "dataUploads.type.raw";
         final String INSTITUTIONS_COUNTRY_RAW = "institutions.country.raw";
 
@@ -258,6 +258,7 @@ public class RepositoryServiceImpl implements RepositoryService {
 
         try {
             SearchResult searchResult = search(mainBoolQueryBuilder);
+            LOGGER.debug(mainBoolQueryBuilder);
             List<SearchResult.Hit<Repository, Void>> hits = searchResult.getHits(Repository.class);
             return hits.stream().map(h -> h.source).collect(Collectors.toList());
         } catch (SocketTimeoutException ste) {
